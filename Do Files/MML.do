@@ -702,10 +702,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "MAHq_labeled.dta", replace
+*smoked marijuana in the past 30 days
+gen marijuana30=.
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+gen mfreq=.
+replace mfreq=1 if inrange(q49,4,6) 
+replace mfreq=0 if inrange(q49,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**information not in survey
+
+*offered, sold, or given drug on school property
+**information not in survey
+
+save "MML_MAH.dta", replace
 tab fips
 mdesc fips
-use "MAHq_labeled.dta", clear
+use "MML_MAH.dta", clear
 
 ***********
 * Vermont *
@@ -898,10 +916,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "VTAHq_labeled.dta", replace
+*smoked marijuana in the past 30 days
+gen marijuana30=.
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+gen mfreq=.
+replace mfreq=1 if inrange(q49,4,6) 
+replace mfreq=0 if inrange(q49,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**information not in survey
+
+*offered, sold, or given drug on school property
+**information not in survey
+
+save "MML_VTAH.dta", replace
 tab fips
 mdesc fips
-use "VTAHq_labeled.dta", clear
+use "MML_VTAH.dta", clear
 
 ***********
 * Indiana *
@@ -1091,10 +1127,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "INHq_labeled.dta", replace
+*smoked marijuana in the past 30 days
+gen marijuana30=.
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+gen mfreq=.
+replace mfreq=1 if inrange(q49,4,6) 
+replace mfreq=0 if inrange(q49,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**information not on survey
+
+*offered, sold, or given drug on school property
+**information not on survey
+
+save "MML_INH.dta", replace
 tab fips
 mdesc fips
-use "INHq_labeled.dta", clear
+use "MML_INH.dta", clear
 
 **************
 * New Mexico *
@@ -1110,6 +1164,7 @@ qui gen year=.
 qui replace year=2015 if sitecode=="NM"
 save "NMHq.dta", replace
 */
+
 use "NMHq.dta", clear
 mdesc weight
 drop if weight==.
@@ -1273,7 +1328,6 @@ qui gen nrseatbelt=1 if inrange(q9,1,2)
 qui replace nrseatbelt=0 if inrange(q9,3,5)
 tab nrseatbelt
 
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -1284,10 +1338,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "NMHq_labeled.dta", replace
+*smoked marijuana in the past 30 days
+gen marijuana30=.
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+gen mfreq=.
+replace mfreq=1 if inrange(q49,4,6) 
+replace mfreq=0 if inrange(q49,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**information not in survey
+
+*offered, sold, or given drug on school property
+**information not in survey
+
+save "MML_NMH.dta", replace
 tab fips
 mdesc fips
-use "NMHq_labeled.dta", clear
+use "MML_NMH.dta", clear
 
 *******************************************
 * Create Variables of Interest for Hawaii *
