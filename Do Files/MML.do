@@ -1555,7 +1555,6 @@ qui gen nrseatbelt=1 if inrange(q9,1,2)
 qui replace nrseatbelt=0 if inrange(q9,3,5)
 tab nrseatbelt
 
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -1566,10 +1565,39 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "H2005_labeled.dta", replace
+*smoked marijuana in the past 30 days
+*question 40 in codebook, variable q46 in data
+gen marijuana30=.
+replace marijuana30=1 if inrange(q46,2,6) 
+replace marijuana30=0 if q46==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+*question 40 in codebook, variable q46 in data
+gen mfreq=.
+replace mfreq=1 if inrange(q46,4,6) 
+replace mfreq=0 if inrange(q46,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**question 41 in codebook, variable q47 in data
+gen mschool=.
+replace mschool=1 if inrange(qmarijuanaschool,2,6) 
+replace mschool=0 if qmarijuanaschool==1
+sum mschool
+
+*offered, sold, or given drug on school property
+*question 51 in codebook, variable q56 in data
+gen drugschool=.
+replace drugschool=1 if q56==1 
+replace drugschool=0 if q56==2 
+sum drugschool
+
+
+save "MML_H2005dta", replace
 tab fips
 mdesc fips
-use "H2005_labeled.dta", clear
+use "MML_H2005.dta", clear
 
 ********
 * 2007 *
@@ -1771,10 +1799,39 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "H2007_labeled.dta", replace
+*smoked marijuana in the past 30 days
+*question 44 in codebook, variable q47 in data
+gen marijuana30=.
+replace marijuana30=1 if inrange(q47,2,6) 
+replace marijuana30=0 if q47==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+*question 44 in codebook, variable q47 in data
+gen mfreq=.
+replace mfreq=1 if inrange(q46,4,6) 
+replace mfreq=0 if inrange(q46,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**question 45 in codebook, variable q48 in data
+gen mschool=.
+replace mschool=1 if inrange(qmarijuanaschool,2,6) 
+replace mschool=0 if qmarijuanaschool==1
+sum mschool
+
+*offered, sold, or given drug on school property
+*question 52 in codebook, variable q57 in data
+gen drugschool=.
+replace drugschool=1 if q57==1 
+replace drugschool=0 if q57==2 
+sum drugschool
+
+
+save "MML_H2007.dta", replace
 tab fips
 mdesc fips
-use "H2007_labeled.dta", clear
+use "MML_H2007.dta", clear
 
 ********
 * 2009 *
@@ -1978,10 +2035,39 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "H2009_labeled.dta", replace
+*smoked marijuana in the past 30 days
+*question 45 in codebook, variable q47 in data
+gen marijuana30=.
+replace marijuana30=1 if inrange(q47,2,6) 
+replace marijuana30=0 if q47==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+*question 45 in codebook, variable q47 in data
+gen mfreq=.
+replace mfreq=1 if inrange(q47,4,6) 
+replace mfreq=0 if inrange(q47,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**question 46 in codebook, variable q48 in data
+gen mschool=.
+replace mschool=1 if inrange(q48,2,6) 
+replace mschool=0 if q48==1
+sum mschool
+
+*offered, sold, or given drug on school property
+*question 52 in codebook, variable q57 in data
+gen drugschool=.
+replace drugschool=1 if q57==1 
+replace drugschool=0 if q57==2 
+sum drugschool
+
+
+save "MML_H2009.dta", replace
 tab fips
 mdesc fips
-use "H2009_labeled.dta", clear
+use "MML_H2009.dta", clear
 
 ********
 * 2011 *
@@ -2186,10 +2272,39 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "H2011_labeled.dta", replace
+*smoked marijuana in the past 30 days
+*question 46 in codebook, variable q48 in data
+gen marijuana30=.
+replace marijuana30=1 if inrange(q48,2,6) 
+replace marijuana30=0 if q48==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+*question 46 in codebook, variable q48 in data
+gen mfreq=.
+replace mfreq=1 if inrange(q48,4,6) 
+replace mfreq=0 if inrange(q48,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+**question 47 in codebook, variable q49 in data
+gen mschool=.
+replace mschool=1 if inrange(q49,2,6) 
+replace mschool=0 if q49==1
+sum mschool
+
+*offered, sold, or given drug on school property
+*question 53 in codebook, variable q59 in data
+gen drugschool=.
+replace drugschool=1 if q59==1 
+replace drugschool=0 if q59==2 
+sum drugschool
+
+
+save "MML_H2011.dta", replace
 tab fips
 mdesc fips
-use "H2011_labeled.dta", clear
+use "MML_H2011.dta", clear
 
 ********
 * 2013 *
@@ -2396,10 +2511,39 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "H2013_labeled.dta", replace
+*smoked marijuana in the past 30 days
+*question 38 in codebook, variable q49 in data
+gen marijuana30=.
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+*question 38 in codebook, variable q49 in data
+gen mfreq=.
+replace mfreq=1 if inrange(q49,4,6) 
+replace mfreq=0 if inrange(q49,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+*question 39 in codebook, variable q94 in data
+gen mschool=.
+replace mschool=1 if inrange(q94,2,6) 
+replace mschool=0 if q94==1
+sum mschool
+
+*offered, sold, or given drug on school property
+*question 48 in codebook, variable q58 in data
+gen drugschool=.
+replace drugschool=1 if q58==1 
+replace drugschool=0 if q58==2 
+sum drugschool
+
+save "MML_H2013.dta", replace
 tab fips
 mdesc fips
-use "H2013_labeled.dta", clear
+use "MML_H2013.dta", clear
+
 
 ********
 * 2015 *
@@ -2606,10 +2750,35 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-save "H2015_labeled.dta", replace
+*smoked marijuana in the past 30 days
+*question 39 in codebook, variable q49 in data
+gen marijuana30=.
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*smoked marijuana freq in the past 30 days
+*question 39 in codebook, variable q49 in data
+gen mfreq=.
+replace mfreq=1 if inrange(q49,4,6) 
+replace mfreq=0 if inrange(q49,2,3) 
+sum mfreq
+
+*smoked marijuana at school in past 30 days
+*information not in survey
+
+*offered, sold, or given drug on school property
+*question 50 in codebook, variable q59 in data
+gen drugschool=.
+replace drugschool=1 if q59==1 
+replace drugschool=0 if q59==2 
+sum drugschool
+
+
+save "MML_H2015.dta", replace
 tab fips
 mdesc fips
-use "H2015_labeled.dta", clear
+use "MML_H2015.dta", clear
 
 **************************
 * Combining the datasets *
