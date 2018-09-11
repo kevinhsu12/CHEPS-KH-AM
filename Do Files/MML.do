@@ -20,8 +20,6 @@ tab year
 mdesc weight
 drop if weight==.
 count
-* 796,825 as of 7/22
-tab fips year
 
 *** AGE VARIABLES ***
 tab age
@@ -101,29 +99,28 @@ tab grade
 *replace MML=1 if year>=MML_date
 *replace MML=0 if year<MML-date
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 gen marijuana30=.
-replace marijuana30=1 if inrange(qhowmarijuana,2,6) 
-replace marijuana30=0 if qhowmarijuana==1 
+replace marijuana30=1 if inrange(q49,2,6) 
+replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 gen mfreq=.
-replace mfreq=1 if inrange(qhowmarijuana,4,6) 
-replace mfreq=0 if inrange(qhowmarijuana,2,3) 
+replace mfreq=1 if inrange(q49,4,6)
+replace mfreq=0 inrange(q49,1,3)
 sum mfreq
 
-*smoked marijuana at school in past 30 days
-gen mschool=.
-replace mschool=1 if inrange(qmarijuanaschool,2,6) 
-replace mschool=0 if qmarijuanaschool==1
-sum mschool
+*Marijuana Use At School in Past 30 Days
+gen mschool = .
+replace mschool = 1 if inrange(qmarijuanaschool,2,7)
+replace mschool = 0 if qmarijuanaschool==1
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 tab q58
 gen drugschool=.
-replace drugschool=1 if q58==1 
-replace drugschool=0 if q58==2 
+replace drugschool=1 if q59==2
+replace drugschool=0 if q59==1
 sum drugschool
 
 save "MML_State15.dta", replace
@@ -134,14 +131,10 @@ save "MML_State15.dta", replace
 * Create Variables of Interest for the main dataset *
 *****************************************************
 use "State17.dta", clear
-count
+
+keep if year == 2017
 tab year
-drop if inrange(year, 1991, 1998)
-tab year
-mdesc weight
-drop if weight==.
 count
-* 796,825 as of 7/22
 tab fips year
 
 *** AGE VARIABLES ***
@@ -233,65 +226,6 @@ qui gen female = 0 if sex == 2
 qui replace female = 1 if sex == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q28
-mdesc q28
-qui gen suicideattempt = 0 if q28==1
-qui replace suicideattempt = 1 if inrange(q28,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q25
-mdesc q25
-qui gen depression = 0 if q25==2
-qui replace depression = 1 if q25==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q26
-mdesc q26
-qui gen suicideideation = 0 if q26==2
-qui replace suicideideation = 1 if q26==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q27
-mdesc q27
-qui gen suicideplan = 0 if q27 == 2
-qui replace suicideplan = 1 if q27==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab sexid
-mdesc sexid
-qui gen sexminority=1 if inrange(sexid,2,4)
-qui replace sexminority=0 if sexid==1
-tab sexminority
-qui gen heterosexual=1 if sexid==1
-qui replace heterosexual=0 if inrange(sexid,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q70
-mdesc q70
-qui gen juiceconsump=1 if inrange(q70,2,7)
-qui replace juiceconsump=0 if q70==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q74
-mdesc q74
-qui gen carrotconsump=1 if inrange(q74,2,7)
-qui replace carrotconsump=0 if q74==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-tab q8
-mdesc q8
-qui gen nrseatbelt=1 if inrange(q8,1,2)
-qui replace nrseatbelt=0 if inrange(q8,3,5)
-tab nrseatbelt
-
 *** GRADE/CLASSROOM ***
 tab grade
 mdesc grade
@@ -302,9 +236,32 @@ qui replace grade = 12 if grade == 4
 qui replace grade = 0 if grade == 5
 tab grade
 
-drop if year!= 2017 
+*Marijuana Use in Past 30 Days
+gen marijuana30=.
+replace marijuana30=1 if inrange(q48,2,6) 
+replace marijuana30=0 if q48==1 
+sum marijuana30
 
-save "State17_labeled.dta", replace
+*Frequent Marijuana use in Past 30 Days
+gen mfreq=.
+replace mfreq=1 if inrange(q48,4,6)
+replace mfreq=0 inrange(q48,1,3)
+sum mfreq
+
+*Marijuana Use At School in Past 30 Days
+gen mschool = .
+replace mschool = 1 if inrange(qmarijuanaschool,2,7)
+replace mschool = 0 if qmarijuanaschool==1
+
+*Offered, Sold, or Given Drug on School Property
+*Not asked in all states/NOTICE REPRESENTS DIFFERENT VARIABLE IN 1991 THAN IN OTHER YEARS
+tab q58
+gen drugschool=.
+replace drugschool=1 if q58==2
+replace drugschool=0 if q58==1
+sum drugschool
+
+save "MML_State17.dta", replace
 tab fips
 mdesc fips
 * 796,825 as of 7/22
@@ -432,65 +389,6 @@ tab male
 qui gen female = 0 if sex == 2
 qui replace female = 1 if sex == 1
 tab female
-
-*** SUICIDE ATTEMPT VARIABLE ***
-tab suicide_attempt
-mdesc suicide_attempt
-qui gen suicideattempt = 0 if suicide_attempt==1
-qui replace suicideattempt = 1 if inrange(suicide_attempt,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab depressed
-mdesc depressed
-qui gen depression = 0 if depressed==2
-qui replace depression = 1 if depressed==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab suicide_consider
-mdesc suicide_consider
-qui gen suicideideation = 0 if suicide_consider==2
-qui replace suicideideation = 1 if suicide_consider==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab suicide_plan
-mdesc suicide_plan
-qui gen suicideplan = 0 if suicide_plan == 2
-qui replace suicideplan = 1 if suicide_plan==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab sex_orient
-mdesc sex_orient
-qui gen sexminority=1 if inrange(sex_orient,2,4)
-qui replace sexminority=0 if sex_orient==1
-tab sexminority
-qui gen heterosexual=1 if sex_orient==1
-qui replace heterosexual=0 if inrange(sex_orient,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab juice_times
-mdesc juice_times
-qui gen juiceconsump=1 if inrange(juice_times,2,7)
-qui replace juiceconsump=0 if juice_times==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab carrots_times
-mdesc carrots_times
-qui gen carrotconsump=1 if inrange(carrots_times,2,7)
-qui replace carrotconsump=0 if carrots_times==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-tab seatbelt
-mdesc seatbelt
-qui gen nrseatbelt=1 if inrange(seatbelt,1,2)
-qui replace nrseatbelt=0 if inrange(seatbelt,3,5)
-tab nrseatbelt
 
 *** GRADE/CLASSROOM ***
 tab grade
@@ -631,67 +529,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q29
-mdesc q29
-qui gen suicideattempt = 0 if q29==1
-qui replace suicideattempt = 1 if inrange(q29,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q26
-mdesc q26
-qui gen depression = 0 if q26==2
-qui replace depression = 1 if q26==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q27
-mdesc q27
-qui gen suicideideation = 0 if q27==2
-qui replace suicideideation = 1 if q27==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q28
-mdesc q28
-qui gen suicideplan = 0 if q28 == 2
-qui replace suicideplan = 1 if q28==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q75
-mdesc q75
-qui gen carrotconsump=1 if inrange(q75,2,7)
-qui replace carrotconsump=0 if q75==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-/* Not asked
-tab seatbelt
-mdesc seatbelt
-qui gen nrseatbelt=1 if inrange(seatbelt,1,2)
-qui replace nrseatbelt=0 if inrange(seatbelt,3,5)
-tab nrseatbelt
-*/
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -702,22 +539,22 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in the Past 30 Days
 gen marijuana30=.
 replace marijuana30=1 if inrange(q49,2,6) 
 replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
 replace mfreq=0 if inrange(q49,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **information not in survey
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 **information not in survey
 
 save "MML_MAH.dta", replace
@@ -843,69 +680,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q29
-mdesc q29
-qui gen suicideattempt = 0 if q29==1
-qui replace suicideattempt = 1 if inrange(q29,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q26
-mdesc q26
-qui gen depression = 0 if q26==2
-qui replace depression = 1 if q26==1
-tab depression
-
-*** SUICIDE IDEATION ***
-/* Not asked
-tab q27
-mdesc q27
-qui gen suicideideation = 0 if q27==2
-qui replace suicideideation = 1 if q27==1
-tab suicideideation
-*/
-
-*** SUICIDE PLAN ***
-tab q28
-mdesc q28
-qui gen suicideplan = 0 if q28 == 2
-qui replace suicideplan = 1 if q28==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q75
-mdesc q75
-qui gen carrotconsump=1 if inrange(q75,2,7)
-qui replace carrotconsump=0 if q75==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-/* Not asked
-tab seatbelt
-mdesc seatbelt
-qui gen nrseatbelt=1 if inrange(seatbelt,1,2)
-qui replace nrseatbelt=0 if inrange(seatbelt,3,5)
-tab nrseatbelt
-*/
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -916,22 +690,22 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 gen marijuana30=.
 replace marijuana30=1 if inrange(q49,2,6) 
 replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
 replace mfreq=0 if inrange(q49,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **information not in survey
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 **information not in survey
 
 save "MML_VTAH.dta", replace
@@ -1057,65 +831,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q29
-mdesc q29
-qui gen suicideattempt = 0 if q29==1
-qui replace suicideattempt = 1 if inrange(q29,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q26
-mdesc q26
-qui gen depression = 0 if q26==2
-qui replace depression = 1 if q26==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q27
-mdesc q27
-qui gen suicideideation = 0 if q27==2
-qui replace suicideideation = 1 if q27==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q28
-mdesc q28
-qui gen suicideplan = 0 if q28 == 2
-qui replace suicideplan = 1 if q28==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q75
-mdesc q75
-qui gen carrotconsump=1 if inrange(q75,2,7)
-qui replace carrotconsump=0 if q75==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-
 
 *** GRADE/CLASSROOM ***
 tab q3
@@ -1127,22 +842,22 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 gen marijuana30=.
 replace marijuana30=1 if inrange(q49,2,6) 
 replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
 replace mfreq=0 if inrange(q49,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **information not on survey
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 **information not on survey
 
 save "MML_INH.dta", replace
@@ -1269,65 +984,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q29
-mdesc q29
-qui gen suicideattempt = 0 if q29==1
-qui replace suicideattempt = 1 if inrange(q29,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q26
-mdesc q26
-qui gen depression = 0 if q26==2
-qui replace depression = 1 if q26==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q27
-mdesc q27
-qui gen suicideideation = 0 if q27==2
-qui replace suicideideation = 1 if q27==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q28
-mdesc q28
-qui gen suicideplan = 0 if q28 == 2
-qui replace suicideplan = 1 if q28==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q75
-mdesc q75
-qui gen carrotconsump=1 if inrange(q75,2,7)
-qui replace carrotconsump=0 if q75==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -1338,22 +994,22 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 gen marijuana30=.
 replace marijuana30=1 if inrange(q49,2,6) 
 replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
 replace mfreq=0 if inrange(q49,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **information not in survey
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 **information not in survey
 
 save "MML_NMH.dta", replace
@@ -1494,67 +1150,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q26
-mdesc q26
-qui gen suicideattempt = 0 if q26==1
-qui replace suicideattempt = 1 if inrange(q26,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q23
-mdesc q23
-qui gen depression = 0 if q23==2
-qui replace depression = 1 if q23==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q24
-mdesc q24
-qui gen suicideideation = 0 if q24==2
-qui replace suicideideation = 1 if q24==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q25
-mdesc q25
-qui gen suicideplan = 0 if q25 == 2
-qui replace suicideplan = 1 if q25==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-/* Not asked
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-*/
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q75
-mdesc q75
-qui gen carrotconsump=1 if inrange(q75,2,7)
-qui replace carrotconsump=0 if q75==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -1565,28 +1160,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 *question 40 in codebook, variable q46 in data
 gen marijuana30=.
 replace marijuana30=1 if inrange(q46,2,6) 
 replace marijuana30=0 if q46==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 *question 40 in codebook, variable q46 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q46,4,6) 
 replace mfreq=0 if inrange(q46,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **question 41 in codebook, variable q47 in data
 gen mschool=.
 replace mschool=1 if inrange(qmarijuanaschool,2,6) 
 replace mschool=0 if qmarijuanaschool==1
 sum mschool
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 *question 51 in codebook, variable q56 in data
 gen drugschool=.
 replace drugschool=1 if q56==1 
@@ -1726,68 +1321,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q26
-mdesc q26
-qui gen suicideattempt = 0 if q26==1
-qui replace suicideattempt = 1 if inrange(q26,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q23
-mdesc q23
-qui gen depression = 0 if q23==2
-qui replace depression = 1 if q23==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q24
-mdesc q24
-qui gen suicideideation = 0 if q24==2
-qui replace suicideideation = 1 if q24==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q25
-mdesc q25
-qui gen suicideplan = 0 if q25 == 2
-qui replace suicideplan = 1 if q25==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-/* Not asked
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-*/
-
-*** JUICE CONSUMPTION ***
-tab q72
-mdesc q72
-qui gen juiceconsump=1 if inrange(q72,2,7)
-qui replace juiceconsump=0 if q72==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q76
-mdesc q76
-qui gen carrotconsump=1 if inrange(q76,2,7)
-qui replace carrotconsump=0 if q76==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-/* Not asked
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-*/
 
 *** GRADE/CLASSROOM ***
 tab q3
@@ -1799,28 +1332,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 *question 44 in codebook, variable q47 in data
 gen marijuana30=.
 replace marijuana30=1 if inrange(q47,2,6) 
 replace marijuana30=0 if q47==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 *question 44 in codebook, variable q47 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q46,4,6) 
 replace mfreq=0 if inrange(q46,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **question 45 in codebook, variable q48 in data
 gen mschool=.
 replace mschool=1 if inrange(qmarijuanaschool,2,6) 
 replace mschool=0 if qmarijuanaschool==1
 sum mschool
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 *question 52 in codebook, variable q57 in data
 gen drugschool=.
 replace drugschool=1 if q57==1 
@@ -1960,70 +1493,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q26
-mdesc q26
-qui gen suicideattempt = 0 if q26==1
-qui replace suicideattempt = 1 if inrange(q26,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q23
-mdesc q23
-qui gen depression = 0 if q23==2
-qui replace depression = 1 if q23==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q24
-mdesc q24
-qui gen suicideideation = 0 if q24==2
-qui replace suicideideation = 1 if q24==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q25
-mdesc q25
-qui gen suicideplan = 0 if q25 == 2
-qui replace suicideplan = 1 if q25==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-/* Not asked
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-*/
-
-*** JUICE CONSUMPTION ***
-/* Asked, but no data mapped
-tab q72
-mdesc q72
-qui gen juiceconsump=1 if inrange(q72,2,7)
-qui replace juiceconsump=0 if q72==1
-tab juiceconsump
-*/
-
-*** CARROT CONSUMPTION ***
-tab q76
-mdesc q76
-qui gen carrotconsump=1 if inrange(q76,2,7)
-qui replace carrotconsump=0 if q76==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-/* Not asked
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-*/
 
 *** GRADE/CLASSROOM ***
 tab q3
@@ -2035,28 +1504,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 *question 45 in codebook, variable q47 in data
 gen marijuana30=.
 replace marijuana30=1 if inrange(q47,2,6) 
 replace marijuana30=0 if q47==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 *question 45 in codebook, variable q47 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q47,4,6) 
 replace mfreq=0 if inrange(q47,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **question 46 in codebook, variable q48 in data
 gen mschool=.
 replace mschool=1 if inrange(q48,2,6) 
 replace mschool=0 if q48==1
 sum mschool
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 *question 52 in codebook, variable q57 in data
 gen drugschool=.
 replace drugschool=1 if q57==1 
@@ -2201,67 +1670,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q27
-mdesc q27
-qui gen suicideattempt = 0 if q27==1
-qui replace suicideattempt = 1 if inrange(q27,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q24
-mdesc q24
-qui gen depression = 0 if q24==2
-qui replace depression = 1 if q24==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q25
-mdesc q25
-qui gen suicideideation = 0 if q25==2
-qui replace suicideideation = 1 if q25==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q26
-mdesc q26
-qui gen suicideplan = 0 if q26 == 2
-qui replace suicideplan = 1 if q26==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q103
-mdesc q103
-qui gen sexminority=1 if inrange(q103,2,4)
-qui replace sexminority=0 if q103==1
-tab sexminority
-qui gen heterosexual=1 if q103==1
-qui replace heterosexual=0 if inrange(q103,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q72
-mdesc q72
-qui gen juiceconsump=1 if inrange(q72,2,7)
-qui replace juiceconsump=0 if q72==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-tab q76
-mdesc q76
-qui gen carrotconsump=1 if inrange(q76,2,7)
-qui replace carrotconsump=0 if q76==1
-tab carrotconsump
-
-*** SEATBELT USE ***
-/* Not asked
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-*/
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -2272,28 +1680,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 *question 46 in codebook, variable q48 in data
 gen marijuana30=.
 replace marijuana30=1 if inrange(q48,2,6) 
 replace marijuana30=0 if q48==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 *question 46 in codebook, variable q48 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q48,4,6) 
 replace mfreq=0 if inrange(q48,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 **question 47 in codebook, variable q49 in data
 gen mschool=.
 replace mschool=1 if inrange(q49,2,6) 
 replace mschool=0 if q49==1
 sum mschool
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 *question 53 in codebook, variable q59 in data
 gen drugschool=.
 replace drugschool=1 if q59==1 
@@ -2438,69 +1846,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q29
-mdesc q29
-qui gen suicideattempt = 0 if q29==1
-qui replace suicideattempt = 1 if inrange(q29,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q26
-mdesc q26
-qui gen depression = 0 if q26==2
-qui replace depression = 1 if q26==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q27
-mdesc q27
-qui gen suicideideation = 0 if q27==2
-qui replace suicideideation = 1 if q27==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q28
-mdesc q28
-qui gen suicideplan = 0 if q28 == 2
-qui replace suicideplan = 1 if q28==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q106
-mdesc q106
-qui gen sexminority=1 if inrange(q106,2,4)
-qui replace sexminority=0 if q106==1
-tab sexminority
-qui gen heterosexual=1 if q106==1
-qui replace heterosexual=0 if inrange(q106,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-/* Not asked, but q75 is similar: "orange-colored vegetables"
-tab q76
-mdesc q76
-qui gen carrotconsump=1 if inrange(q76,2,7)
-qui replace carrotconsump=0 if q76==1
-tab carrotconsump
-*/
-
-*** SEATBELT USE ***
-/* Not asked
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-*/
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -2511,28 +1856,28 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 *question 38 in codebook, variable q49 in data
 gen marijuana30=.
 replace marijuana30=1 if inrange(q49,2,6) 
 replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 *question 38 in codebook, variable q49 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
 replace mfreq=0 if inrange(q49,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 *question 39 in codebook, variable q94 in data
 gen mschool=.
 replace mschool=1 if inrange(q94,2,6) 
 replace mschool=0 if q94==1
 sum mschool
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 *question 48 in codebook, variable q58 in data
 gen drugschool=.
 replace drugschool=1 if q58==1 
@@ -2677,69 +2022,6 @@ qui gen female = 0 if q2 == 2
 qui replace female = 1 if q2 == 1
 tab female
 
-*** SUICIDE ATTEMPT VARIABLE ***
-tab q29
-mdesc q29
-qui gen suicideattempt = 0 if q29==1
-qui replace suicideattempt = 1 if inrange(q29,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** 
-tab q26
-mdesc q26
-qui gen depression = 0 if q26==2
-qui replace depression = 1 if q26==1
-tab depression
-
-*** SUICIDE IDEATION ***
-tab q27
-mdesc q27
-qui gen suicideideation = 0 if q27==2
-qui replace suicideideation = 1 if q27==1
-tab suicideideation
-
-*** SUICIDE PLAN ***
-tab q28
-mdesc q28
-qui gen suicideplan = 0 if q28 == 2
-qui replace suicideplan = 1 if q28==1
-tab suicideplan
-
-*** SEX MINORITY VARIABLES ***
-tab q68
-mdesc q68
-qui gen sexminority=1 if inrange(q68,2,4)
-qui replace sexminority=0 if q68==1
-tab sexminority
-qui gen heterosexual=1 if q68==1
-qui replace heterosexual=0 if inrange(q68,2,4)
-tab heterosexual
-
-*** JUICE CONSUMPTION ***
-tab q71
-mdesc q71
-qui gen juiceconsump=1 if inrange(q71,2,7)
-qui replace juiceconsump=0 if q71==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION ***
-/* Not asked, but q71 is similar: "orange-colored vegetables"
-tab q76
-mdesc q76
-qui gen carrotconsump=1 if inrange(q76,2,7)
-qui replace carrotconsump=0 if q76==1
-tab carrotconsump
-*/
-
-*** SEATBELT USE ***
-/* Not asked
-tab q9
-mdesc q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-*/
-
 *** GRADE/CLASSROOM ***
 tab q3
 mdesc q3
@@ -2750,24 +2032,24 @@ qui replace grade = 12 if q3 == 4
 qui replace grade = 0 if q3 == 5
 tab grade
 
-*smoked marijuana in the past 30 days
+*Marijuana Use in Past 30 Days
 *question 39 in codebook, variable q49 in data
 gen marijuana30=.
 replace marijuana30=1 if inrange(q49,2,6) 
 replace marijuana30=0 if q49==1 
 sum marijuana30
 
-*smoked marijuana freq in the past 30 days
+*Frequent Marijuana use in Past 30 Days
 *question 39 in codebook, variable q49 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
 replace mfreq=0 if inrange(q49,2,3) 
 sum mfreq
 
-*smoked marijuana at school in past 30 days
+*Marijuana Use At School in Past 30 Days
 *information not in survey
 
-*offered, sold, or given drug on school property
+*Offered, Sold, or Given Drug on School Property
 *question 50 in codebook, variable q59 in data
 gen drugschool=.
 replace drugschool=1 if q59==1 
@@ -2908,7 +2190,7 @@ mdesc fips
 save "SSM_policy_fips.dta", replace
 
 ****************************
-* Add SSM Policy Variables *
+* Add Policy Variables *****
 ****************************
 use "Combined17_unempl.dta", clear
 merge m:1 fips using "SSM_policy_fips.dta"
