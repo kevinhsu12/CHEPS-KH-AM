@@ -402,6 +402,33 @@ qui replace grade = 12 if grade_new == 5
 qui replace grade = 0 if inlist(grade_new,1,6)
 tab grade
 
+*Marijuana Use in the Past 30 Days
+gen marijuana30=.
+replace marijuana30=1 if inrange(mj_30day_times,2,6) 
+replace marijuana30=0 if q49==1 
+sum marijuana30
+
+*Frequent Marijuana use in Past 30 Days
+gen mfreq=.
+replace mfreq=1 if inrange(mj_30day_times,4,6) 
+replace mfreq=0 if inrange(mj_30day_times,2,3) 
+sum mfreq
+
+*Marijuana Use At School in Past 30 Days
+gen mschool = .
+replace mschool = 1 if inrange(mj_school_30days_times,2,6)
+replace mschool = 0 if mj_school_30days_times==1
+
+*Offered, Sold, or Given Drug on School Property //STATES DRUG VS ILLEGAL DRUG
+* 1 = drugs at school, 2 = no drugs at school, 0 = Fips39 no drugs at school
+gen drugschool = .
+replace drugschool = 1 if drugs_at_school==1 
+replace drugschool = 0 if drugs_at_school==2
+
+*Fips 39 in 1993,1997 has a different answers - should confirm with Ohio codebook
+replace drugschool = 1 if inlist(year,1993,1997) & fips==39 & drugs_at_school==1
+replace drugschool = 0 if inlist(year,1993,1997) & fips==39 & drugs_at_school==0
+
 save "state_yrbs_tam_labeled.dta", replace
 tab fips
 mdesc fips
