@@ -119,8 +119,8 @@ replace mschool = 0 if qmarijuanaschool==1
 *Offered, Sold, or Given Drug on School Property
 tab q58
 gen drugschool=.
-replace drugschool=1 if q59==2
-replace drugschool=0 if q59==1
+replace drugschool=1 if q59==1 
+replace drugschool=0 if q59==2
 sum drugschool
 
 save "MML_State15.dta", replace
@@ -257,8 +257,8 @@ replace mschool = 0 if qmarijuanaschool==1
 *Not asked in all states/NOTICE REPRESENTS DIFFERENT VARIABLE IN 1991 THAN IN OTHER YEARS
 tab q58
 gen drugschool=.
-replace drugschool=1 if q58==2
-replace drugschool=0 if q58==1
+replace drugschool=1 if q58==1
+replace drugschool=0 if q58==2
 sum drugschool
 
 save "MML_State17.dta", replace
@@ -582,7 +582,10 @@ sum mfreq
 **information not in survey
 
 *Offered, Sold, or Given Drug on School Property
-**information not in survey
+gen drugschool=.
+replace drugschool=1 if q59==1
+replace drugschool=0 if q59==2
+sum drugschool
 
 save "MML_MAH.dta", replace
 tab fips
@@ -733,7 +736,10 @@ sum mfreq
 **information not in survey
 
 *Offered, Sold, or Given Drug on School Property
-**information not in survey
+gen drugschool=.
+replace drugschool=1 if q59==1
+replace drugschool=0 if q59==2
+sum drugschool
 
 save "MML_VTAH.dta", replace
 tab fips
@@ -885,7 +891,10 @@ sum mfreq
 **information not on survey
 
 *Offered, Sold, or Given Drug on School Property
-**information not on survey
+gen drugschool=.
+replace drugschool=1 if q59==1
+replace drugschool=0 if q59==2
+sum drugschool
 
 save "MML_INH.dta", replace
 tab fips
@@ -1037,7 +1046,10 @@ sum mfreq
 **information not in survey
 
 *Offered, Sold, or Given Drug on School Property
-**information not in survey
+gen drugschool=.
+replace drugschool=1 if q59==1
+replace drugschool=0 if q59==2
+sum drugschool
 
 save "MML_NMH.dta", replace
 tab fips
@@ -1204,8 +1216,8 @@ sum mfreq
 *Marijuana Use At School in Past 30 Days
 **question 41 in codebook, variable q47 in data
 gen mschool=.
-replace mschool=1 if inrange(qmarijuanaschool,2,6) 
-replace mschool=0 if qmarijuanaschool==1
+replace mschool=1 if inrange(q47,2,6) 
+replace mschool=0 if q47==1
 sum mschool
 
 *Offered, Sold, or Given Drug on School Property
@@ -1376,8 +1388,8 @@ sum mfreq
 *Marijuana Use At School in Past 30 Days
 **question 45 in codebook, variable q48 in data
 gen mschool=.
-replace mschool=1 if inrange(qmarijuanaschool,2,6) 
-replace mschool=0 if qmarijuanaschool==1
+replace mschool=1 if inrange(q48,2,6) 
+replace mschool=0 if q48==1
 sum mschool
 
 *Offered, Sold, or Given Drug on School Property
