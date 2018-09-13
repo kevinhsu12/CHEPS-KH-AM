@@ -6,7 +6,6 @@
 *** within CHEPS at San Diego State University ***
 **************************************************
 capture cd "/Users/Kevin/Documents/MML/Data Files"
-capture cd //Insert Alicia Control Directory
 
 cd "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files"
 set more 1
@@ -14,11 +13,6 @@ set more 1
 * Create Variables of Interest for the main dataset *
 *****************************************************
 use "State15.dta", clear
-count
-tab year
-tab year
-mdesc weight
-drop if weight==.
 count
 
 *** AGE VARIABLES ***
@@ -108,7 +102,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6)
-replace mfreq=0 inrange(q49,1,3)
+replace mfreq=0 if inrange(q49,1,3)
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -245,7 +239,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q48,4,6)
-replace mfreq=0 inrange(q48,1,3)
+replace mfreq=0 if inrange(q48,1,3)
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -264,7 +258,6 @@ sum drugschool
 save "MML_State17.dta", replace
 tab fips
 mdesc fips
-* 796,825 as of 7/22
 
 
 ******************************************************
@@ -419,7 +412,7 @@ gen mschool = .
 replace mschool = 1 if inrange(mj_school_30days_times,2,6)
 replace mschool = 0 if mj_school_30days_times==1
 
-*Offered, Sold, or Given Drug on School Property //STATES DRUG VS ILLEGAL DRUG
+*Offered, Sold, or Given Drug on School Property //STATES "DRUG" VS "ILLEGAL DRUG"
 * 1 = drugs at school, 2 = no drugs at school, 0 = Fips39 no drugs at school
 gen drugschool = .
 replace drugschool = 1 if drugs_at_school==1 
@@ -429,11 +422,11 @@ replace drugschool = 0 if drugs_at_school==2
 replace drugschool = 1 if inlist(year,1993,1997) & fips==39 & drugs_at_school==1
 replace drugschool = 0 if inlist(year,1993,1997) & fips==39 & drugs_at_school==0
 
-save "state_yrbs_tam_labeled.dta", replace
+save "MML_state_yrbs_tam_labeled.dta", replace
 tab fips
 mdesc fips
 * 158,574 as of 7/22
-use  "state_yrbs_tam_labeled.dta", clear
+use  "MML_state_yrbs_tam_labeled.dta", clear
 
 ************************************************
 * Create Variables of Interest for 2015 States *
@@ -2104,75 +2097,26 @@ use "MML_H2015.dta", clear
 **************************
 * Combining the datasets *
 **************************
-**************************
-* Combining the datasets *
-**************************
-use "state_yrbs_tam_labeled.dta", clear
-append using "MAHq_labeled.dta", force
-append using "NMHq_labeled.dta", force
-append using "VTAHq_labeled.dta", force
-append using "INHq_labeled.dta", force
-append using "H2005_labeled.dta", force
-append using "H2007_labeled.dta", force
-append using "H2009_labeled.dta", force
-append using "H2011_labeled.dta", force
-append using "H2013_labeled.dta", force
-append using "H2015_labeled.dta", force
-append using "TX_labeled_2017.dta", force
-append using "VT_labeled_2017.dta", force
-append using "NM_labeled_2017.dta", force
-append using "MD_labeled_2017.dta", force
-append using "CT_labeled_2017.dta", force
-append using "MA_labeled_2017.dta", force
-append using "State17_labeled.dta", force 
-save "State17_extra.dta", replace
-count if suicideattempt!=.
+use "MML_state_yrbs_tam_labeled.dta", clear
+append using "MML_MAHq.dta", force
+append using "MML_NMHq.dta", force
+append using "MML_VTAHq.dta", force
+append using "MML_INHq_.dta", force
+append using "MML_H2005.dta", force
+append using "MML_H2007.dta", force
+append using "MML_H2009.dta", force
+append using "MML_H2011.dta", force
+append using "MML_H2013.dta", force
+append using "MML_H2015.dta", force
+append using "MML_TX2017.dta", force
+append using "MML_VT2017.dta", force
+append using "MML_NM2017.dta", force
+append using "MML_MD2017.dta", force
+append using "MML_CT2017.dta", force
+append using "MML_MA2017.dta", force
+append using "MML_State15.dta", force 
+append using "MML_State17.dta", force
 
-use "State15_labeled.dta", clear
-append using "State17_extra.dta"
-count
-* 1,009,161
-count if suicideattempt!=.
-* 777,358
-save "Combined17.dta", replace
-
-keep fips year weight age14 age15 age16 age17 age18 age_new race4 white black ///
-hispanic otherrace race4_new white2 black2 hispanic2 otherrace2 male female ///
-suicideattempt depression suicideideation suicideplan sexminority heterosexual ///
-juiceconsump carrotconsump nrseatbelt grade 
-save "Combined17_slim.dta", replace
-
-tab fips
-mdesc fips
-mdesc weight
-drop if weight==.
-count
-tab fips year
-
-
-
-************************
-* Add controls dataset *
-************************
-use "Combined17.dta", clear
-merge m:1 fips year using "controls_unempl_2017.dta"
-drop _merge
-save "Combined17_unempl.dta", replace
-
-use "Combined17_slim.dta", clear
-merge m:1 fips year using "controls_unempl_2017.dta"
-drop _merge
-save "Combined17_unempl_slim.dta", replace
-
-***************************************
-* Create SSM Policy Variables Dataset *
-***************************************
-* SSM_policy year.csv" was compiled based on the "Anti-discrimination laws source"
-* Compiled by Pam and created to match the original paper using supplement eTables 1 and 2
-import delimited "SSM_policy year.csv", clear
-save "SSM_policy year.dta", replace
-use "SSM_policy year.dta", clear
-qui gen fips =.
 qui replace fips=1 if state=="Alabama"
 qui replace fips=2 if state=="Alaska"
 qui replace fips=4 if state=="Arizona"
@@ -2224,88 +2168,13 @@ qui replace fips=51 if state=="Virginia"
 qui replace fips=54 if state=="West Virginia"
 qui replace fips=55 if state=="Wisconsin"
 qui replace fips=56 if state=="Wyoming"
-tab fips
-mdesc fips
-save "SSM_policy_fips.dta", replace
 
-****************************
-* Add Policy Variables *****
-****************************
-use "Combined17_unempl.dta", clear
-merge m:1 fips using "SSM_policy_fips.dta"
-drop _merge
-save "Combined17_unempl_policy.dta", replace
-
-use "Combined17_unempl_slim.dta", clear
-merge m:1 fips using "SSM_policy_fips.dta"
-drop _merge
-save "Combined17_unempl_policy_slim.dta", replace
-
-************************
-* Finalize the Dataset *
-************************
-use "Combined17_unempl_policy.dta", clear
-tab year
-drop if inrange(year, 1991, 1998)
 drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
-tab year
-tab fips
+
 drop if inlist(fips,11,27,41,53)
-tab fips
-mdesc fips
-tab eyear
-mdesc eyear
-tab pyear
-mdesc pyear
-count
-qui gen ssmstate=1 if inrange(eyear, 1999, 2015)
-qui replace ssmstate=0 if eyear==0
-tab ssmstate 
-mdesc ssmstate
-save "SSMFull_Prepared_2017.dta", replace
 
-use "Combined17_unempl_policy_slim.dta", clear
-tab year
-drop if inrange(year, 1991, 1998)
-drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014, 2016)
-tab year
-tab fips
-tab fips
-drop if inlist(fips,11,27,41,53)
-tab fips
-mdesc fips
-tab eyear
-mdesc eyear
-tab pyear
-mdesc pyear
-count
-qui gen ssmstate=1 if inrange(eyear, 1999, 2015)
-qui replace ssmstate=0 if eyear==0
-tab ssmstate 
-mdesc ssmstate
-
-drop if weight==.
-
-save "SSMAnalysis_17.dta", replace
-
-*merge 1:m using fips 
+merge m:1 fips year using "controls_unempl_2017.dta"
 
 
-/* CDC Logic for calculating leveled race variables:
-replace q5=subinstr(q5," ","",.)
-gen racere =.
-replace racere = 1 if q4==2 & strpos(q5,"A")>0
-replace racere = 2 if q4==2 & strpos(q5,"B")>0
-replace racere = 3 if q4==2 & strpos(q5,"C")>0
-replace racere = 4 if q4==2 & strpos(q5,"D")>0
-replace racere = 5 if q4==2 & strpos(q5,"E")>0
-replace racere = 6 if q4==1 & q5==""
-replace racere = 7 if q4==1 & q5!=""
-replace racere = 8 if q4==2 & strlen(q5)>1
-replace racere = . if q4==2 & q5==""
-replace racere = . if q4==.
-replace racere = . if (q4!=1 & q4!=2 & q4!=.)
-replace racere = . if (strpos(q5,"F")>0 | strpos(q5,"G")>0 | strpos(q5,"H")>0)
-tab racere
-tab raceeth
-*/
+save "MMLAnalysis_17.dta", replace
+
