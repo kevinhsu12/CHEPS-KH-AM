@@ -6,14 +6,14 @@
 *** within CHEPS at San Diego State University ***
 **************************************************
 capture cd "/Users/Kevin/Documents/MML/Data Files"
-
-cd "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files"
+*capture cd "insert Alicia control directory"
 set more 1
 *****************************************************
 * Create Variables of Interest for the main dataset *
 *****************************************************
-use "State15.dta", clear
-count
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/State15.dta", clear
+*capture use -  "insert Alicia Files Path to state15". Repeat for all data files
+
 
 *** AGE VARIABLES ***
 tab age
@@ -124,7 +124,7 @@ save "MML_State15.dta", replace
 *****************************************************
 * Create Variables of Interest for the main dataset *
 *****************************************************
-use "State17.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/State17.dta", clear
 
 keep if year == 2017
 tab year
@@ -264,14 +264,7 @@ mdesc fips
 * Create Variables of Interest for the Tam's dataset *
 ******************************************************
 *Tam's dataset had missing states up to 2013.
-use "state_yrbs_tam.dta", clear
-count
-tab year
-drop if inrange(year, 1991, 1997)
-tab year
-mdesc weight
-drop if weight==.
-count
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/state_yrbs_tam.dta", clear
 label define state_names 8 "Colorado" 13 "Georgia" 18 "Indiana" 22 "Louisiana" ///
 25 "Massachusetts" 35 "New Mexico" 39 "Ohio" 48 "Texas" 50 "Vermont"
 label values fips state_names
@@ -398,7 +391,7 @@ tab grade
 *Marijuana Use in the Past 30 Days
 gen marijuana30=.
 replace marijuana30=1 if inrange(mj_30day_times,2,6) 
-replace marijuana30=0 if q49==1 
+replace marijuana30=0 if mj_30day_times==1 
 sum marijuana30
 
 *Frequent Marijuana use in Past 30 Days
@@ -409,8 +402,8 @@ sum mfreq
 
 *Marijuana Use At School in Past 30 Days
 gen mschool = .
-replace mschool = 1 if inrange(mj_school_30days_times,2,6)
-replace mschool = 0 if mj_school_30days_times==1
+replace mschool = 1 if inrange(mj_school_30day_times,2,6)
+replace mschool = 0 if mj_school_30day_times==1
 
 *Offered, Sold, or Given Drug on School Property //STATES "DRUG" VS "ILLEGAL DRUG"
 * 1 = drugs at school, 2 = no drugs at school, 0 = Fips39 no drugs at school
@@ -425,16 +418,13 @@ replace drugschool = 0 if inlist(year,1993,1997) & fips==39 & drugs_at_school==0
 save "MML_state_yrbs_tam_labeled.dta", replace
 tab fips
 mdesc fips
-* 158,574 as of 7/22
-use  "MML_state_yrbs_tam_labeled.dta", clear
-
 ************************************************
 * Create Variables of Interest for 2015 States *
 ************************************************
 *****************
 * Massachusetts *
 *****************
-
+/*
 import delimited "MAHq.csv", clear
 rename ïsite sitecode
 qui gen fips=.
@@ -444,8 +434,8 @@ label values fips state_names
 qui gen year=.
 qui replace year=2015 if sitecode=="MA"
 save "MAHq.dta", replace
-
-use "MAHq.dta", clear
+*/
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/MAHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -599,7 +589,7 @@ qui gen year=.
 qui replace year=2015 if sitecode=="VTA"
 save "VTAHq.dta", replace
 */
-use "VTAHq.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/VTAHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -753,7 +743,7 @@ qui gen year=.
 qui replace year=2015 if sitecode=="IN"
 save "INHq.dta", replace
 */
-use "INHq.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/INHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -908,8 +898,7 @@ qui gen year=.
 qui replace year=2015 if sitecode=="NM"
 save "NMHq.dta", replace
 */
-
-use "NMHq.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/NMHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1068,7 +1057,7 @@ qui replace year=2005 if survey_year==2005
 rename yrbss_weight weight
 save "H2005.dta", replace
 */
-use "H2005.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2005.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1221,10 +1210,7 @@ replace drugschool=0 if q56==2
 sum drugschool
 
 
-save "MML_H2005dta", replace
-tab fips
-mdesc fips
-use "MML_H2005.dta", clear
+save "MML_H2005.dta", replace
 
 ********
 * 2007 *
@@ -1240,7 +1226,7 @@ qui replace year=2007 if survey_year==2007
 rename yrbss_weight weight
 save "H2007.dta", replace
 */
-use "H2007.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2007.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1412,7 +1398,7 @@ qui replace year=2009 if survey_year==2009
 rename yrbss_weight weight
 save "H2009.dta", replace
 */
-use "H2009.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2009.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1584,7 +1570,7 @@ qui replace year=2011 if survey_year==2011
 rename yrbss_weight weight
 save "H2011.dta", replace
 */
-use "H2011.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2011.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1760,7 +1746,7 @@ qui replace year=2013 if survey_year==2013
 rename yrbss_weight weight
 save "H2013.dta", replace
 */
-use "H2013.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2013.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1936,7 +1922,7 @@ qui replace year=2015 if survey_year==2015
 rename yrbss_weight weight
 save "H2015.dta", replace
 */
-use "H2015.dta", clear
+use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2015.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -2098,10 +2084,10 @@ use "MML_H2015.dta", clear
 * Combining the datasets *
 **************************
 use "MML_state_yrbs_tam_labeled.dta", clear
-append using "MML_MAHq.dta", force
-append using "MML_NMHq.dta", force
-append using "MML_VTAHq.dta", force
-append using "MML_INHq_.dta", force
+append using "MML_MAH.dta", force
+append using "MML_NMH.dta", force
+append using "MML_VTAH.dta", force
+append using "MML_INH.dta", force
 append using "MML_H2005.dta", force
 append using "MML_H2007.dta", force
 append using "MML_H2009.dta", force
@@ -2174,7 +2160,8 @@ drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
 drop if inlist(fips,11,27,41,53)
 
 merge m:1 fips year using "controls_unempl_2017.dta"
-
+drop if _merge==2
+drop _merge
 
 save "MMLAnalysis_17.dta", replace
 
