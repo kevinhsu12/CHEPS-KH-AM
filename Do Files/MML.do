@@ -6,13 +6,13 @@
 *** within CHEPS at San Diego State University ***
 **************************************************
 capture cd "/Users/Kevin/Documents/MML/Data Files"
-*capture cd "insert Alicia control directory"
+cd "F:\MML project\data" 
 set more 1
 *****************************************************
 * Create Variables of Interest for the main dataset *
 *****************************************************
 capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/State15.dta", clear
-*capture use -  "insert Alicia Files Path to state15". Repeat for all data files
+capture use "state15.dta", clear
 
 
 *** AGE VARIABLES ***
@@ -124,7 +124,8 @@ save "MML_State15.dta", replace
 *****************************************************
 * Create Variables of Interest for the main dataset *
 *****************************************************
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/State17.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/State17.dta", clear
+capture use "state17.dta", clear
 
 keep if year == 2017
 tab year
@@ -264,7 +265,10 @@ mdesc fips
 * Create Variables of Interest for the Tam's dataset *
 ******************************************************
 *Tam's dataset had missing states up to 2013.
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/state_yrbs_tam.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/state_yrbs_tam.dta", clear
+capture use "state_yrbs_tam.dta", clear
+
+
 label define state_names 8 "Colorado" 13 "Georgia" 18 "Indiana" 22 "Louisiana" ///
 25 "Massachusetts" 35 "New Mexico" 39 "Ohio" 48 "Texas" 50 "Vermont"
 label values fips state_names
@@ -435,7 +439,8 @@ qui gen year=.
 qui replace year=2015 if sitecode=="MA"
 save "MAHq.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/MAHq.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/MAHq.dta", clear
+capture use "MAHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -589,7 +594,9 @@ qui gen year=.
 qui replace year=2015 if sitecode=="VTA"
 save "VTAHq.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/VTAHq.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/VTAHq.dta", clear
+capture use "VTAHq.dta", clear
+
 mdesc weight
 drop if weight==.
 count
@@ -743,7 +750,8 @@ qui gen year=.
 qui replace year=2015 if sitecode=="IN"
 save "INHq.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/INHq.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/INHq.dta", clear
+capture use "INHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -898,7 +906,8 @@ qui gen year=.
 qui replace year=2015 if sitecode=="NM"
 save "NMHq.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/NMHq.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/NMHq.dta", clear
+capture use "NMHq.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1057,7 +1066,8 @@ qui replace year=2005 if survey_year==2005
 rename yrbss_weight weight
 save "H2005.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2005.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2005.dta", clear
+capture use "H2005.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1226,7 +1236,8 @@ qui replace year=2007 if survey_year==2007
 rename yrbss_weight weight
 save "H2007.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2007.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2007.dta", clear
+capture use "H2007.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1398,7 +1409,8 @@ qui replace year=2009 if survey_year==2009
 rename yrbss_weight weight
 save "H2009.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2009.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2009.dta", clear
+capture use "H2009.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1570,7 +1582,8 @@ qui replace year=2011 if survey_year==2011
 rename yrbss_weight weight
 save "H2011.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2011.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2011.dta", clear
+capture use "H2011.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1746,7 +1759,8 @@ qui replace year=2013 if survey_year==2013
 rename yrbss_weight weight
 save "H2013.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2013.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2013.dta", clear
+capture use "H2013.dta", clear
 mdesc weight
 drop if weight==.
 count
@@ -1922,7 +1936,8 @@ qui replace year=2015 if survey_year==2015
 rename yrbss_weight weight
 save "H2015.dta", replace
 */
-use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2015.dta", clear
+capture use "/Users/Kevin/Documents/GitHub/CHEPS/2017 YRBS/Data Files/H2015.dta", clear
+capture use "H2015.dta", clear
 mdesc weight
 drop if weight==.
 count
