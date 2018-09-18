@@ -17,7 +17,7 @@ use "MMLAnalysis_17.dta"
 *****************************
 *** COMPARE YEARS OF DATA ***
 *****************************
-keep if inrange(year,1991,2011) // I forget the years
+keep if inrange(year,1993,2011) // I forget the years
 
 
 table state year 
