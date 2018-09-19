@@ -2195,5 +2195,31 @@ merge m:1 fips year using "controls_unempl_2017.dta"
 drop if _merge==2
 drop _merge
 
+merge m:1 fips using "mmlyears.dta"
+drop if _merge==2
+
+***creating mml variable
+gen mml=.
+replace mml=1 if year>= mml_year
+replace mml=0 if mml_year>year
+replace mml=0 if mml_year==.
+
+***separate grade
+gen grade9=.
+replace grade9=1 if grade==9
+replace grade9=0 if inlist(grade,10,11,12)
+
+gen grade10=.
+replace grade10=1 if grade==10
+replace grade10=0 if inlist(grade,9,11,12)
+
+gen grade11=.
+replace grade11=1 if grade==11
+replace grade11=0 if inlist(grade,9,10,12)
+
+gen grade12=.
+replace grade12=1 if grade==12
+replace grade12=0 if inlist(grade,9,10,11)
+
 capture save "F:\MML project\data\MMLAnalysis_17.dta", replace
 save "MMLAnalysis_17.dta", replace

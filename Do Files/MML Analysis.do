@@ -63,9 +63,9 @@ drop if age_new==.
 drop if male==.
 sum marijuana30 mfreq mschool drugschool age_new male ///
  grade9 grade10 grade11 grade12 ///
- black white otherrace2 if mml==0
+ black white otherrace  if mml==0
 
 
 sum marijuana30 mfreq mschool drugschool age_new male ///
  grade9 grade10 grade11 grade12 ///
- black white otherrace2 if mml==1
+ black white otherrace if mml==1
