@@ -401,7 +401,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(mj_30day_times,4,6) 
-replace mfreq=0 if inrange(mj_30day_times,2,3) 
+replace mfreq=0 if inrange(mj_30day_times,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -563,7 +563,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
-replace mfreq=0 if inrange(q49,2,3) 
+replace mfreq=0 if inrange(q49,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -719,7 +719,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
-replace mfreq=0 if inrange(q49,2,3) 
+replace mfreq=0 if inrange(q49,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -875,7 +875,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
-replace mfreq=0 if inrange(q49,2,3) 
+replace mfreq=0 if inrange(q49,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -1030,7 +1030,7 @@ sum marijuana30
 *Frequent Marijuana use in Past 30 Days
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
-replace mfreq=0 if inrange(q49,2,3) 
+replace mfreq=0 if inrange(q49,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -1202,7 +1202,7 @@ sum marijuana30
 *question 40 in codebook, variable q46 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q46,4,6) 
-replace mfreq=0 if inrange(q46,2,3) 
+replace mfreq=0 if inrange(q46,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -1372,7 +1372,7 @@ sum marijuana30
 *question 44 in codebook, variable q47 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q46,4,6) 
-replace mfreq=0 if inrange(q46,2,3) 
+replace mfreq=0 if inrange(q46,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -1545,7 +1545,7 @@ sum marijuana30
 *question 45 in codebook, variable q47 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q47,4,6) 
-replace mfreq=0 if inrange(q47,2,3) 
+replace mfreq=0 if inrange(q47,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -1722,7 +1722,7 @@ sum marijuana30
 *question 46 in codebook, variable q48 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q48,4,6) 
-replace mfreq=0 if inrange(q48,2,3) 
+replace mfreq=0 if inrange(q48,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -1899,7 +1899,7 @@ sum marijuana30
 *question 38 in codebook, variable q49 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
-replace mfreq=0 if inrange(q49,2,3) 
+replace mfreq=0 if inrange(q49,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
@@ -2076,7 +2076,7 @@ sum marijuana30
 *question 39 in codebook, variable q49 in data
 gen mfreq=.
 replace mfreq=1 if inrange(q49,4,6) 
-replace mfreq=0 if inrange(q49,2,3) 
+replace mfreq=0 if inrange(q49,1,3) 
 sum mfreq
 
 *Marijuana Use At School in Past 30 Days
