@@ -28,6 +28,7 @@ table state year
 **************************
 
 merge m:1 fips using "mmlyears.dta"
+drop if _merge==2
 
 ***creating mml variable
 gen mml=.
@@ -52,23 +53,19 @@ gen grade12=.
 replace grade12=1 if grade==12
 replace grade12=0 if inlist(grade,9,10,11)
 
-***idk if i separated lines correctly
-***will the mml==1 condition still apply to all?
-<<<<<<< HEAD
-*-You coded it up correctly -Kevin
+
+
+***************
+*** TABLE 6 ***
+***************
+drop if race4==.
+drop if age_new==.
+drop if male==.
 sum marijuana30 mfreq mschool drugschool age_new male ///
-grade9 grade10 grade11 grade9 grade10 grade11 grade12 ///
- black white otherrace2 ///
-beertax unemployment if mml==0
+ grade9 grade10 grade11 grade12 ///
+ black white otherrace2 if mml==0
+
 
 sum marijuana30 mfreq mschool drugschool age_new male ///
-grade9 grade10 grade11 grade  black white otherrace2 ///
-=======
-sum marijuana30 mfreq mschool drugschool age_new male ///
-grade9 grade10 grade11 grade12 black white otherrace2 ///
-beertax unemployment if mml==0
-
-sum marijuana30 mfreq mschool drugschool age_new male ///
-grade9 grade10 grade11 grade12 black white otherrace2 ///
->>>>>>> ea211d95fb56712af89dca6533a1045ef3faafd9
-beertax unemployment if mml==1
+ grade9 grade10 grade11 grade12 ///
+ black white otherrace2 if mml==1
