@@ -17,7 +17,7 @@ use "MMLAnalysis_17.dta"
 *****************************
 *** COMPARE YEARS OF DATA ***
 *****************************
-keep if inrange(year,1993,2011) // I forget the years
+keep if inrange(year,1993,2011) 
 
 
 table state year 
@@ -27,12 +27,13 @@ table state year
 *** SUMMARY STATISTICS ***
 **************************
 
-merge 1:m fips using "mmlyears.dta"
+merge m:1 fips using "mmlyears.dta"
 
 ***creating mml variable
 gen mml=.
-replace mml=1 if mml_year>=year
-replace mml=0 if mml_year<year
+replace mml=1 if year>= mml_year
+replace mml=0 if mml_year>year
+replace mml=0 if mml_year==.
 
 ***separate grade
 gen grade9=.
@@ -53,10 +54,12 @@ replace grade12=0 if inlist(grade,9,10,11)
 
 ***idk if i separated lines correctly
 ***will the mml==1 condition still apply to all?
-sum marijuana30 mfreq mschool drugschool age male ///
-grade9 grade10 grade11 grade 12 black white otherrace2 ///
-beertax unemployement if mml==0
+*-You coded it up correctly -Kevin
+sum marijuana30 mfreq mschool drugschool age_new male ///
+grade9 grade10 grade11 grade9 grade10 grade11 grade12 ///
+ black white otherrace2 ///
+beertax unemployment if mml==0
 
-sum marijuana30 mfreq mschool drugschool age male ///
-grade9 grade10 grade11 grade 12 black white otherrace2 ///
-beertax unemployement if mml==1
+sum marijuana30 mfreq mschool drugschool age_new male ///
+grade9 grade10 grade11 grade  black white otherrace2 ///
+beertax unemployment if mml==1
