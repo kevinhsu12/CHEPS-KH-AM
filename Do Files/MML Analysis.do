@@ -14,9 +14,13 @@ set more 1
 use "MMLAnalysis_17.dta"
 
 
+
+
+
 *****************************
 *** COMPARE YEARS OF DATA ***
 *****************************
+rename age_new age
 keep if inrange(year,1993,2011) 
 
 
@@ -26,46 +30,32 @@ table state year
 **************************
 *** SUMMARY STATISTICS ***
 **************************
+gen other_race = 1 if otherrace==1 | hispanic == 1
+replace other_race = 0 if otherrace==0 & hispanic == 0
 
-merge m:1 fips using "mmlyears.dta"
-drop if _merge==2
+replace otherrace = other_race
 
-***creating mml variable
-gen mml=.
-replace mml=1 if year>= mml_year
-replace mml=0 if mml_year>year
-replace mml=0 if mml_year==.
-
-***separate grade
-gen grade9=.
-replace grade9=1 if grade==9
-replace grade9=0 if inlist(grade,10,11,12)
-
-gen grade10=.
-replace grade10=1 if grade==10
-replace grade10=0 if inlist(grade,9,11,12)
-
-gen grade11=.
-replace grade11=1 if grade==11
-replace grade11=0 if inlist(grade,9,10,12)
-
-gen grade12=.
-replace grade12=1 if grade==12
-replace grade12=0 if inlist(grade,9,10,11)
-
-
-
+label variable white White
+label variable black Black
+label variable other_race "Other Race"
+label variable marijuana30 "Marijuana Use in Past 30 days"
+label variable mfreq "Frequent Marijuana Use in Past 30 Days"
+label variable drugschool "Offered, Sold, or Given Drug on School Property"
+label variable mschool "Marijuana Use at School in Past 30 days"
 ***************
 *** TABLE 6 ***
 ***************
 drop if race4==.
-drop if age_new==.
+drop if age==.
 drop if male==.
-sum marijuana30 mfreq mschool drugschool age_new male ///
- grade9 grade10 grade11 grade12 ///
- black white otherrace  if mml==0
 
 
-sum marijuana30 mfreq mschool drugschool age_new male ///
- grade9 grade10 grade11 grade12 ///
- black white otherrace if mml==1
+sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
+black white otherrace beertax unemployment if mml==0 // Need BAC .08 Law and Real State Income
+
+
+sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
+black white otherrace beertax unemployment if mml==1 // Need BAC .08 Law and Real State Income
+
+
+
