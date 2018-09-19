@@ -2188,7 +2188,7 @@ label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 
 keep fips year weight age14 age15 age16 age17 age18 age_new race4 white black ///
 hispanic otherrace race4_new white2 black2 hispanic2 otherrace2 male female ///
-marijuana30 mfreq drugschool mschool grade
+marijuana30 mfreq drugschool mschool grade 
 
 
 merge m:1 fips year using "controls_unempl_2017.dta"
