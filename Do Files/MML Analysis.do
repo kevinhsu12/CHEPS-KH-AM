@@ -54,6 +54,7 @@ replace grade12=0 if inlist(grade,9,10,11)
 
 ***idk if i separated lines correctly
 ***will the mml==1 condition still apply to all?
+<<<<<<< HEAD
 *-You coded it up correctly -Kevin
 sum marijuana30 mfreq mschool drugschool age_new male ///
 grade9 grade10 grade11 grade9 grade10 grade11 grade12 ///
@@ -62,4 +63,12 @@ beertax unemployment if mml==0
 
 sum marijuana30 mfreq mschool drugschool age_new male ///
 grade9 grade10 grade11 grade  black white otherrace2 ///
+=======
+sum marijuana30 mfreq mschool drugschool age_new male ///
+grade9 grade10 grade11 grade12 black white otherrace2 ///
+beertax unemployment if mml==0
+
+sum marijuana30 mfreq mschool drugschool age_new male ///
+grade9 grade10 grade11 grade12 black white otherrace2 ///
+>>>>>>> ea211d95fb56712af89dca6533a1045ef3faafd9
 beertax unemployment if mml==1
