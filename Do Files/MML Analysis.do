@@ -63,15 +63,29 @@ gen seer_year=year
 merge m:1 fips seer_year age white black otherrace male female using "seer_weights_mml.dta"
 drop if _merge==2
 drop _merge
-
+/*
+drop if inlist(state, "Florida", "Georgia", "Hawaii", "Indiana", "Lousiana")
+drop if inlist(state,"Massachusetts", "Ohio", "Oklahoma", "Pennsylvania", "Virginia", "Wyoming")
+drop if state=="Montana" & year==2011
+drop if state=="Vermont" & year==2011
+*/
 ***weighted means graph***
 ***it's not inlcuding 2017 and idk why***
 preserve
 collapse (mean) marijuana30 mfreq mschool [aweight=seer_weight], by(seer_year)
 
 twoway (line marijuana30 seer_year) (line mfreq seer_year, lpattern(longdash)) (line mschool seer_year, lpattern(vshortdash)), ///
-ytitle(Marijuana Use) xtitle(Year) title(Marijuana Use over Time) ///
-subtitle(Weighted Means) xlabel(1993(2)2011) legend(on)
+ytitle(Marijuana Use) xtitle(Year) title("Figure 2: Past 30 Day Marijuana Use") ///
+subtitle(State YRBS 1993-2011) xlabel(1993(2)2011) legend(on) ///
+legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("SEER Weighted Means")
 restore
 
+preserve 
+collapse (mean) marijuana30 mfreq mschool, by(seer_year)
 
+twoway (line marijuana30 seer_year) (line mfreq seer_year, lpattern(longdash)) (line mschool seer_year, lpattern(vshortdash)), ///
+ytitle(Marijuana Use) xtitle(Year) title("Figure 2: Past 30 Day Marijuana Use") ///
+subtitle(State YRBS 1993-2011) xlabel(1993(2)2011) legend(on) ///
+legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("Unweighted Means")
+
+restore
