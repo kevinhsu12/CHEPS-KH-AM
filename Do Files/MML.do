@@ -107,7 +107,7 @@ sum mfreq
 
 *Marijuana Use At School in Past 30 Days
 gen mschool = .
-replace mschool = 1 if inrange(qmarijuanaschool,2,7)
+replace mschool = 1 if inrange(qmarijuanaschool,2,6)
 replace mschool = 0 if qmarijuanaschool==1
 
 *Offered, Sold, or Given Drug on School Property
@@ -245,7 +245,7 @@ sum mfreq
 
 *Marijuana Use At School in Past 30 Days
 gen mschool = .
-replace mschool = 1 if inrange(qmarijuanaschool,2,7)
+replace mschool = 1 if inrange(qmarijuanaschool,2,6)
 replace mschool = 0 if qmarijuanaschool==1
 
 *Offered, Sold, or Given Drug on School Property
