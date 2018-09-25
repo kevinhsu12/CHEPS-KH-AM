@@ -21,7 +21,7 @@ capture drop _merge
 *** COMPARE YEARS OF DATA ***
 *****************************
 rename age_new age
-keep if inrange(year,1993,2011) 
+*keep if inrange(year,1993,2011) 
 
 
 table state year 
