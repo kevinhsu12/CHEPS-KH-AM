@@ -2186,24 +2186,6 @@ label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 "Texas" 49 "Utah" 50 "Vermont" 51 "Virginia" 53 "Washington" 54 "West Virginia" ///
 55 "Wisconsin" 56 "Wyoming"
 
-keep fips year weight age14 age15 age16 age17 age18 age_new race4 white black ///
-hispanic otherrace race4_new white2 black2 hispanic2 otherrace2 male female ///
-marijuana30 mfreq drugschool mschool grade 
-
-
-merge m:1 fips year using "controls_unempl_2017.dta"
-drop if _merge==2
-drop _merge
-
-merge m:1 fips using "mmlyears.dta"
-drop if _merge==2
-
-***creating mml variable
-gen mml=.
-replace mml=1 if year>= mml_year
-replace mml=0 if mml_year>year
-replace mml=0 if mml_year==.
-
 ***separate grade
 gen grade9=.
 replace grade9=1 if grade==9
@@ -2220,6 +2202,26 @@ replace grade11=0 if inlist(grade,9,10,12)
 gen grade12=.
 replace grade12=1 if grade==12
 replace grade12=0 if inlist(grade,9,10,11)
+
+keep fips year weight age14 age15 age16 age17 age18 age_new race4 white black ///
+hispanic otherrace race4 male female ///
+marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12
+
+
+merge m:1 fips year using "controls_unempl_2017.dta"
+drop if _merge==2
+drop _merge
+
+merge m:1 fips using "mmlyears.dta"
+drop if _merge==2
+drop _merge
+***creating mml variable
+gen mml=.
+replace mml=1 if year>= mml_year
+replace mml=0 if mml_year>year
+replace mml=0 if mml_year==.
+
+
 
 capture save "F:\MML project\data\MMLAnalysis_17.dta", replace
 save "MMLAnalysis_17.dta", replace
