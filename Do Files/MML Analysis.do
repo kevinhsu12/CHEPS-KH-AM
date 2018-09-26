@@ -21,7 +21,7 @@ capture drop _merge
 *** COMPARE YEARS OF DATA ***
 *****************************
 rename age_new age
-*keep if inrange(year,1993,2011) 
+keep if inrange(year,1993,2011) 
 
 
 table state year 
@@ -48,6 +48,9 @@ label variable mschool "Marijuana Use at School in Past 30 days"
 drop if race4==.
 drop if age==.
 drop if male==.
+*drop if mschool==.
+*drop if marijuana30==.
+*drop if mfreq==.
 
 
 sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
@@ -63,12 +66,7 @@ gen seer_year=year
 merge m:1 fips seer_year age white black otherrace male female using "seer_weights_mml.dta"
 drop if _merge==2
 drop _merge
-/*
-drop if inlist(state, "Florida", "Georgia", "Hawaii", "Indiana", "Lousiana")
-drop if inlist(state,"Massachusetts", "Ohio", "Oklahoma", "Pennsylvania", "Virginia", "Wyoming")
-drop if state=="Montana" & year==2011
-drop if state=="Vermont" & year==2011
-*/
+
 ***weighted means graph***
 ***it's not inlcuding 2017 and idk why***
 preserve

@@ -333,6 +333,7 @@ gen otherrace=.
 replace otherrace=1 if inlist(race,1,2,5,8)
 replace otherrace=0 if inlist(race,3,4,6,7)
 
+
 *GRADE
 rename q3 grade
 
@@ -362,6 +363,94 @@ replace male=0 if sex==1
 gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
+
+*** SSM(VARIABLES)
+*RACE(SSM)
+generate race4 = 1 if race==6
+generate race4 = 2 if race==3
+generate race4 = 3 if inlist(race,4,7)
+generate race4 = 4 if inlist(race,1,2,5,8)
+*** AGE VARIABLES ***
+rename q1 age
+tab age
+mdesc age
+***Age 14
+*Category is described as 14 years or younger
+qui gen age14 = 0 if inlist(age, 4, 5, 6, 7)
+qui replace age14 = 1 if inrange(age,1,3)
+tab age14
+***Age 15
+qui gen age15 = 0 if inlist(age, 1, 2, 3, 5, 6, 7)
+qui replace age15 = 1 if age == 4
+tab age15
+***Age 16
+qui gen age16 = 0 if inlist(age, 1, 2, 3, 4, 6, 7)
+qui replace age16 = 1 if age == 5
+tab age16
+***Age 17
+qui gen age17 = 0 if inlist(age, 1, 2, 3, 4, 5, 7)
+qui replace age17 = 1 if age == 6
+tab age17
+**Age 18
+*Category is described as 18 years or older
+qui gen age18 = 0 if inlist(age, 1, 2, 3, 4, 5, 6)
+qui replace age18 = 1 if age == 7
+tab age18
+***Actual Age
+qui gen age_new = age + 11
+tab age_new
+
+gen age_new = age+11
+
+*** SUICIDE ATTEMPT VARIABLE *** Q25
+qui gen suicideattempt = 0 if q25==1
+qui replace suicideattempt = 1 if inrange(q25,2,5)
+tab suicideattempt
+
+*** DEPRESSION VARIABLE *** Q22
+qui gen depression = 0 if q22==2
+qui replace depression = 1 if q22==1
+tab depression
+
+*** SUICIDE IDEATION *** Q23
+qui gen suicideideation = 0 if q23==2
+qui replace suicideideation = 1 if q23==1
+tab suicideideation
+
+*** SUICIDE PLAN *** Q24
+qui gen suicideplan = 0 if q24 == 2
+qui replace suicideplan = 1 if q24==1
+tab suicideplan
+
+*** SEX MINORITY *** 
+*MISSING
+
+*
+*** JUICE CONSUMPTION *** Q72
+qui gen juiceconsump=1 if inrange(q72,2,7)
+qui replace juiceconsump=0 if q72==1
+tab juiceconsump
+
+*** CARROT CONSUMPTION *** Q76
+
+qui gen carrotconsump=1 if inrange(q76,2,7)
+qui replace carrotconsump=0 if q76==1
+tab carrotconsump
+
+*** SEATBELT USE *** Q9
+qui gen nrseatbelt=1 if inrange(q9,1,2)
+qui replace nrseatbelt=0 if inrange(q9,3,5)
+tab nrseatbelt
+
+*** GRADE/CLASSROOM ***
+tab grade
+mdesc grade
+qui replace grade = 9 if grade == 1
+qui replace grade = 10 if grade == 2
+qui replace grade = 11 if grade == 3
+qui replace grade = 12 if grade == 4
+qui replace grade = 0 if grade == 5
+tab grade
 
 save "MML_National_99.dta", replace
 tab fips
@@ -456,6 +545,115 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*** SSM(VARIABLES)
+*RACE(SSM)
+sort race
+encode race, gen(raceeth)
+generate race4 = 1 if raceeth==9
+generate race4 = 2 if raceeth==3
+generate race4 = 3 if inlist(raceeth,4,6)
+generate race4 = 4 if inlist(raceeth,1,2,7,8)
+
+/*
+Am Indian / Alaska Native |        211        1.55        1.55
+                    Asian |        409        3.01        4.56
+Black or African American |      2,614       19.22       23.78
+       Hispanic or Latino |      2,974       21.87       45.64
+                  Missing |        200        1.47       47.11
+      Multiple - Hispanic |        352        2.59       49.70
+  Multiple - Non-hispanic |        378        2.78       52.48
+ Native Hawaiian/other PI |        127        0.93       53.42
+                    White |      6,336       46.58      100.00
+
+*/
+*** AGE VARIABLES ***
+sort q1
+encode q1, gen(age)
+***Age 14
+*Category is described as 14 years or younger
+qui gen age14 = 0 if inlist(age, 4, 5, 6, 7)
+qui replace age14 = 1 if inrange(age,1,3)
+tab age14
+***Age 15
+qui gen age15 = 0 if inlist(age, 1, 2, 3, 5, 6, 7)
+qui replace age15 = 1 if age == 4
+tab age15
+***Age 16
+qui gen age16 = 0 if inlist(age, 1, 2, 3, 4, 6, 7)
+qui replace age16 = 1 if age == 5
+tab age16
+***Age 17
+qui gen age17 = 0 if inlist(age, 1, 2, 3, 4, 5, 7)
+qui replace age17 = 1 if age == 6
+tab age17
+**Age 18
+*Category is described as 18 years or older
+qui gen age18 = 0 if inlist(age, 1, 2, 3, 4, 5, 6)
+qui replace age18 = 1 if age == 7
+tab age18
+***Actual Age
+qui gen age_new = age + 11
+tab age_new
+
+gen age_new = age+11
+
+*** SUICIDE ATTEMPT VARIABLE *** Q26
+sort q26
+encode q26, gen(suicide)
+qui gen suicideattempt = 0 if suicide==1
+qui replace suicideattempt = 1 if inrange(suicide,2,5)
+tab suicideattempt
+
+*** DEPRESSION VARIABLE *** Q23
+qui gen depression = 0 if q23=="No"
+qui replace depression = 1 if q23=="Yes"
+tab depression
+
+*** SUICIDE IDEATION *** Q24
+qui gen suicideideation = 0 if q24=="No"
+qui replace suicideideation = 1 if q24=="Yes"
+tab suicideideation
+
+*** SUICIDE PLAN *** Q25
+qui gen suicideplan = 0 if q25 == "No"
+qui replace suicideplan = 1 if q25== "Yes"
+tab suicideplan
+
+*** SEX MINORITY *** 
+*MISSING
+
+*
+*** JUICE CONSUMPTION *** Q73
+sort q73
+encode q73, gen(juice)
+qui gen juiceconsump=1 if inrange(juice,1,6)
+qui replace juiceconsump=0 if q73==7
+tab juiceconsump
+
+*** CARROT CONSUMPTION *** Q77
+sort q77
+encode q77, gen(carrot)
+qui gen carrotconsump=1 if inrange(carrot,1,6)
+qui replace carrotconsump=0 if q76==7
+tab carrotconsump
+
+*** SEATBELT USE *** Q9
+sort q10
+encode q10, gen(seatbelt)
+qui gen nrseatbelt=1 if inlist(seatbelt,4,5)
+qui replace nrseatbelt=0 if inrange(seatbelt,1,3)
+tab nrseatbelt
+
+*** GRADE/CLASSROOM ***
+sort grade
+encode grade, gen(grade_)
+qui replace grade = 9 if grade == 4
+qui replace grade = 10 if grade == 1
+qui replace grade = 11 if grade == 2
+qui replace grade = 12 if grade == 3
+qui replace grade = 0 if grade == 5
+tab grade
+
 
 save "MML_National_01.dta", replace
 tab fips
@@ -549,6 +747,8 @@ replace male=0 if sex=="female"
 gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
+
+
 
 
 save "MML_National_03.dta", replace
