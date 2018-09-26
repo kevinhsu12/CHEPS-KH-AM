@@ -14,12 +14,13 @@ set more 1
 ***NATIONAL YRBS***
 *******************
 
-**year isnt showing as a variable??? and some years don't have fips 
-
 **********
 ***1993***
 **********
 capture use "NYRBS_1993.dta", clear
+
+capture rename stfips fips
+gen year=1993
 
 *MML
 gen marijuana30=.
@@ -103,6 +104,18 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
+
 save "MML_National_93.dta", replace
 tab fips
 mdesc fips
@@ -111,6 +124,9 @@ mdesc fips
 ***1995***
 **********
 capture use "NYRBS_1995.dta", clear
+
+capture rename stfips fips
+gen year=1995
 
 *MML
 gen marijuana30=.
@@ -194,6 +210,18 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
+
 save "MML_National_95.dta", replace
 tab fips
 mdesc fips
@@ -202,6 +230,9 @@ mdesc fips
 ***1997***
 **********
 capture use "NYRBS_1997.dta", clear
+
+capture rename stfips fips
+gen year=1997
 
 *MML, 43, 43, 44, 53
 
@@ -287,6 +318,18 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
+
 save "MML_National_97.dta", replace
 tab fips
 mdesc fips
@@ -295,6 +338,9 @@ mdesc fips
 ***1999***  ***NOT STRING***
 **********
 capture use "NYRBS_1999.dta", clear
+
+capture rename stfips fips
+gen year=1999
 
 *MML, 46, 46, 47, 56
 gen marijuana30=.
@@ -363,6 +409,18 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age==1
+replace age_new=13 if age==2
+replace age_new=14 if age==3
+replace age_new=15 if age==4
+replace age_new=16 if age==5
+replace age_new=17 if age==6
+replace age_new=18 if age==7
+
 save "MML_National_99.dta", replace
 tab fips
 mdesc fips
@@ -371,6 +429,9 @@ mdesc fips
 ***2001***
 **********
 capture use "NYRBS_2001.dta", clear
+
+capture rename stfips fips
+gen year=2001
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -444,7 +505,6 @@ gen grade12=.
 replace grade12=1 if grade=="12th grade"
 replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 
-
 *SEX
 rename q2 sex
 
@@ -456,6 +516,17 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
 
 save "MML_National_01.dta", replace
 tab fips
@@ -465,6 +536,9 @@ mdesc fips
 ***2003***
 **********
 capture use "NYRBS_2003.dta", clear
+
+capture rename stfips fips
+gen year=2003
 
 *MML, 46, 46, 47, 57
 gen marijuana30=.
@@ -538,7 +612,6 @@ gen grade12=.
 replace grade12=1 if grade=="12th grade"
 replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 
-
 *SEX
 rename q2 sex
 
@@ -550,6 +623,17 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
 
 save "MML_National_03.dta", replace
 tab fips
@@ -559,6 +643,9 @@ mdesc fips
 ***2005*** ***NOT STRING
 **********
 capture use "NYRBS_2005.dta", clear
+
+capture rename stfips fips
+gen year=2005
 
 *MML, 46, 46, 47, 56
 gen marijuana30=.
@@ -576,7 +663,6 @@ replace mschool=0 if q47==1
 gen drugschool=.
 replace drugschool=1 if q56==1
 replace drugschool=0 if q56==2
-
 
 *RACE
 **hispanic = hispanic/latino (4) + multiple-hispanic (7)
@@ -628,15 +714,30 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age==1
+replace age_new=13 if age==2
+replace age_new=14 if age==3
+replace age_new=15 if age==4
+replace age_new=16 if age==5
+replace age_new=17 if age==6
+replace age_new=18 if age==7
+
 save "MML_National_05.dta", replace
-**tab fips
-**mdesc fips
+tab fips
+mdesc fips
 
 **********
 ***2007*** ***NOT STRING
 **********
 capture use "NYRBS_2007.dta", clear
 
+capture rename stfips fips
+gen year=2007
+
 *MML, 47, 47, 48, 57
 gen marijuana30=.
 replace marijuana30=1 if inrange(q47,2,6)
@@ -653,8 +754,6 @@ replace mschool=0 if q48==1
 gen drugschool=.
 replace drugschool=1 if q57==1
 replace drugschool=0 if q57==2
-
-
 
 *RACE
 **hispanic = hispanic/latino (6) + multiple-hispanic (7)
@@ -704,15 +803,30 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age==1
+replace age_new=13 if age==2
+replace age_new=14 if age==3
+replace age_new=15 if age==4
+replace age_new=16 if age==5
+replace age_new=17 if age==6
+replace age_new=18 if age==7
+
 save "MML_National_07.dta", replace
-***tab fips
-***mdesc fips
+tab fips
+mdesc fips
 
 **********
 ***2009*** ***NOT STRING
 **********
 capture use "NYRBS_2009.dta", clear
 
+capture rename stfips fips
+gen year=2009
+
 *MML, 47, 47, 48, 57
 gen marijuana30=.
 replace marijuana30=1 if inrange(q47,2,6)
@@ -729,7 +843,6 @@ replace mschool=0 if q48==1
 gen drugschool=.
 replace drugschool=1 if q57==1
 replace drugschool=0 if q57==2
-
 
 *RACE
 **hispanic = hispanic/latino (6) + multiple-hispanic (7)
@@ -779,14 +892,29 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age==1
+replace age_new=13 if age==2
+replace age_new=14 if age==3
+replace age_new=15 if age==4
+replace age_new=16 if age==5
+replace age_new=17 if age==6
+replace age_new=18 if age==7
+
 save "MML_National_09.dta", replace
-***tab fips
-***mdesc fips
+tab fips
+mdesc fips
 
 **********
 ***2011*** ***NOT STRING
 **********
 capture use "NYRBS_2011.dta", clear
+
+capture rename stfips fips
+gen year=2011
 
 *MML, 48, 48, 49, 59
 gen marijuana30=.
@@ -853,14 +981,29 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age==1
+replace age_new=13 if age==2
+replace age_new=14 if age==3
+replace age_new=15 if age==4
+replace age_new=16 if age==5
+replace age_new=17 if age==6
+replace age_new=18 if age==7
+
 save "MML_National_11.dta", replace
-***tab fips
-***mdesc fips
+tab fips
+mdesc fips
 
 **********
 ***2013*** 
 **********
 capture use "NYRBS_2013.dta", clear
+
+capture rename stfips fips
+gen year=2013
 
 *MML, 49, 49, 58
 gen marijuana30=.
@@ -930,7 +1073,6 @@ gen grade12=.
 replace grade12=1 if grade=="12th grade"
 replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 
-
 *SEX
 rename q2 sex
 
@@ -942,15 +1084,29 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
 
 save "MML_National_13.dta", replace
-***tab fips
-***mdesc fips
+tab fips
+mdesc fips
 
 **********
 ***2015***
 **********
 capture use "NYRBS_2015.dta", clear
+
+capture rename stfips fips
+gen year=2015
 
 *MML, 49, 49, 59
 gen marijuana30=.
@@ -1018,7 +1174,6 @@ gen grade12=.
 replace grade12=1 if grade=="12th grade"
 replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 
-
 *SEX
 rename q2 sex
 
@@ -1030,15 +1185,29 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
 
 save "MML_National_15.dta", replace
-***tab fips
-***mdesc fips
+tab fips
+mdesc fips
 
 **********
 ***2017***
 **********
 capture use "NYRBS_2017.dta", clear
+
+capture rename stfips fips
+gen year=2017
 
 *MML, 48, 48, 58
 gen marijuana30=.
@@ -1106,7 +1275,6 @@ gen grade12=.
 replace grade12=1 if grade=="12th grade"
 replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 
-
 *SEX
 rename q2 sex
 
@@ -1118,10 +1286,21 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+*AGE
+rename q1 age
+
+gen age_new=.
+replace age_new=12 if age=="12 years old or younger"
+replace age_new=13 if age=="13 years old"
+replace age_new=14 if age=="14 years old"
+replace age_new=15 if age=="15 years old"
+replace age_new=16 if age=="16 years old"
+replace age_new=17 if age=="17 years old"
+replace age_new=18 if age=="18 years old or older"
 
 save "MML_National_17.dta", replace
-***tab fips
-***mdesc fips
+tab fips
+mdesc fips
 
 
 **************************
@@ -1141,61 +1320,8 @@ append using "MML_National_97.dta", force
 append using "MML_National_95.dta", force
 append using "MML_National_93.dta", force
 
-*qui replace fips=1 if state=="Alabama"
-*qui replace fips=2 if state=="Alaska"
-*qui replace fips=4 if state=="Arizona"
-*qui replace fips=5 if state=="Arkansas"
-*qui replace fips=6 if state=="California"
-*qui replace fips=8 if state=="Colorado"
-*qui replace fips=9 if state=="Connecticut"
-*qui replace fips=10 if state=="Delaware"
-*qui replace fips=11 if state=="DistrictofColumbia"
-*qui replace fips=12 if state=="Florida"
-*qui replace fips=13 if state=="Georgia"
-*qui replace fips=15 if state=="Hawaii"
-*qui replace fips=16 if state=="Idaho"
-*qui replace fips=17 if state=="Illinois"
-*qui replace fips=18 if state=="Indiana"
-*qui replace fips=19 if state=="Iowa"
-*qui replace fips=20 if state=="Kansas"
-*qui replace fips=21 if state=="Kentucky"
-*qui replace fips=22 if state=="Louisiana"
-*qui replace fips=23 if state=="Maine"
-*qui replace fips=24 if state=="Maryland"
-*qui replace fips=25 if state=="Massachusetts"
-*qui replace fips=26 if state=="Michigan"
-*qui replace fips=27 if state=="Minnesota"
-*qui replace fips=28 if state=="Mississippi"
-*qui replace fips=29 if state=="Missouri"
-*qui replace fips=30 if state=="Montana"
-*qui replace fips=31 if state=="Nebraska"
-*qui replace fips=32 if state=="Nevada"
-*qui replace fips=33 if state=="New Hampshire"
-*qui replace fips=34 if state=="New Jersey"
-*qui replace fips=35 if state=="New Mexico"
-*qui replace fips=36 if state=="New York"
-*qui replace fips=37 if state=="North Carolina"
-*qui replace fips=38 if state=="North Dakota"
-*qui replace fips=39 if state=="Ohio"
-*qui replace fips=40 if state=="Oklahoma"
-*qui replace fips=41 if state=="Oregon"
-*qui replace fips=42 if state=="Pennsylvania"
-*qui replace fips=44 if state=="Rhode Island"
-*qui replace fips=45 if state=="South Carolina"
-*qui replace fips=46 if state=="South Dakota"
-*qui replace fips=47 if state=="Tennessee"
-*qui replace fips=48 if state=="Texas"
-*qui replace fips=49 if state=="Utah"
-*qui replace fips=50 if state=="Vermont"
-*qui replace fips=51 if state=="Virginia"
-*qui replace fips=53 if state=="Washington"
-*qui replace fips=54 if state=="West Virginia"
-*qui replace fips=55 if state=="Wisconsin"
-*qui replace fips=56 if state=="Wyoming"
 
-*drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
-
-drop if inlist(fips,11,27,41,53)
+drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
 
 label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 "California" 8 "Colorado" 9 "Connecticut" 10 "Delaware" 11 "District of Columbia" ///
@@ -1210,16 +1336,12 @@ label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 55 "Wisconsin" 56 "Wyoming"
 
 
-***rename age***
-rename q1 age
-
-
 *drop variables
-keep fips year age race raceeth white black ///
+keep fips year age age_new race raceeth white black ///
 hispanic otherrace male female ///
 marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12
 
-
+*merge files
 merge m:1 fips year using "controls_unempl_2017.dta"
 drop if _merge==2
 drop _merge
@@ -1230,11 +1352,36 @@ drop _merge
 
 ***creating mml variable
 gen mml=.
-replace mml=1 if year>= mml_year
-replace mml=0 if mml_year>year
-replace mml=0 if mml_year==.
+replace mml=1 if year>= MML_year
+replace mml=0 if MML_year>year
+replace mml=0 if MML_year==.
 
 
 
 capture save "F:\MML project\national data\MML_National.dta", replace
 save "MML_National.dta", replace
+
+****************************
+***NATIONAL YRBS ANALYSIS***
+****************************
+
+***state-year table***
+table fips year
+
+***table 1***
+label variable white "White"
+label variable black "Black"
+label variable otherrace "Other Race"
+label variable marijuana30 "Marijuana Use in Past 30 days"
+label variable mfreq "Frequent Marijuana Use in Past 30 Days"
+label variable drugschool "Offered, Sold, or Given Drug on School Property"
+label variable mschool "Marijuana Use at School in Past 30 days"
+label variable age_new "Age"
+
+
+sum marijuana30 mfreq mschool drugschool age_new male grade9 grade10 grade11 grade12 ///
+black white otherrace unemployment if mml==0 // Need BAC .08 Law, Real State Income, beertax
+
+
+sum marijuana30 mfreq mschool drugschool age_new male grade9 grade10 grade11 grade12 ///
+black white otherrace unemployment if mml==1 // Need BAC .08 Law and Real State Income, beertax
