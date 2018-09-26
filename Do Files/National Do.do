@@ -379,7 +379,6 @@ gen otherrace=.
 replace otherrace=1 if inlist(race,1,2,5,8)
 replace otherrace=0 if inlist(race,3,4,6,7)
 
-
 *GRADE
 rename q3 grade
 
@@ -410,6 +409,7 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 *** SSM(VARIABLES)
 *RACE(SSM)
@@ -512,6 +512,8 @@ replace age_new=17 if age==6
 replace age_new=18 if age==7
 >>>>>>> 11e80e93c0129e2724248023492fffc482b9695a
 
+=======
+>>>>>>> parent of 5edf19e... SSM
 save "MML_National_99.dta", replace
 tab fips
 mdesc fips
@@ -607,6 +609,7 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 *** SSM(VARIABLES)
 *RACE(SSM)
@@ -730,6 +733,8 @@ replace age_new=16 if age=="16 years old"
 replace age_new=17 if age=="17 years old"
 replace age_new=18 if age=="18 years old or older"
 >>>>>>> 11e80e93c0129e2724248023492fffc482b9695a
+=======
+>>>>>>> parent of 5edf19e... SSM
 
 save "MML_National_01.dta", replace
 tab fips
@@ -837,8 +842,6 @@ replace age_new=15 if age=="15 years old"
 replace age_new=16 if age=="16 years old"
 replace age_new=17 if age=="17 years old"
 replace age_new=18 if age=="18 years old or older"
-
-
 
 save "MML_National_03.dta", replace
 tab fips
