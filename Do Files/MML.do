@@ -2117,6 +2117,8 @@ append using "MML_CT2017.dta", force
 append using "MML_MA2017.dta", force
 append using "MML_State15.dta", force 
 append using "MML_State17.dta", force
+generate national = 0 
+append using "MML_National.dta", force
 
 qui replace fips=1 if state=="Alabama"
 qui replace fips=2 if state=="Alaska"
