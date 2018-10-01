@@ -2207,14 +2207,29 @@ keep fips year weight age14 age15 age16 age17 age18 age_new race4 white black //
 hispanic otherrace race4 male female ///
 marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12
 
-
+***MERGE IN UNEMPLOYMENT CONTROLS
 merge m:1 fips year using "controls_unempl_2017.dta"
 drop if _merge==2
+drop beertax
 drop _merge
 
 merge m:1 fips using "mmlyears.dta"
 drop if _merge==2
 drop _merge
+
+merge m:1 fips year using "controls.dta"
+drop if _merge==2
+drop _merge
+
+merge m:1 fips year using "BACcontrol.dta"
+drop if _merge==2
+drop _merge
+replace BAC08 = 1 if year>=2012
+
+merge m:1 fips year using "incomecontrol.dta"
+drop if _merge==2
+drop _merge
+
 ***creating mml variable
 gen mml=.
 replace mml=1 if year>= mml_year

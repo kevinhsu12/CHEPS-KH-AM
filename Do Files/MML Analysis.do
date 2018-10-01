@@ -32,6 +32,7 @@ table state year
 **************************
 gen other_race = 1 if otherrace==1 | hispanic == 1
 replace other_race = 0 if otherrace==0 & hispanic == 0
+drop hispanic
 
 replace otherrace = other_race
 
@@ -63,14 +64,7 @@ gen seer_year=year
 merge m:1 fips seer_year age white black otherrace male female using "seer_weights_mml.dta"
 drop if _merge==2
 drop _merge
-/*
-drop if inlist(state, "Florida", "Georgia", "Hawaii", "Indiana", "Lousiana")
-drop if inlist(state,"Massachusetts", "Ohio", "Oklahoma", "Pennsylvania", "Virginia", "Wyoming")
-drop if state=="Montana" & year==2011
-drop if state=="Vermont" & year==2011
-*/
-***weighted means graph***
-***it's not inlcuding 2017 and idk why***
+
 preserve
 collapse (mean) marijuana30 mfreq mschool [aweight=seer_weight], by(seer_year)
 
@@ -89,3 +83,13 @@ subtitle(State YRBS 1993-2011) xlabel(1993(2)2011) legend(on) ///
 legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("Unweighted Means")
 
 restore
+
+
+*** REGRESSION TABLE 1
+xi:reg marijuana30 mml age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,1993,2011), cl(fips) level(95)
+
+xi:reg marijuana30 mml age male grade10 grade11 grade12 black otherrace ///
+ MJ_decrim BAC08 beertax lnpcinc unemployment ///
+ i.fips i.year if inrange(year,1991,2011), cl(fips) level(95)
+

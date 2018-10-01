@@ -18,9 +18,9 @@ set more 1
 ***1993***
 **********
 capture use "NYRBS_1993.dta", clear
-
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1993.dta", clear
 capture rename stfips fips
-gen year=1993
+capture gen year=1993
 
 *MML
 gen marijuana30=.
@@ -124,9 +124,11 @@ mdesc fips
 ***1995***
 **********
 capture use "NYRBS_1995.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1995.dta", clear
+
 
 capture rename stfips fips
-gen year=1995
+capture gen year=1995
 
 *MML
 gen marijuana30=.
@@ -148,9 +150,9 @@ replace mschool=0 if q44=="0 times"
 *1
 
 gen drugschool=.
-replace drugschool=1 if q53=="yes"
+replace drugschool=1 if q53=="Yes"
 *1
-replace drugschool=0 if q53=="no"
+replace drugschool=0 if q53=="No"
 *2
 
 *RACE
@@ -203,12 +205,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -230,9 +232,11 @@ mdesc fips
 ***1997***
 **********
 capture use "NYRBS_1997.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1997.dta", clear
+
 
 capture rename stfips fips
-gen year=1997
+capture gen year=1997
 
 *MML, 43, 43, 44, 53
 
@@ -256,9 +260,9 @@ replace mschool=0 if q44=="0 times"
 *1
 
 gen drugschool=.
-replace drugschool=1 if q53=="yes"
+replace drugschool=1 if q53=="Yes"
 *1
-replace drugschool=0 if q53=="no"
+replace drugschool=0 if q53=="No"
 *2
 
 *RACE
@@ -338,9 +342,11 @@ mdesc fips
 ***1999***  ***NOT STRING***
 **********
 capture use "NYRBS_1999.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1999.dta", clear
+
 
 capture rename stfips fips
-gen year=1999
+capture gen year=1999
 
 *MML, 46, 46, 47, 56
 gen marijuana30=.
@@ -409,111 +415,14 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-*** SSM(VARIABLES)
-*RACE(SSM)
-generate race4 = 1 if race==6
-generate race4 = 2 if race==3
-generate race4 = 3 if inlist(race,4,7)
-generate race4 = 4 if inlist(race,1,2,5,8)
-*** AGE VARIABLES ***
-rename q1 age
-tab age
-mdesc age
-***Age 14
-*Category is described as 14 years or younger
-qui gen age14 = 0 if inlist(age, 4, 5, 6, 7)
-qui replace age14 = 1 if inrange(age,1,3)
-tab age14
-***Age 15
-qui gen age15 = 0 if inlist(age, 1, 2, 3, 5, 6, 7)
-qui replace age15 = 1 if age == 4
-tab age15
-***Age 16
-qui gen age16 = 0 if inlist(age, 1, 2, 3, 4, 6, 7)
-qui replace age16 = 1 if age == 5
-tab age16
-***Age 17
-qui gen age17 = 0 if inlist(age, 1, 2, 3, 4, 5, 7)
-qui replace age17 = 1 if age == 6
-tab age17
-**Age 18
-*Category is described as 18 years or older
-qui gen age18 = 0 if inlist(age, 1, 2, 3, 4, 5, 6)
-qui replace age18 = 1 if age == 7
-tab age18
 ***Actual Age
+rename q1 age
 qui gen age_new = age + 11
 tab age_new
 
 gen age_new = age+11
 
-*** SUICIDE ATTEMPT VARIABLE *** Q25
-qui gen suicideattempt = 0 if q25==1
-qui replace suicideattempt = 1 if inrange(q25,2,5)
-tab suicideattempt
 
-*** DEPRESSION VARIABLE *** Q22
-qui gen depression = 0 if q22==2
-qui replace depression = 1 if q22==1
-tab depression
-
-*** SUICIDE IDEATION *** Q23
-qui gen suicideideation = 0 if q23==2
-qui replace suicideideation = 1 if q23==1
-tab suicideideation
-
-*** SUICIDE PLAN *** Q24
-qui gen suicideplan = 0 if q24 == 2
-qui replace suicideplan = 1 if q24==1
-tab suicideplan
-
-*** SEX MINORITY *** 
-*MISSING
-
-*
-*** JUICE CONSUMPTION *** Q72
-qui gen juiceconsump=1 if inrange(q72,2,7)
-qui replace juiceconsump=0 if q72==1
-tab juiceconsump
-
-*** CARROT CONSUMPTION *** Q76
-
-qui gen carrotconsump=1 if inrange(q76,2,7)
-qui replace carrotconsump=0 if q76==1
-tab carrotconsump
-
-*** SEATBELT USE *** Q9
-qui gen nrseatbelt=1 if inrange(q9,1,2)
-qui replace nrseatbelt=0 if inrange(q9,3,5)
-tab nrseatbelt
-
-*** GRADE/CLASSROOM ***
-tab grade
-mdesc grade
-qui replace grade = 9 if grade == 1
-qui replace grade = 10 if grade == 2
-qui replace grade = 11 if grade == 3
-qui replace grade = 12 if grade == 4
-qui replace grade = 0 if grade == 5
-tab grade
-=======
-*AGE
-rename q1 age
-
-gen age_new=.
-replace age_new=12 if age==1
-replace age_new=13 if age==2
-replace age_new=14 if age==3
-replace age_new=15 if age==4
-replace age_new=16 if age==5
-replace age_new=17 if age==6
-replace age_new=18 if age==7
->>>>>>> 11e80e93c0129e2724248023492fffc482b9695a
-
-=======
->>>>>>> parent of 5edf19e... SSM
 save "MML_National_99.dta", replace
 tab fips
 mdesc fips
@@ -522,9 +431,11 @@ mdesc fips
 ***2001***
 **********
 capture use "NYRBS_2001.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2001.dta", clear
+
 
 capture rename stfips fips
-gen year=2001
+capture gen year=2001
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -609,8 +520,7 @@ gen female=.
 replace female=1 if sex=="female"
 replace female=0 if sex=="male"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 *** SSM(VARIABLES)
 *RACE(SSM)
 sort race
@@ -620,107 +530,6 @@ generate race4 = 2 if raceeth==3
 generate race4 = 3 if inlist(raceeth,4,6)
 generate race4 = 4 if inlist(raceeth,1,2,7,8)
 
-/*
-Am Indian / Alaska Native |        211        1.55        1.55
-                    Asian |        409        3.01        4.56
-Black or African American |      2,614       19.22       23.78
-       Hispanic or Latino |      2,974       21.87       45.64
-                  Missing |        200        1.47       47.11
-      Multiple - Hispanic |        352        2.59       49.70
-  Multiple - Non-hispanic |        378        2.78       52.48
- Native Hawaiian/other PI |        127        0.93       53.42
-                    White |      6,336       46.58      100.00
-
-*/
-*** AGE VARIABLES ***
-sort q1
-encode q1, gen(age)
-***Age 14
-*Category is described as 14 years or younger
-qui gen age14 = 0 if inlist(age, 4, 5, 6, 7)
-qui replace age14 = 1 if inrange(age,1,3)
-tab age14
-***Age 15
-qui gen age15 = 0 if inlist(age, 1, 2, 3, 5, 6, 7)
-qui replace age15 = 1 if age == 4
-tab age15
-***Age 16
-qui gen age16 = 0 if inlist(age, 1, 2, 3, 4, 6, 7)
-qui replace age16 = 1 if age == 5
-tab age16
-***Age 17
-qui gen age17 = 0 if inlist(age, 1, 2, 3, 4, 5, 7)
-qui replace age17 = 1 if age == 6
-tab age17
-**Age 18
-*Category is described as 18 years or older
-qui gen age18 = 0 if inlist(age, 1, 2, 3, 4, 5, 6)
-qui replace age18 = 1 if age == 7
-tab age18
-***Actual Age
-qui gen age_new = age + 11
-tab age_new
-
-gen age_new = age+11
-
-*** SUICIDE ATTEMPT VARIABLE *** Q26
-sort q26
-encode q26, gen(suicide)
-qui gen suicideattempt = 0 if suicide==1
-qui replace suicideattempt = 1 if inrange(suicide,2,5)
-tab suicideattempt
-
-*** DEPRESSION VARIABLE *** Q23
-qui gen depression = 0 if q23=="No"
-qui replace depression = 1 if q23=="Yes"
-tab depression
-
-*** SUICIDE IDEATION *** Q24
-qui gen suicideideation = 0 if q24=="No"
-qui replace suicideideation = 1 if q24=="Yes"
-tab suicideideation
-
-*** SUICIDE PLAN *** Q25
-qui gen suicideplan = 0 if q25 == "No"
-qui replace suicideplan = 1 if q25== "Yes"
-tab suicideplan
-
-*** SEX MINORITY *** 
-*MISSING
-
-*
-*** JUICE CONSUMPTION *** Q73
-sort q73
-encode q73, gen(juice)
-qui gen juiceconsump=1 if inrange(juice,1,6)
-qui replace juiceconsump=0 if q73==7
-tab juiceconsump
-
-*** CARROT CONSUMPTION *** Q77
-sort q77
-encode q77, gen(carrot)
-qui gen carrotconsump=1 if inrange(carrot,1,6)
-qui replace carrotconsump=0 if q76==7
-tab carrotconsump
-
-*** SEATBELT USE *** Q9
-sort q10
-encode q10, gen(seatbelt)
-qui gen nrseatbelt=1 if inlist(seatbelt,4,5)
-qui replace nrseatbelt=0 if inrange(seatbelt,1,3)
-tab nrseatbelt
-
-*** GRADE/CLASSROOM ***
-sort grade
-encode grade, gen(grade_)
-qui replace grade = 9 if grade == 4
-qui replace grade = 10 if grade == 1
-qui replace grade = 11 if grade == 2
-qui replace grade = 12 if grade == 3
-qui replace grade = 0 if grade == 5
-tab grade
-
-=======
 *AGE
 rename q1 age
 
@@ -732,9 +541,7 @@ replace age_new=15 if age=="15 years old"
 replace age_new=16 if age=="16 years old"
 replace age_new=17 if age=="17 years old"
 replace age_new=18 if age=="18 years old or older"
->>>>>>> 11e80e93c0129e2724248023492fffc482b9695a
-=======
->>>>>>> parent of 5edf19e... SSM
+
 
 save "MML_National_01.dta", replace
 tab fips
@@ -744,9 +551,11 @@ mdesc fips
 ***2003***
 **********
 capture use "NYRBS_2003.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2003.dta", clear
+
 
 capture rename stfips fips
-gen year=2003
+capture gen year=2003
 
 *MML, 46, 46, 47, 57
 gen marijuana30=.
@@ -851,9 +660,11 @@ mdesc fips
 ***2005*** ***NOT STRING
 **********
 capture use "NYRBS_2005.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2005.dta", clear
+
 
 capture rename stfips fips
-gen year=2005
+capture gen year=2005
 
 *MML, 46, 46, 47, 56
 gen marijuana30=.
@@ -942,9 +753,11 @@ mdesc fips
 ***2007*** ***NOT STRING
 **********
 capture use "NYRBS_2007.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2007.dta", clear
+
 
 capture rename stfips fips
-gen year=2007
+capture gen year=2007
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -1031,9 +844,11 @@ mdesc fips
 ***2009*** ***NOT STRING
 **********
 capture use "NYRBS_2009.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2009.dta", clear
+
 
 capture rename stfips fips
-gen year=2009
+capture gen year=2009
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -1120,9 +935,11 @@ mdesc fips
 ***2011*** ***NOT STRING
 **********
 capture use "NYRBS_2011.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2011.dta", clear
+
 
 capture rename stfips fips
-gen year=2011
+capture gen year=2011
 
 *MML, 48, 48, 49, 59
 gen marijuana30=.
@@ -1209,9 +1026,11 @@ mdesc fips
 ***2013*** 
 **********
 capture use "NYRBS_2013.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2013.dta", clear
+
 
 capture rename stfips fips
-gen year=2013
+capture gen year=2013
 
 *MML, 49, 49, 58
 gen marijuana30=.
@@ -1312,9 +1131,11 @@ mdesc fips
 ***2015***
 **********
 capture use "NYRBS_2015.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2015.dta", clear
+
 
 capture rename stfips fips
-gen year=2015
+capture gen year=2015
 
 *MML, 49, 49, 59
 gen marijuana30=.
@@ -1413,9 +1234,11 @@ mdesc fips
 ***2017***
 **********
 capture use "NYRBS_2017.dta", clear
+capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2017.dta", clear
+
 
 capture rename stfips fips
-gen year=2017
+capture gen year=2017
 
 *MML, 48, 48, 58
 gen marijuana30=.
