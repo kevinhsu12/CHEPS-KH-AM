@@ -167,7 +167,7 @@ mdesc race4
 label define race_names 1 "White" 2 "Black" 3 "Hispanic" 4 "Other"
 label values race4 race_names
 *** White
-qui gen white = 0 if inrange(race4, 2, 4)
+qui gen white = 0 if inrange(race4,2, 4)
 qui replace white = 1 if race4 == 1
 tab white
 *** Black
@@ -179,7 +179,7 @@ qui gen hispanic = 0 if inlist(race4, 1, 2, 4)
 qui replace hispanic = 1 if race4 == 3
 tab hispanic
 *** Other Race
-qui gen otherrace = 0 if inrange(race4, 1,3)
+qui gen otherrace = 0 if inrange(race4,1,3)
 qui replace otherrace = 1 if race4 == 4
 tab otherrace
 
@@ -2011,33 +2011,6 @@ qui gen otherrace = 0 if inrange(race4, 1,3)
 qui replace otherrace = 1 if race4 == 4
 tab otherrace
 
-*** RACE VARIABLES 2 (hispanic without mixed) ***
-qui gen race4_new =.
-qui replace race4_new = 1 if q4==2 & strpos(q5,"H")>0
-qui replace race4_new = 4 if strlen(q5)>0 & race4_new==.
-qui replace race4_new = 4 if strlen(q5)>1
-qui replace race4_new = 2 if q4==2 & strpos(q5,"B")>0
-qui replace race4_new = 3 if q4==1 & race4_new==.
-qui replace race4_new = . if q4==.
-label values race4_new race_names
-tab race4_new
-mdesc race4_new
-*** White
-qui gen white2 = 0 if inrange(race4_new, 2, 4)
-qui replace white2 = 1 if race4_new == 1
-tab white2
-*** Black
-qui gen black2 = 0 if inlist(race4_new, 1, 3, 4)
-qui replace black2 = 1 if race4_new == 2
-tab black2
-*** Hispanic
-qui gen hispanic2 = 0 if inlist(race4_new, 1, 2, 4)
-qui replace hispanic2 = 1 if race4_new == 3
-tab hispanic2
-*** Other Race
-qui gen otherrace2 = 0 if inrange(race4_new, 1,3)
-qui replace otherrace2 = 1 if race4_new == 4
-tab otherrace2
 
 ** Compare the two race variables
 tab race4
@@ -2121,6 +2094,7 @@ generate national = 0
 append using "MML_National.dta", force
 
 qui replace fips=1 if state=="Alabama"
+
 qui replace fips=2 if state=="Alaska"
 qui replace fips=4 if state=="Arizona"
 qui replace fips=5 if state=="Arkansas"
@@ -2174,7 +2148,7 @@ qui replace fips=56 if state=="Wyoming"
 
 drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
 
-drop if inlist(fips,11,27,41,53)
+drop if inlist(fips,3,11,27,41,53)
 
 label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 "California" 8 "Colorado" 9 "Connecticut" 10 "Delaware" 11 "District of Columbia" ///
@@ -2189,25 +2163,21 @@ label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 55 "Wisconsin" 56 "Wyoming"
 
 ***separate grade
-gen grade9=.
 replace grade9=1 if grade==9
 replace grade9=0 if inlist(grade,10,11,12)
 
-gen grade10=.
 replace grade10=1 if grade==10
 replace grade10=0 if inlist(grade,9,11,12)
 
-gen grade11=.
 replace grade11=1 if grade==11
 replace grade11=0 if inlist(grade,9,10,12)
 
-gen grade12=.
 replace grade12=1 if grade==12
 replace grade12=0 if inlist(grade,9,10,11)
 
 keep fips year weight age14 age15 age16 age17 age18 age_new race4 white black ///
 hispanic otherrace race4 male female ///
-marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12
+marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12 national
 
 ***MERGE IN UNEMPLOYMENT CONTROLS
 merge m:1 fips year using "controls_unempl_2017.dta"
@@ -2237,6 +2207,59 @@ gen mml=.
 replace mml=1 if year>= mml_year
 replace mml=0 if mml_year>year
 replace mml=0 if mml_year==.
+
+*****************************
+*** COMPARE YEARS OF DATA ***
+*****************************
+
+table state year 
+
+
+****************************
+*** Fix up Year and Race ***
+****************************
+rename age_new age
+
+
+gen other_race = 1 if otherrace==1 | hispanic == 1
+replace other_race = 0 if otherrace==0 
+
+replace otherrace = other_race
+drop other_race
+drop hispanic
+
+
+***merge in seer weight
+gen seer_year=year
+*capture merge m:1 fips seer_year age white black otherrace male female using "F:\MML project\data\seer_weights.dta"
+merge m:1 fips seer_year age white black otherrace male female using "seer_weights_mml.dta"
+drop if _merge==2
+drop _merge
+
+gen time = 1 if year==1993
+forvalues i = 2(1)15 {
+replace time = `i' if year==1991 + 2 *`i'
+}
+
+
+label variable age "Age"
+label variable male "Male"
+label variable grade9 "Grade 9"
+label variable grade10 "Grade 10"
+label variable grade11 "Grade 11"
+label variable grade12 "Grade 12"
+label variable black "Black"
+label variable white "White"
+label variable otherrace "Other Race"
+label variable MJ_decrim "Decriminalization Law"
+label variable BAC08 "BAC 0.08 Law"
+label variable beertax "Beer Tax"
+label variable lnpcinc "State Income per Capita"
+label variable unemployment "State Unemployment Rate"
+label variable marijuana30 "Marijuana Use in Past 30 days"
+label variable mfreq "Frequent Marijuana Use in Past 30 Days"
+label variable drugschool "Offered, Sold, or Given Drug on School Property"
+label variable mschool "Marijuana Use at School in Past 30 days"
 
 
 

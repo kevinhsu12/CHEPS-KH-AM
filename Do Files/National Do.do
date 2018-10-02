@@ -19,8 +19,10 @@ set more 1
 **********
 capture use "NYRBS_1993.dta", clear
 capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1993.dta", clear
+
+
 capture rename stfips fips
-capture gen year=1993
+gen year=1993
 
 *MML
 gen marijuana30=.
@@ -42,37 +44,32 @@ replace mschool=0 if q46=="0 times"
 *1
 
 gen drugschool=.
-replace drugschool=1 if q54=="yes"
+replace drugschool=1 if q54=="Yes"
 *1
-replace drugschool=0 if q54=="no"
+replace drugschool=0 if q54=="No"
 *2
 
 *RACE
-rename q4 race
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
+sort q4
+encode q4, gen(drace)
 
 gen white=.
-replace white=1 if race=="White - not Hispanic"
-*1
-replace white=0 if inlist(race,"Asian or Pacific Islander", "Black - not Hispanic", "Hispanic", "Native American or Alaskan", "Other")
-*2,3,4,5,6
+replace white=1 if drace==7
+replace white=0 if inlist(drace,1,2,3,5,6)
 
 gen black=.
-replace black=1 if race=="Black - not Hispanic"
-*2
-replace black=0 if inlist(race,"Asian or Pacific Islander", "White - not Hispanic", "Hispanic", "Native American or Alaskan", "Other")
-*1,3,4,5,6
+replace black=1 if drace==2
+replace black=0 if inlist(drace,1,3,5,6,7)
 
 gen hispanic=.
-replace hispanic=1 if race=="Hispanic"
-*3
-replace hispanic=0 if inlist(race,"Asian or Pacific Islander", "Black - not Hispanic", "White - not Hispanic", "Native American or Alaskan", "Other")
-*1,2,4,5,6
+replace hispanic=1 if drace==3
+replace hispanic=0 if inlist(drace,1,2,5,6,7)
 
 gen otherrace=.
-replace otherrace=1 if inlist(race,"Asian or Pacific Islander", "Native American or Alaskan", "Other")
-*4,5,6
-replace otherrace=0 if inlist(race,"White - not Hispanic", "Black - not Hispanic", "Hispanic")
-*1,2,3
+replace otherrace=1 if inlist(drace,1,5,6)
+replace otherrace=0 if inlist(drace,2,3,7)
+
 
 *GRADE
 rename q3 grade
@@ -97,12 +94,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -128,7 +125,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1995.dta", c
 
 
 capture rename stfips fips
-capture gen year=1995
+gen year=1995
 
 *MML
 gen marijuana30=.
@@ -156,31 +153,25 @@ replace drugschool=0 if q53=="No"
 *2
 
 *RACE
-rename q4 race
+sort q4
+encode q4, gen(drace)
 
 gen white=.
-replace white=1 if race=="White - not Hispanic"
-*1
-replace white=0 if inlist(race,"Asian or Pacific Islander", "Black - not Hispanic", "Hispanic", "Native American or Alaskan", "Other")
-*2,3,4,5,6
+replace white=1 if drace==7
+replace white=0 if inlist(drace,1,2,3,5,6)
 
 gen black=.
-replace black=1 if race=="Black - not Hispanic"
-*2
-replace black=0 if inlist(race,"Asian or Pacific Islander", "White - not Hispanic", "Hispanic", "Native American or Alaskan", "Other")
-*1,3,4,5,6
+replace black=1 if drace==2
+replace black=0 if inlist(drace,1,3,5,6,7)
 
 gen hispanic=.
-replace hispanic=1 if race=="Hispanic"
-*3
-replace hispanic=0 if inlist(race,"Asian or Pacific Islander", "Black - not Hispanic", "White - not Hispanic", "Native American or Alaskan", "Other")
-*1,2,4,5,6
+replace hispanic=1 if drace==3
+replace hispanic=0 if inlist(drace,1,2,5,6,7)
 
 gen otherrace=.
-replace otherrace=1 if inlist(race,"Asian or Pacific Islander", "Native American or Alaskan", "Other")
-*4,5,6
-replace otherrace=0 if inlist(race,"White - not Hispanic", "Black - not Hispanic", "Hispanic")
-*1,2,3
+replace otherrace=1 if inlist(drace,1,5,6)
+replace otherrace=0 if inlist(drace,2,3,7)
+
 
 *GRADE
 rename q3 grade
@@ -236,7 +227,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1997.dta", c
 
 
 capture rename stfips fips
-capture gen year=1997
+gen year=1997
 
 *MML, 43, 43, 44, 53
 
@@ -266,31 +257,25 @@ replace drugschool=0 if q53=="No"
 *2
 
 *RACE
-rename q4 race
+sort q4
+encode q4, gen(drace)
 
 gen white=.
-replace white=1 if race=="White - not Hispanic"
-*1
-replace white=0 if inlist(race,"Asian or Pacific Islander", "Black - not Hispanic", "Hispanic", "Native American or Alaskan", "Other")
-*2,3,4,5,6
+replace white=1 if drace==7
+replace white=0 if inlist(drace,1,2,3,5,6)
 
 gen black=.
-replace black=1 if race=="Black - not Hispanic"
-*2
-replace black=0 if inlist(race,"Asian or Pacific Islander", "White - not Hispanic", "Hispanic", "Native American or Alaskan", "Other")
-*1,3,4,5,6
+replace black=1 if drace==2
+replace black=0 if inlist(drace,1,3,5,6,7)
 
 gen hispanic=.
-replace hispanic=1 if race=="Hispanic"
-*3
-replace hispanic=0 if inlist(race,"Asian or Pacific Islander", "Black - not Hispanic", "White - not Hispanic", "Native American or Alaskan", "Other")
-*1,2,4,5,6
+replace hispanic=1 if drace==3
+replace hispanic=0 if inlist(drace,1,2,5,6,7)
 
 gen otherrace=.
-replace otherrace=1 if inlist(race,"Asian or Pacific Islander", "Native American or Alaskan", "Other")
-*4,5,6
-replace otherrace=0 if inlist(race,"White - not Hispanic", "Black - not Hispanic", "Hispanic")
-*1,2,3
+replace otherrace=1 if inlist(drace,1,5,6)
+replace otherrace=0 if inlist(drace,2,3,7)
+
 
 *GRADE
 rename q3 grade
@@ -315,12 +300,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -346,7 +331,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_1999.dta", c
 
 
 capture rename stfips fips
-capture gen year=1999
+gen year=1999
 
 *MML, 46, 46, 47, 56
 gen marijuana30=.
@@ -366,7 +351,6 @@ replace drugschool=1 if q56==1
 replace drugschool=0 if q56==2
 
 *RACE
-**hispanic = hispanic/latino (4) + multiple-hispanic (7)
 rename q4 race
 
 gen white=.
@@ -379,7 +363,7 @@ replace black=0 if inlist(race,1,2,4,5,6,7,8)
 
 gen hispanic=.
 replace hispanic=1 if inlist(race,4,7)
-replace hispanic=0 if inlist(race,1,2,3,5,6)
+replace hispanic=0 if inlist(race,1,2,3,5,6,8)
 
 gen otherrace=.
 replace otherrace=1 if inlist(race,1,2,5,8)
@@ -415,13 +399,17 @@ gen female=.
 replace female=1 if sex==1
 replace female=0 if sex==2
 
-***Actual Age
+*AGE
 rename q1 age
-qui gen age_new = age + 11
-tab age_new
 
-gen age_new = age+11
-
+gen age_new=.
+replace age_new=12 if age==1
+replace age_new=13 if age==2
+replace age_new=14 if age==3
+replace age_new=15 if age==4
+replace age_new=16 if age==5
+replace age_new=17 if age==6
+replace age_new=18 if age==7
 
 save "MML_National_99.dta", replace
 tab fips
@@ -435,7 +423,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2001.dta", c
 
 
 capture rename stfips fips
-capture gen year=2001
+gen year=2001
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -457,38 +445,31 @@ replace mschool=0 if q48=="0 times"
 *1
 
 gen drugschool=.
-replace drugschool=1 if q57=="yes"
+replace drugschool=1 if q57=="Yes"
 *1
-replace drugschool=0 if q57=="no"
+replace drugschool=0 if q57=="No"
 *2
 
 *RACE
-**hispanic = hispanic/latino (4) + multiple-hispanic (7)
-rename q4 race
+**hispanic = hispanic/latiNo (4) + multiple-hispanic (7)
+sort q4
+encode q4, gen(drace)
 
 gen white=.
-replace white=1 if race=="White"
-*6
-replace white=0 if inlist(race,"Am Indian / Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Multiple - Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,3,4,5,7,8
+replace white=1 if drace==9
+replace white=0 if inlist(drace,1,2,3,4,6,7,8)
 
 gen black=.
-replace black=1 if race=="Black or African American"
-*3
-replace black=0 if inlist(race,"White", "Am Indian / Alaska Native", "Asian", "Hispanic or Latino", "Multiple - Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,4,5,6,7,8
+replace black=1 if drace==3
+replace black=0 if inlist(drace,1,2,4,6,7,8,9)
 
 gen hispanic=.
-replace hispanic=1 if inlist(race,"Hispanic or Latino", "Multiple - Hispanic")
-*4,7
-replace hispanic=0 if inlist(race,"White", "Am Indian / Alaska Native", "Asian", "Black or African American", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,3,5,6
+replace hispanic=1 if inlist(drace,4,6)
+replace hispanic=0 if inlist(drace,1,2,3,7,8,9)
 
 gen otherrace=.
-replace otherrace=1 if inlist(race,"Am Indian / Alaska Native", "Asian", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,5,8
-replace otherrace=0 if inlist(race,"Black or African American", "Hispanic or Latino", "Multiple - Hispanic", "White")
-*3,4,6,7
+replace otherrace=1 if inlist(drace,1,2,7,8)
+replace otherrace=0 if inlist(drace,3,4,6,9)
 
 *GRADE
 rename q3 grade
@@ -513,22 +494,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
-
-
-*** SSM(VARIABLES)
-*RACE(SSM)
-sort race
-encode race, gen(raceeth)
-generate race4 = 1 if raceeth==9
-generate race4 = 2 if raceeth==3
-generate race4 = 3 if inlist(raceeth,4,6)
-generate race4 = 4 if inlist(raceeth,1,2,7,8)
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -542,7 +513,6 @@ replace age_new=16 if age=="16 years old"
 replace age_new=17 if age=="17 years old"
 replace age_new=18 if age=="18 years old or older"
 
-
 save "MML_National_01.dta", replace
 tab fips
 mdesc fips
@@ -555,7 +525,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2003.dta", c
 
 
 capture rename stfips fips
-capture gen year=2003
+gen year=2003
 
 *MML, 46, 46, 47, 57
 gen marijuana30=.
@@ -577,38 +547,31 @@ replace mschool=0 if q47=="0 times"
 *1
 
 gen drugschool=.
-replace drugschool=1 if q57=="yes"
+replace drugschool=1 if q57=="Yes"
 *1
-replace drugschool=0 if q57=="no"
+replace drugschool=0 if q57=="No"
 *2
 
 *RACE
-**hispanic = hispanic/latino (4) + multiple-hispanic (7)
-rename q4 race
+**hispanic = hispanic/latiNo (4) + multiple-hispanic (7)
+sort q4
+encode q4, gen(drace)
 
 gen white=.
-replace white=1 if race=="White"
-*6
-replace white=0 if inlist(race,"Am Indian / Alaska Native", "Asian", "Black or African American", "Hispanic or Latino", "Multiple - Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,3,4,5,7,8
+replace white=1 if drace==9
+replace white=0 if inlist(drace,1,2,3,4,6,7,8)
 
 gen black=.
-replace black=1 if race=="Black or African American"
-*3
-replace black=0 if inlist(race,"White", "Am Indian / Alaska Native", "Asian", "Hispanic or Latino", "Multiple - Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,4,5,6,7,8
+replace black=1 if drace==3
+replace black=0 if inlist(drace,1,2,4,6,7,8,9)
 
 gen hispanic=.
-replace hispanic=1 if inlist(race,"Hispanic or Latino", "Multiple - Hispanic")
-*4,7
-replace hispanic=0 if inlist(race,"White", "Am Indian / Alaska Native", "Asian", "Black or African American", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,3,5,6
+replace hispanic=1 if inlist(drace,4,6)
+replace hispanic=0 if inlist(drace,1,2,3,7,8,9)
 
 gen otherrace=.
-replace otherrace=1 if inlist(race,"Am Indian / Alaska Native", "Asian", "Multiple - Non-hispanic", "Native Hawaiian/other PI")
-*1,2,5,8
-replace otherrace=0 if inlist(race,"Black or African American", "Hispanic or Latino", "Multiple - Hispanic", "White")
-*3,4,6,7
+replace otherrace=1 if inlist(drace,1,2,7,8)
+replace otherrace=0 if inlist(drace,3,4,6,9)
 
 *GRADE
 rename q3 grade
@@ -633,12 +596,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -664,7 +627,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2005.dta", c
 
 
 capture rename stfips fips
-capture gen year=2005
+gen year=2005
 
 *MML, 46, 46, 47, 56
 gen marijuana30=.
@@ -684,7 +647,6 @@ replace drugschool=1 if q56==1
 replace drugschool=0 if q56==2
 
 *RACE
-**hispanic = hispanic/latino (4) + multiple-hispanic (7)
 rename q4 race
 
 gen white=.
@@ -697,7 +659,7 @@ replace black=0 if inlist(race,1,2,4,5,6,7,8)
 
 gen hispanic=.
 replace hispanic=1 if inlist(race,4,7)
-replace hispanic=0 if inlist(race,1,2,3,5,6)
+replace hispanic=0 if inlist(race,1,2,3,5,6,8)
 
 gen otherrace=.
 replace otherrace=1 if inlist(race,1,2,5,8)
@@ -757,7 +719,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2007.dta", c
 
 
 capture rename stfips fips
-capture gen year=2007
+gen year=2007
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -777,7 +739,7 @@ replace drugschool=1 if q57==1
 replace drugschool=0 if q57==2
 
 *RACE
-**hispanic = hispanic/latino (6) + multiple-hispanic (7)
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
 gen white=.
 replace white=1 if raceeth==5
 replace white=0 if inlist(raceeth,1,2,3,4,6,7,8)
@@ -848,7 +810,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2009.dta", c
 
 
 capture rename stfips fips
-capture gen year=2009
+gen year=2009
 
 *MML, 47, 47, 48, 57
 gen marijuana30=.
@@ -868,7 +830,7 @@ replace drugschool=1 if q57==1
 replace drugschool=0 if q57==2
 
 *RACE
-**hispanic = hispanic/latino (6) + multiple-hispanic (7)
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
 gen white=.
 replace white=1 if raceeth==5
 replace white=0 if inlist(raceeth,1,2,3,4,6,7,8)
@@ -939,7 +901,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2011.dta", c
 
 
 capture rename stfips fips
-capture gen year=2011
+gen year=2011
 
 *MML, 48, 48, 49, 59
 gen marijuana30=.
@@ -959,7 +921,7 @@ replace drugschool=1 if q59==1
 replace drugschool=0 if q59==2
 
 *RACE
-**hispanic = hispanic/latino (6) + multiple-hispanic (7)
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
 gen white=.
 replace white=1 if raceeth==5
 replace white=0 if inlist(raceeth,1,2,3,4,6,7,8)
@@ -1030,7 +992,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2013.dta", c
 
 
 capture rename stfips fips
-capture gen year=2013
+gen year=2013
 
 *MML, 49, 49, 58
 gen marijuana30=.
@@ -1045,41 +1007,36 @@ replace mfreq=1 if inlist(q49,"10 to 19 times", "20 to 39 times", "40 or more ti
 replace mfreq=0 if inlist(q49,"0 times", "1 or 2 times", "3 to 9 times")
 *1,3
 
-*mschool not in survey
+*mschool Not in survey
 
 gen drugschool=.
-replace drugschool=1 if q58=="yes"
+replace drugschool=1 if q58=="Yes"
 *1
-replace drugschool=0 if q58=="no"
+replace drugschool=0 if q58=="No"
 *2
 
-**"Am Indian/Alaska Native", "Asian", "Black or African American", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White"
+**"Am Indian/Alaska Native", "Asian", "Black or African American", "Hispanic/LatiNo", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White"
 
 *RACE
-**hispanic = hispanic/latino (6) + multiple-hispanic (7)
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
+sort raceeth
+encode raceeth, gen(drace)
+
 gen white=.
-replace white=1 if raceeth=="White"
-*5
-replace white=0 if inlist(raceeth,"Am Indian / Alaska Native", "Asian", "Black or African American", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI")
-*1,2,3,4,6,7,8
+replace white=1 if drace==9
+replace white=0 if inlist(drace,1,2,3,4,6,7,8)
 
 gen black=.
-replace black=1 if raceeth=="Black or African American"
-*3
-replace black=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White")
-*1,2,4,5,6,7,8
+replace black=1 if drace==3
+replace black=0 if inlist(drace,1,2,4,6,7,8,9)
 
 gen hispanic=.
-replace hispanic=1 if inlist(raceeth,"Hispanic/Latino", "Multiple-Hispanic")
-*6,7
-replace hispanic=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Black or African American", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White")
-*1,2,3,4,5,8
+replace hispanic=1 if inlist(drace,4,6)
+replace hispanic=0 if inlist(drace,1,2,3,7,8,9)
 
 gen otherrace=.
-replace otherrace=1 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Multiple - Non-hispanic", "Native Hawaiian/Other PI")
-*1,2,4,8
-replace otherrace=0 if inlist(raceeth, "Hispanic/Latino", "Multiple-Hispanic", "White", "Black or African American")
-*3,5,6,7
+replace otherrace=1 if inlist(drace,1,2,7,8)
+replace otherrace=0 if inlist(drace,3,4,6,9)
 
 *GRADE
 rename q3 grade
@@ -1104,12 +1061,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -1135,7 +1092,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2015.dta", c
 
 
 capture rename stfips fips
-capture gen year=2015
+gen year=2015
 
 *MML, 49, 49, 59
 gen marijuana30=.
@@ -1150,39 +1107,34 @@ replace mfreq=1 if inlist(q49,"10 to 19 times", "20 to 39 times", "40 or more ti
 replace mfreq=0 if inlist(q49,"0 times", "1 or 2 times", "3 to 9 times")
 *1,3
 
-*mschool not in survey
+*mschool Not in survey
 
 gen drugschool=.
-replace drugschool=1 if q59=="yes"
+replace drugschool=1 if q59=="Yes"
 *1
-replace drugschool=0 if q59=="no"
+replace drugschool=0 if q59=="No"
 *2
 
 *RACE
-**hispanic = hispanic/latino (6) + multiple-hispanic (7)
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
+sort raceeth
+encode raceeth, gen(drace)
+
 gen white=.
-replace white=1 if raceeth=="White"
-*5
-replace white=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Black or African American", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI")
-*1,2,3,4,6,7,8
+replace white=1 if drace==9
+replace white=0 if inlist(drace,1,2,3,4,6,7,8)
 
 gen black=.
-replace black=1 if raceeth=="Black or African American"
-*3
-replace black=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White")
-*1,2,4,5,6,7,8
+replace black=1 if drace==3
+replace black=0 if inlist(drace,1,2,4,6,7,8,9)
 
 gen hispanic=.
-replace hispanic=1 if inlist(raceeth,"Hispanic/Latino", "Multiple-Hispanic")
-*6,7
-replace hispanic=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Black or African American", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White")
-*1,2,3,4,5,8
+replace hispanic=1 if inlist(drace,4,6)
+replace hispanic=0 if inlist(drace,1,2,3,7,8,9)
 
 gen otherrace=.
-replace otherrace=1 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Multiple - Non-hispanic", "Native Hawaiian/Other PI")
-*1,2,4,8
-replace otherrace=0 if inlist(raceeth, "Hispanic/Latino", "Multiple-Hispanic", "White", "Black or African American")
-*3,5,6,7
+replace otherrace=1 if inlist(drace,1,2,7,8)
+replace otherrace=0 if inlist(drace,3,4,6,9)
 
 *GRADE
 rename q3 grade
@@ -1207,12 +1159,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -1238,7 +1190,7 @@ capture use "/Users/Kevin/Documents/National YRBS /Data Files/NYRBS_2017.dta", c
 
 
 capture rename stfips fips
-capture gen year=2017
+gen year=2017
 
 *MML, 48, 48, 58
 gen marijuana30=.
@@ -1253,39 +1205,34 @@ replace mfreq=1 if inlist(q48,"10 to 19 times", "20 to 39 times", "40 or more ti
 replace mfreq=0 if inlist(q48,"0 times", "1 or 2 times", "3 to 9 times")
 *1,3
 
-*mschool not in survey
+*mschool Not in survey
 
 gen drugschool=.
-replace drugschool=1 if q58=="yes"
+replace drugschool=1 if q58=="Yes"
 *1
-replace drugschool=0 if q58=="no"
+replace drugschool=0 if q58=="No"
 *2
 
 *RACE
-**hispanic = hispanic/latino (6) + multiple-hispanic (7)
+**hispanic = hispanic/latiNo (6) + multiple-hispanic (7)
+sort raceeth
+encode raceeth, gen(drace)
+
 gen white=.
-replace white=1 if raceeth=="White"
-*5
-replace white=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Black or African American", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI")
-*1,2,3,4,6,7,8
+replace white=1 if drace==9
+replace white=0 if inlist(drace,1,2,3,4,6,7,8)
 
 gen black=.
-replace black=1 if raceeth=="Black or African American"
-*3
-replace black=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Hispanic/Latino", "Multiple-Hispanic", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White")
-*1,2,4,5,6,7,8
+replace black=1 if drace==3
+replace black=0 if inlist(drace,1,2,4,6,7,8,9)
 
 gen hispanic=.
-replace hispanic=1 if inlist(raceeth,"Hispanic/Latino", "Multiple-Hispanic")
-*6,7
-replace hispanic=0 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Black or African American", "Multiple - Non-hispanic", "Native Hawaiian/Other PI", "White")
-*1,2,3,4,5,8
+replace hispanic=1 if inlist(drace,4,6)
+replace hispanic=0 if inlist(drace,1,2,3,7,8,9)
 
 gen otherrace=.
-replace otherrace=1 if inlist(raceeth,"Am Indian/Alaska Native", "Asian", "Multiple - Non-hispanic", "Native Hawaiian/Other PI")
-*1,2,4,8
-replace otherrace=0 if inlist(raceeth, "Hispanic/Latino", "Multiple-Hispanic", "White", "Black or African American")
-*3,5,6,7
+replace otherrace=1 if inlist(drace,1,2,7,8)
+replace otherrace=0 if inlist(drace,3,4,6,9)
 
 *GRADE
 rename q3 grade
@@ -1310,12 +1257,12 @@ replace grade12=0 if inlist(grade, "10th grade", "11th grade", "9th grade")
 rename q2 sex
 
 gen male=.
-replace male=1 if sex=="male"
-replace male=0 if sex=="female"
+replace male=1 if sex=="Male"
+replace male=0 if sex=="Female"
 
 gen female=.
-replace female=1 if sex=="female"
-replace female=0 if sex=="male"
+replace female=1 if sex=="Female"
+replace female=0 if sex=="Male"
 
 *AGE
 rename q1 age
@@ -1356,7 +1303,7 @@ drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
 
 label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 "California" 8 "Colorado" 9 "Connecticut" 10 "Delaware" 11 "District of Columbia" ///
-12 "Florida" 13 "Georgia" 15 "Hawaii" 16 "Idaho" 17 "Illinois" 18 "Indiana" ///
+12 "Florida" 13 "Georgia" 15 "Hawaii" 16 "Idaho" 17 "IlliNois" 18 "Indiana" ///
 19 "Iowa" 20 "Kansas" 21 "Kentucky" 22 "Louisiana" 23 "Maine" 24 "Maryland" ///
 25 "Massachusetts" 26 "Michigan" 27 "Minnesota" 28 "Mississippi" 29 ///
 "Missouri" 30 "Montana" 31 "Nebraska" 32 "Nevada" 33 "New Hampshire" 34 ///
@@ -1370,7 +1317,7 @@ label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 *drop variables
 keep fips year age age_new race raceeth white black ///
 hispanic otherrace male female ///
-marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12
+marijuana30 mfreq drugschool mschool grade grade9 grade10 grade11 grade12 weight
 
 *merge files
 merge m:1 fips year using "controls_unempl_2017.dta"
@@ -1383,9 +1330,11 @@ drop _merge
 
 ***creating mml variable
 gen mml=.
-replace mml=1 if year>= MML_year
-replace mml=0 if MML_year>year
-replace mml=0 if MML_year==.
+replace mml=1 if year>= mml_year
+replace mml=0 if mml_year>year
+replace mml=0 if mml_year==.
+
+generate national=1
 
 
 
@@ -1416,3 +1365,6 @@ black white otherrace unemployment if mml==0 // Need BAC .08 Law, Real State Inc
 
 sum marijuana30 mfreq mschool drugschool age_new male grade9 grade10 grade11 grade12 ///
 black white otherrace unemployment if mml==1 // Need BAC .08 Law and Real State Income, beertax
+
+
+
