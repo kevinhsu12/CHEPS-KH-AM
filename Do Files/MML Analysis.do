@@ -21,7 +21,7 @@ use "MMLAnalysis_17.dta", clear
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 i.fips i.year if inrange(year,1993,2011) & national==1, cl(fips) level(95)
 
-outreg2 using `i'_table,  word replace ///
+outreg2 using `i'_table,  word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -30,7 +30,7 @@ xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 beertax lnpcinc unemployment ///
 i.fips i.year if inrange(year,1993,2011) & national==1, cl(fips) level(95)
 
-outreg2 using `i'_table,  word append ///
+outreg2 using `i'_table,  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
 	keep (mml) ///
 	ctitle ("National YRBS") ///
@@ -41,7 +41,7 @@ xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 beertax lnpcinc unemployment ///
 i.fips*time i.year if inrange(year,1993,2011) & national==1, cl(fips) level(95)
 
-outreg2 using `i'_table, word append ///
+outreg2 using `i'_table, word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -50,7 +50,7 @@ outreg2 using `i'_table, word append ///
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 i.fips i.year if inrange(year,1993,2011) & national==0, cl(fips) level(95)
 
-outreg2 using `i'_table,  word append ///
+outreg2 using `i'_table,  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -60,7 +60,7 @@ xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 beertax lnpcinc unemployment ///
 i.fips i.year if inrange(year,1993,2011) & national==0, cl(fips) level(95)
 
-outreg2 using `i'_table, word append ///
+outreg2 using `i'_table, word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
 	keep (mml) ///
 	ctitle ("State YRBS") ///
@@ -71,7 +71,7 @@ xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 beertax lnpcinc unemployment ///
 i.fips*time i.year if inrange(year,1993,2011) & national==0, cl(fips) level(95)
 
-outreg2 using `i'_table,  word append ///
+outreg2 using `i'_table,  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -81,7 +81,7 @@ outreg2 using `i'_table,  word append ///
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 i.fips i.year if inrange(year,1993,2011), cl(fips) level(95)
 
-outreg2 using `i'_table,  word append ///
+outreg2 using `i'_table,  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -91,7 +91,7 @@ xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 beertax lnpcinc unemployment ///
 i.fips i.year if inrange(year,1993,2011), cl(fips) level(95)
 
-outreg2 using `i'_table,  word append ///
+outreg2 using `i'_table,  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
 	keep (mml) ///
 	ctitle ("Combined YRBS") ///
@@ -102,7 +102,7 @@ xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 beertax lnpcinc unemployment ///
 i.fips*time i.year if inrange(year,1993,2011), cl(fips) level(95)
 
-outreg2 using `i'_table,  word append ///
+outreg2 using `i'_table,  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	title ("Table2. Medical Marijuana Laws and Youth Consumption, 1993-2011") ///
@@ -138,7 +138,7 @@ ytitle(Marijuana Use) xtitle(Year) title("Figure 2: Past 30 Day Marijuana Use") 
 subtitle(National YRBS 1993-2011) xlabel(1993(2)2017) legend(on) ///
 legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("SEER Weighted Means") ///
 note("Based on weighted data from the national YRBS") ///
-save "Figure 1 National YRBS", replace
+saving ("Figure 1 National YRBS", replace)
 restore
 
 *** FIGURE 2 - BASED ON UNWEIGHTED DATA FROM STATE YRBS
@@ -151,7 +151,7 @@ ytitle(Marijuana Use) xtitle(Year) title("Figure 2: Past 30 Day Marijuana Use") 
 subtitle(State YRBS 1993-2017) xlabel(1993(2)2017) legend(on) ///
 legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("Unweighted Means")
 note("Based on weighted data from the State YRBS") ///
-save "Figure 2 State YRBS", replace
+saving ("Figure 2 State YRBS", replace)
 restore
 
 *** GEN LAW CHANGE FOR FIGURES 3 & 4
@@ -177,7 +177,7 @@ ytitle(Marijuana Use) xtitle(Year) title("Figure 2: Past 30 Day Marijuana Use") 
 subtitle(State YRBS 1993-2017) xlabel(1993(2)2017) legend(on) ///
 legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("Unweighted Means")
 note("Based on weighted data from the State YRBS") ///
-save "Figure 3 National YRBS", replace
+saving ("Figure 3 National YRBS", replace)
 restore
 
 *** FIGURE 4 - BASED ON UNWEIGHTED DATA FROM THE STATE YRBS
@@ -191,5 +191,5 @@ ytitle(Marijuana Use) xtitle(Year) title("Figure 2: Past 30 Day Marijuana Use") 
 subtitle(State YRBS 1993-2017) xlabel(1993(2)2017) legend(on) ///
 legend( label (1 "Any Use") label (2 "Frequent Use") label (3 "Any Use on School Property")) note("Unweighted Means")
 note("Based on weighted data from the State YRBS") ///
-save "Figure 4 State YRBS", replace
+saving  ("Figure 4 State YRBS", replace)
 restore

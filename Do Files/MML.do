@@ -2012,10 +2012,6 @@ qui replace otherrace = 1 if race4 == 4
 tab otherrace
 
 
-** Compare the two race variables
-tab race4
-tab race4_new
-
 *** SEX VARIABLES ***
 tab q2
 mdesc q2
