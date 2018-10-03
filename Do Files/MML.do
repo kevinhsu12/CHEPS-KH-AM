@@ -2207,10 +2207,9 @@ replace mml=0 if mml_year>year
 replace mml=0 if mml_year==.
 
 *****************************
-*** COMPARE YEARS OF DATA ***
+*** Housing Keeping Stuff ***
 *****************************
-
-table state year 
+replace mfreq = 0 if marijuana30== 0
 
 
 ****************************
