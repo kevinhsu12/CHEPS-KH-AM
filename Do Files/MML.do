@@ -2198,6 +2198,8 @@ merge m:1 fips year using "incomecontrol.dta"
 drop if _merge==2
 drop _merge
 
+gen rbeertax=(beertax*basecpi)/cpi
+
 ***creating mml variable
 gen mml=.
 replace mml=1 if year>= mml_year
