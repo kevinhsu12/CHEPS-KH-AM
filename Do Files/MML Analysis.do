@@ -20,7 +20,7 @@ foreach i in marijuana30  mfreq drugschool mschool  {
 use "MMLAnalysis_17.dta", clear
 *** REGRESSION TABLE 1 - 1993-2017
 *** NATIONAL
-drop if inrange(year,`1',`2')
+keep if inrange(year,`1',`2')
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 i.fips i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
 
@@ -113,17 +113,153 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
 
 	}
+end 
+
+
+program define mml_regress_mschool
+foreach i in mschool {
+use "MMLAnalysis_17.dta", clear
+keep if inrange(year,`1',`2')
+*** STATE
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide replace ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
+
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2', word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	keep (mml) ///
+	ctitle ("State YRBS") ///
+	nocons nor2 dec(4) ///
+
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
+	}
+end
+
+program define mml_regress_other
+foreach i in marijuana30  mfreq drugschool  {
+
+use "MMLAnalysis_17.dta", clear
+keep if inrange(year,`1',`2')
+*** REGRESSION TABLE 1 - 1993-2017
+*** NATIONAL
+drop if inrange(year,`1',`2')
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide replace ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	keep (mml) ///
+	ctitle ("National YRBS") ///
+	nocons nor2 dec(4) ///
 	
 
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2', word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
 	
-	
-end 
+*** STATE
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
+
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2', word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	keep (mml) ///
+	ctitle ("State YRBS") ///
+	nocons nor2 dec(4) ///
+
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
+
+
+*** STATE AND NATIONAL
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,`1',`2'), cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	keep (mml) ///
+	nocons nor2 dec(4) ///
+
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,`1',`2'), cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	keep (mml) ///
+	ctitle ("Combined YRBS") ///
+	nocons nor2 dec(4) ///
+
+
+xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,`1',`2'), cl(fips) level(95)
+
+outreg2 using `i'_table_`1'_`2',  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	keep (mml) ///
+	title ("Table2. Medical Marijuana Laws and Youth Consumption, `1'-`2'") ///
+	nocons nor2 dec(4) ///
+	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
+}
+end
+
 *** REGRESSION 1993-2017	
 mml_regress 1993 2011
 *** REGRESSION 1993-2017
 mml_regress 1993 2017
 *** REGRESSION 2013-2017
-mml_regress 2013 2017
+mml_regress_mschool 2013 2017
+mml_regress_other 2013 2017
 
 
 *** SUMMARY TABLES
