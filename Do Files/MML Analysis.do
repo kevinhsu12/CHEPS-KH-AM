@@ -15,15 +15,16 @@ use "MMLAnalysis_17.dta"
 
 program define mml_regress 
 
-foreach i in mfreq marijuana30 mschool drugschool {
+foreach i in marijuana30  mfreq drugschool mschool  {
 
 use "MMLAnalysis_17.dta", clear
 *** REGRESSION TABLE 1 - 1993-2017
 *** NATIONAL
+drop if inrange(year,`1',`2')
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 i.fips i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
 
-outreg2 using `i'_table_`2',  word wide replace ///
+outreg2 using `i'_table_`1'_`2',  word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -112,13 +113,17 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
 
 	}
+	
+
+	
+	
 end 
 *** REGRESSION 1993-2017	
 mml_regress 1993 2011
-*** REGRESSION 2013-2017
-mml_regress 2013 2017
 *** REGRESSION 1993-2017
 mml_regress 1993 2017
+*** REGRESSION 2013-2017
+mml_regress 2013 2017
 
 
 *** SUMMARY TABLES
