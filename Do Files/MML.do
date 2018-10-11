@@ -2218,13 +2218,11 @@ replace mfreq = 0 if marijuana30== 0
 rename age_new age
 
 
-gen other_race = 1 if otherrace==1 | hispanic == 1
+gen other_race = .
 replace other_race = 0 if otherrace==0 
-
+replace other_race = 1 if otherrace==1 | hispanic==1
 replace otherrace = other_race
 drop other_race
-drop hispanic
-
 
 ***merge in seer weight
 gen seer_year=year
