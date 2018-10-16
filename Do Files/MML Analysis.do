@@ -13,9 +13,9 @@ set more 1
 
 use "MMLAnalysis_17.dta"
 
-program define mml_regress 
+program define table_2
 
-foreach i in marijuana30  mfreq drugschool mschool  {
+foreach i in marijuana30  mfreq  {
 
 use "MMLAnalysis_17.dta", clear
 *** REGRESSION TABLE 1 - 1993-2017
@@ -116,92 +116,32 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 end 
 
 
-program define mml_regress_other
-foreach i in marijuana30  mfreq drugschool  {
+program define table_5
+foreach i in drugschool mschool  {
 use "MMLAnalysis_17.dta", clear
 *** REGRESSION TABLE 1 - 
 *** NATIONAL
-keep if inrange(year,`1',`2')
-xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
-
-outreg2 using `i'_table_`1'_`2',  word wide replace ///
-	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
-	keep (mml) ///
-	nocons nor2 dec(4) ///
-
-xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
-MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
-
-outreg2 using `i'_table_`1'_`2',  word wide append ///
-	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
-	keep (mml) ///
-	ctitle ("National YRBS") ///
-	nocons nor2 dec(4) ///
-	
-
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
 i.fips*time i.year if inrange(year,`1',`2') & national==1, cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2', word wide append ///
+outreg2 using `i'_table_`1'_`2', word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ///
+	keep (mml) ctitle ("National YRBS") ///
 	nocons nor2 dec(4) ///
 	
 *** STATE
-xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
-
-outreg2 using `i'_table_`1'_`2',  word wide append ///
-	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
-	keep (mml) ///
-	nocons nor2 dec(4) ///
-
-
-xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
-MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
-
-outreg2 using `i'_table_`1'_`2', word wide append ///
-	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
-	keep (mml) ///
-	ctitle ("State YRBS") ///
-	nocons nor2 dec(4) ///
-
-
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
 i.fips*time i.year if inrange(year,`1',`2') & national==0, cl(fips) level(95)
 
 outreg2 using `i'_table_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ///
+	keep (mml) ctitle ("State YRBS") ///
 	nocons nor2 dec(4) ///
 
 
 *** STATE AND NATIONAL
-xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year if inrange(year,`1',`2'), cl(fips) level(95)
-
-outreg2 using `i'_table_`1'_`2',  word wide append ///
-	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
-	keep (mml) ///
-	nocons nor2 dec(4) ///
-
-
-xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
-MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year if inrange(year,`1',`2'), cl(fips) level(95)
-
-outreg2 using `i'_table_`1'_`2',  word wide append ///
-	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
-	keep (mml) ///
-	ctitle ("Combined YRBS") ///
-	nocons nor2 dec(4) ///
-
-
 xi:reg `i' mml age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
 i.fips*time i.year if inrange(year,`1',`2'), cl(fips) level(95)
@@ -209,18 +149,21 @@ i.fips*time i.year if inrange(year,`1',`2'), cl(fips) level(95)
 outreg2 using `i'_table_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
-	title ("Table2. Medical Marijuana Laws and Youth Consumption, `1'-`2'") ///
+	title ("Table5. Medical Marijuana Laws and School Accessibility, `1'-`2'") ///
 	nocons nor2 dec(4) ///
 	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
 }
 end
 
-*** REGRESSION 1993-2017	
-mml_regress 1993 2011
-*** REGRESSION 1993-2017
-mml_regress 1993 2017
-*** REGRESSION 2013-2017
-mml_regress_other 2013 2017
+*** T	
+table_2 1993 2011
+table_2 1993 2017
+table_2 2011 2017
+
+*** TABLE 5 REGRESSIONS
+table_5 1993 2011
+table_5 1993 2017
+table_5 2011 2017
 
 
 program define sum_stat
@@ -233,32 +176,34 @@ i.fips i.year if inrange(year, `1',`2'), cl(fips) level(95)
 keep if e(sample)
 
 **********************************
-*** TABLE 6 SUMMARY TABLE 2011 ***
+*** TABLE 6 SUMMARY TABLE \ ***
 **********************************
 capture estimates clear
 *** NATIONAL
-sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0 & national==1 
-estpost store q1
+estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0 & national==1 , meanonly
+eststo q1
 
-sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1  & national==1 
-estpost store q2
+estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1  & national==1 , meanonly
+eststo q2
 
 *** STATE 
-sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0 & national==0
-estpost store q3
+estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0 & national==0, meanonly
+eststo  q3
 
-sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1  & national==0
-estpost store q4
+estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1  & national==0 , meanonly
+eststo  q4
 
-esttab q1 q2 q3 q4 using summary_`1'_`2', label rtf replace 
+esttab q1 q2 q3 q4 using summary_`1'_`2'.doc, replace cells("mean") nomtitle nonumber dec(4) ///
+title("Summary Statistics") (mtitles "MML==1 & National==1" "MML==0 & National==1" "MML==1 & National==0" "MML==0 & National==0") 
+
 end 
 sum_stat 1993 2011
 sum_stat 1993 2017
-sum_stat 2013 2017
+sum_stat 2011 2017
 
 ***********************
 *** FIGURES 1-4 FOR ***
