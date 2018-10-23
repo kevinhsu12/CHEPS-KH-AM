@@ -14,21 +14,12 @@ set more 1
 use "MMLAnalysis_17.dta"
 
 collapse mml_year, by(year fips)
-merge m:1 fips using mmlyears.dta
+merge m:1 fips using mmldate.dta
 
-qui gen mmlenacted_wave=0 if (mml_year>year | mml_year==0)
-qui replace mmlenacted_wave=1 if mml_year<=year & mml_year!=0
-qui gen mmllead4p_wave = 0
-qui replace mmllead4p_wave=1 if year <= mml_year-8 & mml_year!=0
-qui gen mmllead3p_wave = 0
-qui replace mmllead3p_wave=1 if year <= mml_year-6 & mml_year!=0
-forvalues i = 3(-1)1 {
-	qui gen mmllead`i'_wave = 0
-	qui replace mmllead`i'_wave=1 if year==mml_year-(2*`i') & mml_year!=0
-}
-qui gen mml_lawwave =0
-qui replace mml_lawwave=1 if year==mml_year & mml_year!=0
-qui gen mmllag1_wave = 0
-qui replace mmllag1_wave=1 if year==mml_year+2 & mml_year!=0
-qui gen mmllag2p_wave = 0
-qui replace mmllag2p_wave=1 if year >= mml_year+4 & mml_year!=0
+sort fips year
+drop mml_share
+gen mml_share =  13/12 - (mml_month/12)
+replace mml_share = 1 if year>mml_year
+replace mml_share = 0 if mml_year>year | mml_year==.
+
+save mmlyears.dta, replace
