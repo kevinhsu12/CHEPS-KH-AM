@@ -2231,6 +2231,7 @@ merge m:1 fips seer_year age white black otherrace male female using "seer_weigh
 drop if _merge==2
 drop _merge
 
+
 gen time = 1 if year==1993
 forvalues i = 2(1)15 {
 replace time = `i' if year==1991 + 2 *`i'

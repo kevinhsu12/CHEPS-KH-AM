@@ -181,25 +181,24 @@ keep if e(sample)
 capture estimates clear
 *** NATIONAL
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0 & national==1 , meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1 & national==1 , meanonly
 eststo q1
 
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1  & national==1 , meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0  & national==1 , meanonly
 eststo q2
 
 *** STATE 
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0 & national==0, meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1 & national==0, meanonly
 eststo  q3
 
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1  & national==0 , meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0  & national==0 , meanonly
 eststo  q4
 
-esttab q1 q2 q3 q4 using summary_`1'_`2'.doc, replace cells("mean") nomtitle nonumber dec(4) ///
-title("Summary Statistics") (mtitles "MML==1 & National==1" "MML==0 & National==1" "MML==1 & National==0" "MML==0 & National==0") 
-
+esttab q1 q2 q3 q4 using summary_`1'_`2'.csv, replace cells("mean")   ///
+title("Summary Statistics `1'-`2'") 
 end 
 sum_stat 1993 2011
 sum_stat 1993 2017

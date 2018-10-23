@@ -11,12 +11,6 @@ capture cd "/Users/Kevin/Documents/MML/Data Files"
 capture cd "F:\MML project\data" 
 set more 1
 
-use mmldate.dta, clear
-capture drop mml_share
-gen mml_share = mml_month/12
-save mmlyears.dta, replace
-
-
 use "MMLAnalysis_17.dta"
 
 collapse mml_year, by(year fips)
