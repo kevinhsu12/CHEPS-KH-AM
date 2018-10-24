@@ -2206,6 +2206,13 @@ replace mml=1 if year>= mml_year
 replace mml=0 if mml_year>year
 replace mml=0 if mml_year==.
 
+generate share = 13/12- mml_month/12
+generate mml_share = .
+replace mml_share = share if mml_year==year
+replace mml_share = 1 if year>mml_year
+replace mml_share = 0 if mml_year==. | mml_year>year
+
+
 *****************************
 *** Housing Keeping Stuff ***
 *****************************

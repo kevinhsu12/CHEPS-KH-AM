@@ -27,18 +27,18 @@ use "MMLAnalysis_17.dta", clear
 *** NATIONAL
 keep if inrange(year,`1',`2')
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year if inrange(year,`1',`2') & national==1 [aweight=seer_weight], cl(fips) level(95)
+i.fips i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide replace ///
+outreg2 using `i'_table_share_`1'_`2',  word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year if inrange(year,`1',`2') & national==1 [aweight=seer_weight], cl(fips) level(95)
+i.fips i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
 	keep (mml) ///
 	ctitle ("National YRBS") ///
@@ -47,18 +47,18 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year if inrange(year,`1',`2') & national==1 [aweight=seer_weight], cl(fips) level(95)
+i.fips*time i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2', word wide append ///
+outreg2 using `i'_table_share_`1'_`2', word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
 	
 *** STATE
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year if inrange(year,`1',`2') & national==0 [aweight=seer_weight], cl(fips) level(95)
+i.fips i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -66,9 +66,9 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year if inrange(year,`1',`2') & national==0 [aweight=seer_weight], cl(fips) level(95)
+i.fips i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2', word wide append ///
+outreg2 using `i'_table_share_`1'_`2', word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
 	keep (mml) ///
 	ctitle ("State YRBS") ///
@@ -77,9 +77,9 @@ outreg2 using `i'_table_`1'_`2', word wide append ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year if inrange(year,`1',`2') & national==0 [aweight=seer_weight], cl(fips) level(95)
+i.fips*time i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -87,9 +87,9 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 
 *** STATE AND NATIONAL
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year if inrange(year,`1',`2') [aweight=seer_weight], cl(fips) level(95)
+i.fips i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
 	keep (mml) ///
 	nocons nor2 dec(4) ///
@@ -97,9 +97,9 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year if inrange(year,`1',`2') [aweight=seer_weight], cl(fips) level(95)
+i.fips i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
 	keep (mml) ///
 	ctitle ("Combined YRBS") ///
@@ -108,9 +108,9 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year if inrange(year,`1',`2') [aweight=seer_weight], cl(fips) level(95)
+i.fips*time i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	title ("Table2. Medical Marijuana Laws and Youth Consumption, `1'-`2'") ///
@@ -118,6 +118,7 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
 
 	}
+	
 end 
 
 
@@ -128,9 +129,9 @@ use "MMLAnalysis_17.dta", clear
 *** NATIONAL
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year if inrange(year,`1',`2') & national==1 [aweight=seer_weight], cl(fips) level(95)
+i.fips*time i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2', word wide replace ///
+outreg2 using `i'_table_share_`1'_`2', word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ctitle ("National YRBS") ///
 	nocons nor2 dec(4) ///
@@ -138,9 +139,9 @@ outreg2 using `i'_table_`1'_`2', word wide replace ///
 *** STATE
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year if inrange(year,`1',`2') & national==0 [aweight=seer_weight], cl(fips) level(95)
+i.fips*time i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ctitle ("State YRBS") ///
 	nocons nor2 dec(4) ///
@@ -149,9 +150,9 @@ outreg2 using `i'_table_`1'_`2',  word wide append ///
 *** STATE AND NATIONAL
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year if inrange(year,`1',`2') [aweight=seer_weight], cl(fips) level(95)
+i.fips*time i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
-outreg2 using `i'_table_`1'_`2',  word wide append ///
+outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
 	keep (mml) ///
 	title ("Table5. Medical Marijuana Laws and School Accessibility, `1'-`2'") ///
@@ -186,23 +187,23 @@ keep if e(sample)
 capture estimates clear
 *** NATIONAL
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1 & national==1 [pweight=seer_weight] , meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share>0 & national==1  , meanonly
 eststo q1
 
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0  & national==1 [pweight=seer_weight] , meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share==0  & national==1  , meanonly
 eststo q2
 
 *** STATE 
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==1 & national==0 [pweight=seer_weight], meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share>0 & national==0 , meanonly
 eststo  q3
 
 estpost sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml==0  & national==0 [pweight=seer_weight] , meanonly
+black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share==0  & national==0  , meanonly
 eststo  q4
 
-esttab q1 q2 q3 q4 using summary_`1'_`2'.csv, replace cells("mean")   ///
+esttab q1 q2 q3 q4 using summary_`1'_`2'_share.csv, replace cells("mean")   ///
 title("Summary Statistics Weighted `1'-`2'") 
 end 
 sum_stat 1993 2011
