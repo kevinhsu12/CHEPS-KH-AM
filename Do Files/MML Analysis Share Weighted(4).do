@@ -164,11 +164,12 @@ end
 *** T	
 table_2 1993 2011
 table_2 1993 2017
+table-2 2011 2017
 
 *** TABLE 5 REGRESSIONS
 table_5 1993 2011
 table_5 1993 2017
-
+table_5 2011 2017
 
 program define sum_stat
 *** SUMMARY TABLES
@@ -206,3 +207,4 @@ title("Summary Statistics Weighted `1'-`2'")
 end 
 sum_stat 1993 2011
 sum_stat 1993 2017
+sum_stat 2011 2017
