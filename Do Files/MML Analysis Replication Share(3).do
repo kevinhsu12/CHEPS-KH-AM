@@ -202,7 +202,7 @@ black white otherrace MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share==
 eststo  q4
 
 esttab q1 q2 q3 q4 using summary_`1'_`2'_share.csv, replace cells("mean")   ///
-title("Summary Statistics Weighted `1'-`2'") 
+title("Summary Statistics Share `1'-`2'") 
 end 
 sum_stat 1993 2011
 sum_stat 1993 2017

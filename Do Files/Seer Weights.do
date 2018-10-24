@@ -64,8 +64,8 @@ replace white = 0 if inlist(race4,2,3,4)
 gen black = 1 if race4==2
 replace black = 0 if inlist(race4,1,3,4)
 
-gen otherrace = 1 if race4==4
-replace otherrace = 0 if inlist(race4,1,2,3)
+gen otherrace = 1 if race4==3
+replace otherrace = 0 if inlist(race4,1,2,4)
 
 *************************
 *** GEN AGE VARIABLES ***
