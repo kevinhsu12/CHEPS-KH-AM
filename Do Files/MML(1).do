@@ -2206,6 +2206,7 @@ replace mml=1 if year>= mml_year
 replace mml=0 if mml_year>year
 replace mml=0 if mml_year==.
 
+*** creating mml share variable
 generate share = 13/12- mml_month/12
 generate mml_share = .
 replace mml_share = share if mml_year==year

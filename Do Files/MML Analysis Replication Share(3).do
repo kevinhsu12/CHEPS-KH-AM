@@ -31,7 +31,7 @@ i.fips i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	nocons nor2 dec(4) ///
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
@@ -40,7 +40,7 @@ i.fips i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	ctitle ("National YRBS") ///
 	nocons nor2 dec(4) ///
 	
@@ -51,7 +51,7 @@ i.fips*time i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2', word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	nocons nor2 dec(4) ///
 	
 *** STATE
@@ -60,7 +60,7 @@ i.fips i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	nocons nor2 dec(4) ///
 
 
@@ -70,7 +70,7 @@ i.fips i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2', word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	ctitle ("State YRBS") ///
 	nocons nor2 dec(4) ///
 
@@ -81,7 +81,7 @@ i.fips*time i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	nocons nor2 dec(4) ///
 
 
@@ -91,7 +91,7 @@ i.fips i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	nocons nor2 dec(4) ///
 
 
@@ -101,7 +101,7 @@ i.fips i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	ctitle ("Combined YRBS") ///
 	nocons nor2 dec(4) ///
 
@@ -112,7 +112,7 @@ i.fips*time i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	title ("Table2. Medical Marijuana Laws and Youth Consumption, `1'-`2'") ///
 	nocons nor2 dec(4) ///
 	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
@@ -133,7 +133,7 @@ i.fips*time i.year if inrange(year,`1',`2') & national==1 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2', word wide replace ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ctitle ("National YRBS") ///
+	keep (mml_share) ctitle ("National YRBS") ///
 	nocons nor2 dec(4) ///
 	
 *** STATE
@@ -143,7 +143,7 @@ i.fips*time i.year if inrange(year,`1',`2') & national==0 , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ctitle ("State YRBS") ///
+	keep (mml_share) ctitle ("State YRBS") ///
 	nocons nor2 dec(4) ///
 
 
@@ -154,7 +154,7 @@ i.fips*time i.year if inrange(year,`1',`2') , cl(fips) level(95)
 
 outreg2 using `i'_table_share_`1'_`2',  word wide append ///
 	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
-	keep (mml) ///
+	keep (mml_share) ///
 	title ("Table5. Medical Marijuana Laws and School Accessibility, `1'-`2'") ///
 	nocons nor2 dec(4) ///
 	addnote ("Each cell represents a separate OLS estimate based on data from the YRBS. Standard errors, corrected for clustering at the state level,are in parentheses")
@@ -164,12 +164,10 @@ end
 *** T	
 table_2 1993 2011
 table_2 1993 2017
-table_2 2011 2017
 
 *** TABLE 5 REGRESSIONS
 table_5 1993 2011
 table_5 1993 2017
-table_5 2011 2017
 
 
 program define sum_stat
@@ -208,4 +206,3 @@ title("Summary Statistics Weighted `1'-`2'")
 end 
 sum_stat 1993 2011
 sum_stat 1993 2017
-sum_stat 2011 2017
