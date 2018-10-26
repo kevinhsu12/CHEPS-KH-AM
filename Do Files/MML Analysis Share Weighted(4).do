@@ -27,6 +27,7 @@ use "MMLAnalysis_17.dta", clear
 *** NATIONAL
 keep if inrange(year,`1',`2')
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
 i.fips i.year if inrange(year,`1',`2') & national==1 [pw=seer_weight], cl(fips) level(95)
 
 outreg2 using `i'_table_weighted_`1'_`2',  word wide replace ///

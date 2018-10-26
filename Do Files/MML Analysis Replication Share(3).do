@@ -206,3 +206,109 @@ title("Summary Statistics Share `1'-`2'")
 end 
 sum_stat 1993 2011
 sum_stat 1993 2017
+
+
+**********************************
+*** TABLE 5 EXTENSION TESTING  ***
+**********************************
+
+foreach i in drugschool mschool {
+use "MMLAnalysis_17.dta"
+drop if inrange(year,2011,2017)
+
+xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,2011,2017) & national==1 , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide replace ///
+	title("`i' 2011-2017") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	ctitle(" ") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+
+xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,2011,2017) & national==1 , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	ctitle("National") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+
+	
+xi:reg `i'  mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,2011,2017) & national==1 , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	ctitle(" ") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+	
+	xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,2011,2017) & national==0 , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	title("`i' National 2011-2017") ///
+	ctitle(" ") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+
+xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,2011,2017) & national==0 , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	ctitle("State") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+
+	
+xi:reg `i'  mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,2011,2017) & national==0 , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	ctitle(" ") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+	
+xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+i.fips i.year if inrange(year,2011,2017) , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	title("`i' National 2011-2017") ///
+	ctitle(" ") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "No", "State-specific trends", "No") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+
+xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year if inrange(year,2011,2017) , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	ctitle("Combined") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "No") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+
+	
+xi:reg `i'  mml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips*time i.year if inrange(year,2011,2017) , cl(fips) level(95)
+
+outreg2 using `i'_2011_2017_test,  word wide append ///
+	ctitle(" ") ///
+	addtext("State FEs", "Yes", "Year FEs", "Yes", "Covariates", "Yes", "State-specific trends", "Yes") ///
+	nocons nor2 dec(4) ///
+	keep(mml_share)
+	
+
+
+}
