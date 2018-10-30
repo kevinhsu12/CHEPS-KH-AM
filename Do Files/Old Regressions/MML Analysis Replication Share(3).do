@@ -214,7 +214,7 @@ sum_stat 1993 2017
 
 foreach i in drugschool mschool {
 use "MMLAnalysis_17.dta"
-drop if inrange(year,2011,2017)
+keep if inrange(year,2011,2017)
 
 xi:reg `i' mml_share age male grade10 grade11 grade12 black otherrace ///
 i.fips i.year if inrange(year,2011,2017) & national==1 , cl(fips) level(95)

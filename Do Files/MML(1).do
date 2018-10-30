@@ -2224,7 +2224,7 @@ replace mfreq = 0 if marijuana30== 0
 *** Fix up Year and Race ***
 ****************************
 rename age_new age
-
+rename MJ_legalization rml_share
 
 gen other_race = .
 replace other_race = 0 if otherrace==0 
@@ -2264,6 +2264,8 @@ label variable marijuana30 "Marijuana Use in Past 30 days"
 label variable mfreq "Frequent Marijuana Use in Past 30 Days"
 label variable drugschool "Offered, Sold, or Given Drug on School Property"
 label variable mschool "Marijuana Use at School in Past 30 days"
+label variable rml_share "RML"
+label variable mml_share "MML"
 
 
 
