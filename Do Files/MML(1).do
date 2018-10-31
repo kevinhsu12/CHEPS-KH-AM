@@ -2144,8 +2144,6 @@ qui replace fips=56 if state=="Wyoming"
 
 drop if inlist(year,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016)
 
-drop if inlist(fips,3,11,27,41,53)
-
 label define fips 1 "Alabama" 2 "Alaska" 4 "Arizona" 5 "Arkansas" 6 ///
 "California" 8 "Colorado" 9 "Connecticut" 10 "Delaware" 11 "District of Columbia" ///
 12 "Florida" 13 "Georgia" 15 "Hawaii" 16 "Idaho" 17 "Illinois" 18 "Indiana" ///

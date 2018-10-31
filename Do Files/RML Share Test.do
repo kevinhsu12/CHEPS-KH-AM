@@ -14,11 +14,15 @@ gen rml_share1 = 1-(dateof/364)
 gen rml_share2 = 1-(dateof/365)
 gen rml_share3 = 1-(dateof-1)/365
 
+gen rml_share4 = 
+
 *COMPARE WITH TAM'S
 rename rml_year  year
 
-keep year fips rml_share*
+keep year fips rml_share* rml_month rml_day dateofyear
 
 merge 1:1 fips year using controls.dta
 
-keep if _merge==3
+keep if _merge!=2
+
+gen predicted_date = 365-MJ_legalization*365
