@@ -10,43 +10,51 @@ clear all
 capture cd "/Users/Kevin/Documents/MML/Data Files"
 capture cd "F:\MML project\data" 
 set more 1
-
+log using logistic_weighted.log, replace
 use "MMLAnalysis_17.dta"
 
 foreach i in marijuana30  mfreq drugschool  {
 
 use "MMLAnalysis_17.dta", clear
 
+display "Full Regression- All Individual Controls - All State Controls SEER WEIGHTED"
+logistic `i' mml_share rml_share age male grade10 grade11 grade12 black otherrace ///
+MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+i.fips i.year [pw=seer_weight], cl(fips)  level(95) 
+keep if e(sample)
+
+display "Only State and Year Controls SEER WEIGHTED"
 logistic `i' mml_share rml_share ///
-i.fips i.year [pw=seer_weight], cl(fips) level(95)
+i.fips i.year [pw=seer_weight], cl(fips)  level(95)
 
 outreg2 using `i'_logistic_weighted,  word wide replace ///
 	addtext("Adjusted for individual-level covariates listed in Table 1", "No", "Adjusted for state-level covariates listed in Table 1", "No") ///
-	keep (mml_share rml_share) nocons nor2 dec(4)
+	keep (mml_share rml_share) nocons nor2 stats(ci) dec(4)
 
-
+display "ALL INDIVIDUAL CONTROLS SEER WEIGHTED"
 logistic `i' mml_share rml_share age male grade10 grade11 grade12 black otherrace ///
-i.fips i.year [pw=seer_weight], cl(fips) level(95)
+i.fips i.year [pw=seer_weight], cl(fips)  level(95)
 
 outreg2 using `i'_logistic_weighted,  word wide append ///
 	addtext("Adjusted for individual-level covariates listed in Table 1", "Yes", "Adjusted for state-level covariates listed in Table 1", "No") ///
-	keep (mml_share rml_share) nocons nor2 dec(4)
+	keep (mml_share rml_share) nocons nor2 stats(ci) dec(4)
 
+display "Full Regression- All Individual Controls - All State Controls SEER WEIGHTED"	
 logistic `i' mml_share rml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips i.year [pw=seer_weight], cl(fips) level(95)
+i.fips i.year [pw=seer_weight], cl(fips)  level(95)
 
 
 outreg2 using `i'_logistic_weighted,  word wide append ///
 	addtext("Adjusted for individual-level covariates listed in Table 1", "Yes", "Adjusted for state-level covariates listed in Table 1", "Yes") ///
-	keep (mml_share rml_share) nocons nor2 dec(4)
+	keep (mml_share rml_share) nocons nor2 stats(ci) dec(4)
 
 }
 
 use "MMLAnalysis_17.dta", clear
 xi:logistic marijuana30 mml_share rml_share age male grade10 grade11 grade12 black otherrace ///
 MJ_decrim BAC08 rbeertax lnrsi unemployment  ///
-i.fips i.year [pw=seer_weight], cl(fips) level(95)
+i.fips i.year [pw=seer_weight], cl(fips)  level(95)
 keep if e(sample)
 
 **************************************
@@ -63,5 +71,7 @@ eststo q2
 
 
 esttab q1 q2 using summary_logistic_weighted.csv, replace cells("mean")   ///
-title("Table 1. Descriptive Statistics: YRBS 1993-2017") 
+title("Table 1. Descriptive Statistics: YRBS 1993-2017 Weighted") 
+
+capture log close
 
