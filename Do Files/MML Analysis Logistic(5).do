@@ -52,11 +52,6 @@ outreg2 using `i'_logistic,  word wide append ///
 }
 
 use "MMLAnalysis_17.dta", clear
-xi:logistic marijuana30 mml_share rml_share age male grade10 grade11 grade12 black otherrace ///
-MJ_decrim BAC08 rbeertax lnrsi unemployment  ///
-i.fips i.year, cl(fips)  level(95)
-keep if e(sample)
-
 **************************************
 *** TABLE 1 Descriptive Statistics ***
 **************************************
