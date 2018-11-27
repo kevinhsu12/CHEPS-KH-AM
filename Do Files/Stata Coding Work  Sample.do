@@ -49,12 +49,6 @@ outreg2 using `i'_logistic,  word wide append ///
 	addtext("Adjusted for individual-level covariates listed in Table 1", "Yes", "Adjusted for state-level covariates listed in Table 1", "Yes") ///
 	keep (mml_share rml_share) nocons nor2 dec(4) stats(ci)
 
-display "Full Regression- All Individual Controls - All State Controls + State Linear Time Trends"	
-xi:logistic `i' mml_share rml_share age male grade10 grade11 grade12 black otherrace ///
-MJ_decrim BAC08 rbeertax lnrsi unemployment ///
-i.fips*time i.year, cl(fips) level(95)
-
-
 }
 
 use "MMLAnalysis_17.dta", clear
@@ -68,11 +62,11 @@ keep if e(sample)
 
 capture estimates clear
 estpost sum marijuana30 mfreq drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace mml_share rml_share MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share>0, meanonly
+black white otherrace rml_share MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share>0, meanonly
 eststo q1
 
 estpost sum marijuana30 mfreq drugschool age male grade9 grade10 grade11 grade12 ///
-black white otherrace mml_share rml_share MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share==0, meanonly
+black white otherrace rml_share MJ_decrim BAC08 rbeertax lnrsi unemployment if mml_share==0, meanonly
 eststo q2
 
 

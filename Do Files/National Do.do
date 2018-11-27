@@ -1336,14 +1336,12 @@ replace mml=0 if mml_year==.
 
 generate national=1
 
-drop age
-rename age_new age
 
-gen age14 = age if age==14
-gen age15 = age if age==15
-gen age16 = age if age==16
-gen age17 = age if age==17
-gen age18 = age if age==18
+gen age14 = age if age_new==14
+gen age15 = age if age_new==15
+gen age16 = age if age_new==16
+gen age17 = age if age_new==17
+gen age18 = age if age_new==18
 
 
 capture save "F:\MML project\national data\MML_National.dta", replace
