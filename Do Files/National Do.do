@@ -1336,11 +1336,12 @@ replace mml=0 if mml_year==.
 
 generate national=1
 
-gen age14 = age if age==14
-gen age15 = age if age==15
-gen age16 = age if age==16
-gen age17 = age if age==17
-gen age18 = age if age==18
+
+gen age14 = age if age_new==14
+gen age15 = age if age_new==15
+gen age16 = age if age_new==16
+gen age17 = age if age_new==17
+gen age18 = age if age_new==18
 
 
 capture save "F:\MML project\national data\MML_National.dta", replace
@@ -1361,14 +1362,14 @@ label variable marijuana30 "Marijuana Use in Past 30 days"
 label variable mfreq "Frequent Marijuana Use in Past 30 Days"
 label variable drugschool "Offered, Sold, or Given Drug on School Property"
 label variable mschool "Marijuana Use at School in Past 30 days"
-label variable age_new "Age"
+label variable age "Age"
 
 
-sum marijuana30 mfreq mschool drugschool age_new male grade9 grade10 grade11 grade12 ///
+sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
 black white otherrace unemployment if mml==0 // Need BAC .08 Law, Real State Income, beertax
 
 
-sum marijuana30 mfreq mschool drugschool age_new male grade9 grade10 grade11 grade12 ///
+sum marijuana30 mfreq mschool drugschool age male grade9 grade10 grade11 grade12 ///
 black white otherrace unemployment if mml==1 // Need BAC .08 Law and Real State Income, beertax
 
 

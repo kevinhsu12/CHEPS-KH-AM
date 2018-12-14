@@ -2216,6 +2216,7 @@ replace mml_share = 0 if mml_year==. | mml_year>year
 *** Housing Keeping Stuff ***
 *****************************
 replace mfreq = 0 if marijuana30== 0
+replace marijuana30 = 1 if mfreq==1
 
 
 ****************************
