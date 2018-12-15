@@ -2266,7 +2266,34 @@ label variable mschool "Marijuana Use at School in Past 30 days"
 label variable rml_share "RML"
 label variable mml_share "MML"
 
+ 
+*** MML TYPES 
+merge m:1 fips using mmltypetest.dta
+drop if _merge==2
+drop _merge
 
+replace mml_collective = 0 if collectiveyear==.
+replace mml_collective=0 if collectiveyear>year
+replace mml_collective=1 if collectiveyear<year
 
-capture save "F:\MML project\data\MMLAnalysis_17.dta", replace
+replace mml_dispensary = 0 if dispensaryyear==.
+replace mml_dispensary=0 if dispensaryyear>year
+replace mml_dispensary=1 if dispensaryyear<year
+
+replace mml_pain = 0 if painyear==.
+replace mml_pain=0 if painyear>year
+replace mml_pain=1 if painyear<year
+
+replace mml_registry = 0 if registryyear==.
+replace mml_registry=0 if registryyear>year
+replace mml_registry=1 if registryyear<year
+
+*** LEADS AND LAGS
+gen odd = mod(mml_year,2) 
+
+*** USING ONLY 1 
+merge m:1 fips year using mml_leads_lags_sharewaves.dta
+
+ drop if fips==.
+
 save "MMLAnalysis_17.dta", replace

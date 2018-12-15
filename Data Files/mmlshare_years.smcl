@@ -1,0 +1,839 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/Kevin/Documents/MML/Data Files/mmlshare_years.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}12 Dec 2018, 10:12:22
+{txt}
+{com}. foreach i in marijuana30  mfreq {c -(}
+{txt}  2{com}. 
+. 
+. use "MMLAnalysis_17.dta", clear
+{txt}  3{com}. display "Full Regression- All Individual Controls - All State Controls + LEADS/LAGS"    
+{txt}  4{com}. logistic `i' mmllead4p mmllead3 mmllead2 dummy mmllaw mmllag1 mmllag2 mmllag3p ///
+> age male grade10 grade11 grade12 black otherrace ///
+> rml_share MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+> i.fips i.year, cl(fips)  level(95)
+{txt}  5{com}. keep if e(sample)
+{txt}  6{com}. 
+. display "No Controls"
+{txt}  7{com}. logistic `i' mmllead4p mmllead3 mmllead2 dummy mmllaw mmllag1 mmllag2 mmllag3p ///
+> i.fips i.year, cl(fips)  level(95)
+{txt}  8{com}. 
+. display "Individual Controls"
+{txt}  9{com}. logistic `i' mmllead4p mmllead3 mmllead2 dummy mmllaw mmllag1 mmllag2 mmllag3p ///
+> age male grade10 grade11 grade12 black otherrace ///
+> i.fips i.year, cl(fips)  level(95)
+{txt} 10{com}. 
+. display "Full Regression- All Individual Controls - All State Controls + LEADS/LAGS"    
+{txt} 11{com}. logistic `i' mmllead4p mmllead3 mmllead2 dummy mmllaw mmllag1 mmllag2 mmllag3p ///
+> age male grade10 grade11 grade12 black otherrace ///
+> rml_share MJ_decrim BAC08 rbeertax lnrsi unemployment ///
+> i.fips i.year, cl(fips)  level(95)
+{txt} 12{com}. 
+. {c )-}
+Full Regression- All Individual Controls - All State Controls + LEADS/LAGS
+{txt}note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,834
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(31)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-699246.42{txt}{col 49}Pseudo R2{col 67}= {res}    0.0225
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}   marijuana30{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.005716{col 28}{space 2} .0618039{col 39}{space 1}    0.09{col 48}{space 3}0.926{col 56}{space 4} .8915928{col 69}{space 3} 1.134446
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2} 1.028053{col 28}{space 2} .0619431{col 39}{space 1}    0.46{col 48}{space 3}0.646{col 56}{space 4} .9135408{col 69}{space 3} 1.156918
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.004643{col 28}{space 2} .0882462{col 39}{space 1}    0.05{col 48}{space 3}0.958{col 56}{space 4} .8457533{col 69}{space 3} 1.193383
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} .9734282{col 28}{space 2} .0786355{col 39}{space 1}   -0.33{col 48}{space 3}0.739{col 56}{space 4} .8308875{col 69}{space 3} 1.140422
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} 1.022412{col 28}{space 2} .0678201{col 39}{space 1}    0.33{col 48}{space 3}0.738{col 56}{space 4} .8977657{col 69}{space 3} 1.164365
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} .9580022{col 28}{space 2} .0739373{col 39}{space 1}   -0.56{col 48}{space 3}0.578{col 56}{space 4} .8235159{col 69}{space 3} 1.114451
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .8965853{col 28}{space 2} .0548567{col 39}{space 1}   -1.78{col 48}{space 3}0.074{col 56}{space 4} .7952646{col 69}{space 3} 1.010815
+{txt}{space 11}age {c |}{col 16}{res}{space 2}  1.19577{col 28}{space 2} .0127324{col 39}{space 1}   16.79{col 48}{space 3}0.000{col 56}{space 4} 1.171073{col 69}{space 3} 1.220987
+{txt}{space 10}male {c |}{col 16}{res}{space 2} 1.273361{col 28}{space 2} .0243218{col 39}{space 1}   12.65{col 48}{space 3}0.000{col 56}{space 4} 1.226573{col 69}{space 3} 1.321935
+{txt}{space 7}grade10 {c |}{col 16}{res}{space 2} 1.140044{col 28}{space 2} .0356422{col 39}{space 1}    4.19{col 48}{space 3}0.000{col 56}{space 4} 1.072284{col 69}{space 3} 1.212087
+{txt}{space 7}grade11 {c |}{col 16}{res}{space 2} 1.172005{col 28}{space 2} .0608323{col 39}{space 1}    3.06{col 48}{space 3}0.002{col 56}{space 4}  1.05864{col 69}{space 3}  1.29751
+{txt}{space 7}grade12 {c |}{col 16}{res}{space 2}  1.14432{col 28}{space 2} .0796333{col 39}{space 1}    1.94{col 48}{space 3}0.053{col 56}{space 4} .9984178{col 69}{space 3} 1.311543
+{txt}{space 9}black {c |}{col 16}{res}{space 2} 1.151014{col 28}{space 2} .0561352{col 39}{space 1}    2.88{col 48}{space 3}0.004{col 56}{space 4} 1.046086{col 69}{space 3} 1.266467
+{txt}{space 5}otherrace {c |}{col 16}{res}{space 2} 1.133682{col 28}{space 2} .0644492{col 39}{space 1}    2.21{col 48}{space 3}0.027{col 56}{space 4} 1.014147{col 69}{space 3} 1.267306
+{txt}{space 5}rml_share {c |}{col 16}{res}{space 2} .9140653{col 28}{space 2} .0321395{col 39}{space 1}   -2.56{col 48}{space 3}0.011{col 56}{space 4} .8531945{col 69}{space 3}  .979279
+{txt}{space 5}MJ_decrim {c |}{col 16}{res}{space 2} 1.023253{col 28}{space 2} .0395685{col 39}{space 1}    0.59{col 48}{space 3}0.552{col 56}{space 4} .9485666{col 69}{space 3} 1.103821
+{txt}{space 9}BAC08 {c |}{col 16}{res}{space 2} .9999539{col 28}{space 2} .0394377{col 39}{space 1}   -0.00{col 48}{space 3}0.999{col 56}{space 4} .9255695{col 69}{space 3} 1.080316
+{txt}{space 6}rbeertax {c |}{col 16}{res}{space 2} .8587322{col 28}{space 2} .0610925{col 39}{space 1}   -2.14{col 48}{space 3}0.032{col 56}{space 4} .7469663{col 69}{space 3} .9872212
+{txt}{space 9}lnrsi {c |}{col 16}{res}{space 2} 1.341485{col 28}{space 2} .2497423{col 39}{space 1}    1.58{col 48}{space 3}0.115{col 56}{space 4} .9313631{col 69}{space 3} 1.932204
+{txt}{space 2}unemployment {c |}{col 16}{res}{space 2} 1.026371{col 28}{space 2} .0100812{col 39}{space 1}    2.65{col 48}{space 3}0.008{col 56}{space 4} 1.006801{col 69}{space 3} 1.046321
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.313136{col 28}{space 2} .0902215{col 39}{space 1}    3.96{col 48}{space 3}0.000{col 56}{space 4} 1.147694{col 69}{space 3} 1.502426
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.495569{col 28}{space 2} .1363891{col 39}{space 1}    4.41{col 48}{space 3}0.000{col 56}{space 4}  1.25078{col 69}{space 3} 1.788266
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.137392{col 28}{space 2} .1028468{col 39}{space 1}    1.42{col 48}{space 3}0.155{col 56}{space 4} .9526686{col 69}{space 3} 1.357935
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.262721{col 28}{space 2} .1011327{col 39}{space 1}    2.91{col 48}{space 3}0.004{col 56}{space 4} 1.079279{col 69}{space 3} 1.477342
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.512925{col 28}{space 2} .1247725{col 39}{space 1}    5.02{col 48}{space 3}0.000{col 56}{space 4} 1.287116{col 69}{space 3} 1.778348
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} 1.136984{col 28}{space 2} .1106582{col 39}{space 1}    1.32{col 48}{space 3}0.187{col 56}{space 4} .9395296{col 69}{space 3} 1.375937
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.423069{col 28}{space 2} .1112562{col 39}{space 1}    4.51{col 48}{space 3}0.000{col 56}{space 4} 1.220896{col 69}{space 3} 1.658721
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} .9669187{col 28}{space 2} .1159944{col 39}{space 1}   -0.28{col 48}{space 3}0.779{col 56}{space 4} .7643237{col 69}{space 3} 1.223214
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.129169{col 28}{space 2} .0816824{col 39}{space 1}    1.68{col 48}{space 3}0.093{col 56}{space 4} .9799057{col 69}{space 3} 1.301169
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2} 1.098811{col 28}{space 2} .0205019{col 39}{space 1}    5.05{col 48}{space 3}0.000{col 56}{space 4} 1.059353{col 69}{space 3} 1.139737
+{txt}{space 11}15  {c |}{col 16}{res}{space 2}  1.48741{col 28}{space 2} .1139909{col 39}{space 1}    5.18{col 48}{space 3}0.000{col 56}{space 4} 1.279962{col 69}{space 3}  1.72848
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} .9722279{col 28}{space 2} .0466691{col 39}{space 1}   -0.59{col 48}{space 3}0.557{col 56}{space 4} .8849291{col 69}{space 3} 1.068139
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.196384{col 28}{space 2} .0854034{col 39}{space 1}    2.51{col 48}{space 3}0.012{col 56}{space 4} 1.040178{col 69}{space 3} 1.376047
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2}  1.10346{col 28}{space 2} .0495466{col 39}{space 1}    2.19{col 48}{space 3}0.028{col 56}{space 4} 1.010501{col 69}{space 3} 1.204971
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .8279852{col 28}{space 2} .0380009{col 39}{space 1}   -4.11{col 48}{space 3}0.000{col 56}{space 4} .7567565{col 69}{space 3} .9059181
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .8815219{col 28}{space 2} .0401759{col 39}{space 1}   -2.77{col 48}{space 3}0.006{col 56}{space 4} .8061931{col 69}{space 3} .9638893
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.020568{col 28}{space 2} .0515629{col 39}{space 1}    0.40{col 48}{space 3}0.687{col 56}{space 4} .9243494{col 69}{space 3} 1.126803
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} .9468095{col 28}{space 2} .0304134{col 39}{space 1}   -1.70{col 48}{space 3}0.089{col 56}{space 4} .8890379{col 69}{space 3} 1.008335
+{txt}{space 11}23  {c |}{col 16}{res}{space 2}  1.41175{col 28}{space 2} .0997225{col 39}{space 1}    4.88{col 48}{space 3}0.000{col 56}{space 4} 1.229224{col 69}{space 3} 1.621379
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} 1.060097{col 28}{space 2} .0842842{col 39}{space 1}    0.73{col 48}{space 3}0.463{col 56}{space 4} .9071304{col 69}{space 3} 1.238857
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.350367{col 28}{space 2} .1224326{col 39}{space 1}    3.31{col 48}{space 3}0.001{col 56}{space 4} 1.130516{col 69}{space 3} 1.612973
+{txt}{space 11}26  {c |}{col 16}{res}{space 2}  1.22058{col 28}{space 2} .0980447{col 39}{space 1}    2.48{col 48}{space 3}0.013{col 56}{space 4} 1.042779{col 69}{space 3} 1.428697
+{txt}{space 11}27  {c |}{col 16}{res}{space 2}  .922069{col 28}{space 2} .0724698{col 39}{space 1}   -1.03{col 48}{space 3}0.302{col 56}{space 4} .7904301{col 69}{space 3} 1.075631
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} .9476194{col 28}{space 2} .0513547{col 39}{space 1}   -0.99{col 48}{space 3}0.321{col 56}{space 4} .8521272{col 69}{space 3} 1.053813
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.144059{col 28}{space 2} .0531254{col 39}{space 1}    2.90{col 48}{space 3}0.004{col 56}{space 4} 1.044533{col 69}{space 3} 1.253068
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.316226{col 28}{space 2} .1208175{col 39}{space 1}    2.99{col 48}{space 3}0.003{col 56}{space 4} 1.099507{col 69}{space 3} 1.575662
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .6974864{col 28}{space 2} .0404899{col 39}{space 1}   -6.21{col 48}{space 3}0.000{col 56}{space 4} .6224758{col 69}{space 3} .7815361
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.169952{col 28}{space 2} .0884106{col 39}{space 1}    2.08{col 48}{space 3}0.038{col 56}{space 4} 1.008892{col 69}{space 3} 1.356723
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.541194{col 28}{space 2} .1279879{col 39}{space 1}    5.21{col 48}{space 3}0.000{col 56}{space 4} 1.309693{col 69}{space 3} 1.813615
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} 1.009057{col 28}{space 2}  .091664{col 39}{space 1}    0.10{col 48}{space 3}0.921{col 56}{space 4} .8444838{col 69}{space 3} 1.205702
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 1.993709{col 28}{space 2} .1734996{col 39}{space 1}    7.93{col 48}{space 3}0.000{col 56}{space 4} 1.681075{col 69}{space 3} 2.364484
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} .8662479{col 28}{space 2} .0731767{col 39}{space 1}   -1.70{col 48}{space 3}0.089{col 56}{space 4} .7340684{col 69}{space 3} 1.022228
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.208849{col 28}{space 2} .0512819{col 39}{space 1}    4.47{col 48}{space 3}0.000{col 56}{space 4} 1.112403{col 69}{space 3} 1.313657
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8606864{col 28}{space 2} .0795768{col 39}{space 1}   -1.62{col 48}{space 3}0.105{col 56}{space 4} .7180341{col 69}{space 3}  1.03168
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2}   1.1363{col 28}{space 2} .0911472{col 39}{space 1}    1.59{col 48}{space 3}0.111{col 56}{space 4} .9709899{col 69}{space 3} 1.329754
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} .9810924{col 28}{space 2} .0363289{col 39}{space 1}   -0.52{col 48}{space 3}0.606{col 56}{space 4} .9124115{col 69}{space 3} 1.054943
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} 1.002607{col 28}{space 2} .0777808{col 39}{space 1}    0.03{col 48}{space 3}0.973{col 56}{space 4} .8611831{col 69}{space 3} 1.167255
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} 1.060279{col 28}{space 2} .0830065{col 39}{space 1}    0.75{col 48}{space 3}0.455{col 56}{space 4} .9094559{col 69}{space 3} 1.236114
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.435518{col 28}{space 2} .1048186{col 39}{space 1}    4.95{col 48}{space 3}0.000{col 56}{space 4} 1.244101{col 69}{space 3} 1.656386
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.231857{col 28}{space 2} .0234643{col 39}{space 1}   10.95{col 48}{space 3}0.000{col 56}{space 4} 1.186715{col 69}{space 3} 1.278715
+{txt}{space 11}46  {c |}{col 16}{res}{space 2}  .946717{col 28}{space 2} .0442494{col 39}{space 1}   -1.17{col 48}{space 3}0.241{col 56}{space 4} .8638436{col 69}{space 3} 1.037541
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.204663{col 28}{space 2} .0383106{col 39}{space 1}    5.85{col 48}{space 3}0.000{col 56}{space 4} 1.131867{col 69}{space 3}  1.28214
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} 1.054056{col 28}{space 2} .0446931{col 39}{space 1}    1.24{col 48}{space 3}0.214{col 56}{space 4}      .97{col 69}{space 3} 1.145395
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5393168{col 28}{space 2}  .019072{col 39}{space 1}  -17.46{col 48}{space 3}0.000{col 56}{space 4} .5032024{col 69}{space 3} .5780231
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.639021{col 28}{space 2} .1237097{col 39}{space 1}    6.55{col 48}{space 3}0.000{col 56}{space 4} 1.413636{col 69}{space 3}  1.90034
+{txt}{space 11}51  {c |}{col 16}{res}{space 2} 1.073208{col 28}{space 2} .0564502{col 39}{space 1}    1.34{col 48}{space 3}0.179{col 56}{space 4}   .96808{col 69}{space 3} 1.189753
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.370208{col 28}{space 2} .1082037{col 39}{space 1}    3.99{col 48}{space 3}0.000{col 56}{space 4}  1.17373{col 69}{space 3} 1.599576
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.326612{col 28}{space 2} .1259822{col 39}{space 1}    2.98{col 48}{space 3}0.003{col 56}{space 4} 1.101309{col 69}{space 3} 1.598006
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.021133{col 28}{space 2} .0499154{col 39}{space 1}    0.43{col 48}{space 3}0.669{col 56}{space 4} .9278406{col 69}{space 3} 1.123805
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.007671{col 28}{space 2} .0589033{col 39}{space 1}    0.13{col 48}{space 3}0.896{col 56}{space 4} .8985904{col 69}{space 3} 1.129993
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.734274{col 28}{space 2} .0725404{col 39}{space 1}   13.16{col 48}{space 3}0.000{col 56}{space 4} 1.597769{col 69}{space 3} 1.882441
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 1.956962{col 28}{space 2} .1289688{col 39}{space 1}   10.19{col 48}{space 3}0.000{col 56}{space 4} 1.719832{col 69}{space 3} 2.226787
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 1.906687{col 28}{space 2} .1098176{col 39}{space 1}   11.21{col 48}{space 3}0.000{col 56}{space 4} 1.703153{col 69}{space 3} 2.134545
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 1.784389{col 28}{space 2} .1202623{col 39}{space 1}    8.59{col 48}{space 3}0.000{col 56}{space 4} 1.563584{col 69}{space 3} 2.036376
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 1.701931{col 28}{space 2} .1287983{col 39}{space 1}    7.03{col 48}{space 3}0.000{col 56}{space 4}  1.46732{col 69}{space 3} 1.974053
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.410198{col 28}{space 2} .1153413{col 39}{space 1}    4.20{col 48}{space 3}0.000{col 56}{space 4} 1.201322{col 69}{space 3} 1.655391
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2} 1.355767{col 28}{space 2} .1141656{col 39}{space 1}    3.61{col 48}{space 3}0.000{col 56}{space 4} 1.149496{col 69}{space 3} 1.599051
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2}  1.31232{col 28}{space 2} .1180855{col 39}{space 1}    3.02{col 48}{space 3}0.003{col 56}{space 4} 1.100137{col 69}{space 3} 1.565427
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2} 1.407483{col 28}{space 2} .1250659{col 39}{space 1}    3.85{col 48}{space 3}0.000{col 56}{space 4} 1.182517{col 69}{space 3} 1.675248
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.410689{col 28}{space 2}  .123225{col 39}{space 1}    3.94{col 48}{space 3}0.000{col 56}{space 4} 1.188716{col 69}{space 3} 1.674112
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.342687{col 28}{space 2} .1233198{col 39}{space 1}    3.21{col 48}{space 3}0.001{col 56}{space 4} 1.121491{col 69}{space 3} 1.607511
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.386432{col 28}{space 2} .1235584{col 39}{space 1}    3.67{col 48}{space 3}0.000{col 56}{space 4} 1.164232{col 69}{space 3} 1.651039
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2} .0002794{col 28}{space 2} .0005249{col 39}{space 1}   -4.36{col 48}{space 3}0.000{col 56}{space 4} 7.03e-06{col 69}{space 3} .0110979
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+(149,470 observations deleted)
+No Controls
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,834
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(18)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-709165.36{txt}{col 49}Pseudo R2{col 67}= {res}    0.0086
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}   marijuana30{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.000249{col 28}{space 2} .0666451{col 39}{space 1}    0.00{col 48}{space 3}0.997{col 56}{space 4} .8777963{col 69}{space 3} 1.139784
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2} 1.005815{col 28}{space 2} .0650634{col 39}{space 1}    0.09{col 48}{space 3}0.929{col 56}{space 4} .8860462{col 69}{space 3} 1.141774
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.002622{col 28}{space 2} .0894481{col 39}{space 1}    0.03{col 48}{space 3}0.977{col 56}{space 4} .8417785{col 69}{space 3} 1.194198
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2}  .980896{col 28}{space 2} .0668913{col 39}{space 1}   -0.28{col 48}{space 3}0.777{col 56}{space 4} .8581754{col 69}{space 3} 1.121166
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} .9843223{col 28}{space 2} .0614605{col 39}{space 1}   -0.25{col 48}{space 3}0.800{col 56}{space 4} .8709412{col 69}{space 3} 1.112464
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} .9631958{col 28}{space 2} .0675786{col 39}{space 1}   -0.53{col 48}{space 3}0.593{col 56}{space 4} .8394476{col 69}{space 3} 1.105187
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .9003162{col 28}{space 2} .0523381{col 39}{space 1}   -1.81{col 48}{space 3}0.071{col 56}{space 4} .8033636{col 69}{space 3} 1.008969
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.396822{col 28}{space 2} .0813576{col 39}{space 1}    5.74{col 48}{space 3}0.000{col 56}{space 4} 1.246129{col 69}{space 3} 1.565738
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.651424{col 28}{space 2} .1059372{col 39}{space 1}    7.82{col 48}{space 3}0.000{col 56}{space 4} 1.456313{col 69}{space 3} 1.872674
+{txt}{space 12}5  {c |}{col 16}{res}{space 2}  1.13575{col 28}{space 2} .0756142{col 39}{space 1}    1.91{col 48}{space 3}0.056{col 56}{space 4} .9968105{col 69}{space 3} 1.294055
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.554486{col 28}{space 2} .0901234{col 39}{space 1}    7.61{col 48}{space 3}0.000{col 56}{space 4} 1.387514{col 69}{space 3} 1.741552
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.603015{col 28}{space 2} .0893218{col 39}{space 1}    8.47{col 48}{space 3}0.000{col 56}{space 4} 1.437168{col 69}{space 3}    1.788
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} 1.388127{col 28}{space 2} .0787259{col 39}{space 1}    5.78{col 48}{space 3}0.000{col 56}{space 4} 1.242094{col 69}{space 3}  1.55133
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.585726{col 28}{space 2} .0970861{col 39}{space 1}    7.53{col 48}{space 3}0.000{col 56}{space 4} 1.406414{col 69}{space 3} 1.787899
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} 1.381289{col 28}{space 2}  .092225{col 39}{space 1}    4.84{col 48}{space 3}0.000{col 56}{space 4} 1.211859{col 69}{space 3} 1.574407
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.225717{col 28}{space 2} .0879638{col 39}{space 1}    2.84{col 48}{space 3}0.005{col 56}{space 4} 1.064887{col 69}{space 3} 1.410837
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2} 1.163287{col 28}{space 2} .0163694{col 39}{space 1}   10.75{col 48}{space 3}0.000{col 56}{space 4} 1.131642{col 69}{space 3} 1.195817
+{txt}{space 11}15  {c |}{col 16}{res}{space 2} 1.454491{col 28}{space 2} .0841143{col 39}{space 1}    6.48{col 48}{space 3}0.000{col 56}{space 4}  1.29863{col 69}{space 3} 1.629059
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} .9729274{col 28}{space 2} .0122903{col 39}{space 1}   -2.17{col 48}{space 3}0.030{col 56}{space 4} .9491345{col 69}{space 3} .9973167
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.417654{col 28}{space 2} .0771643{col 39}{space 1}    6.41{col 48}{space 3}0.000{col 56}{space 4} 1.274203{col 69}{space 3} 1.577255
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2}  1.17121{col 28}{space 2} .0213212{col 39}{space 1}    8.68{col 48}{space 3}0.000{col 56}{space 4} 1.130158{col 69}{space 3} 1.213754
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .8362857{col 28}{space 2} .0103783{col 39}{space 1}  -14.41{col 48}{space 3}0.000{col 56}{space 4}   .81619{col 69}{space 3} .8568762
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .9114412{col 28}{space 2} .0161493{col 39}{space 1}   -5.23{col 48}{space 3}0.000{col 56}{space 4} .8803324{col 69}{space 3} .9436493
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.044613{col 28}{space 2} .0169051{col 39}{space 1}    2.70{col 48}{space 3}0.007{col 56}{space 4} 1.011999{col 69}{space 3} 1.078277
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} 1.042829{col 28}{space 2} .0118394{col 39}{space 1}    3.69{col 48}{space 3}0.000{col 56}{space 4} 1.019881{col 69}{space 3} 1.066294
+{txt}{space 11}23  {c |}{col 16}{res}{space 2} 1.400059{col 28}{space 2} .0789361{col 39}{space 1}    5.97{col 48}{space 3}0.000{col 56}{space 4} 1.253589{col 69}{space 3} 1.563643
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} 1.179891{col 28}{space 2} .0635851{col 39}{space 1}    3.07{col 48}{space 3}0.002{col 56}{space 4} 1.061622{col 69}{space 3} 1.311335
+{txt}Massachusetts  {c |}{col 16}{res}{space 2}  1.63249{col 28}{space 2} .1096577{col 39}{space 1}    7.30{col 48}{space 3}0.000{col 56}{space 4} 1.431112{col 69}{space 3} 1.862205
+{txt}{space 11}26  {c |}{col 16}{res}{space 2} 1.326284{col 28}{space 2} .0842796{col 39}{space 1}    4.44{col 48}{space 3}0.000{col 56}{space 4} 1.170972{col 69}{space 3} 1.502197
+{txt}{space 11}27  {c |}{col 16}{res}{space 2} 1.005509{col 28}{space 2} .0569551{col 39}{space 1}    0.10{col 48}{space 3}0.923{col 56}{space 4} .8998523{col 69}{space 3} 1.123571
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} 1.008076{col 28}{space 2} .0069378{col 39}{space 1}    1.17{col 48}{space 3}0.242{col 56}{space 4} .9945698{col 69}{space 3} 1.021766
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.237851{col 28}{space 2} .0081608{col 39}{space 1}   32.37{col 48}{space 3}0.000{col 56}{space 4} 1.221959{col 69}{space 3}  1.25395
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.330693{col 28}{space 2} .0801717{col 39}{space 1}    4.74{col 48}{space 3}0.000{col 56}{space 4} 1.182482{col 69}{space 3}  1.49748
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .6925445{col 28}{space 2} .0099989{col 39}{space 1}  -25.45{col 48}{space 3}0.000{col 56}{space 4} .6732217{col 69}{space 3} .7124219
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.306775{col 28}{space 2} .0703628{col 39}{space 1}    4.97{col 48}{space 3}0.000{col 56}{space 4} 1.175894{col 69}{space 3} 1.452223
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.607163{col 28}{space 2} .0947573{col 39}{space 1}    8.05{col 48}{space 3}0.000{col 56}{space 4} 1.431771{col 69}{space 3} 1.804041
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} 1.242394{col 28}{space 2} .0800702{col 39}{space 1}    3.37{col 48}{space 3}0.001{col 56}{space 4} 1.094966{col 69}{space 3} 1.409671
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 1.973716{col 28}{space 2} .1123783{col 39}{space 1}   11.94{col 48}{space 3}0.000{col 56}{space 4} 1.765304{col 69}{space 3} 2.206734
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} 1.039755{col 28}{space 2}  .065742{col 39}{space 1}    0.62{col 48}{space 3}0.538{col 56}{space 4} .9185673{col 69}{space 3} 1.176931
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.249677{col 28}{space 2} .0164935{col 39}{space 1}   16.89{col 48}{space 3}0.000{col 56}{space 4} 1.217765{col 69}{space 3} 1.282425
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8850103{col 28}{space 2} .0611647{col 39}{space 1}   -1.77{col 48}{space 3}0.077{col 56}{space 4} .7728945{col 69}{space 3}  1.01339
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2} 1.265857{col 28}{space 2} .0823787{col 39}{space 1}    3.62{col 48}{space 3}0.000{col 56}{space 4} 1.114271{col 69}{space 3} 1.438066
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} .9986476{col 28}{space 2} .0178119{col 39}{space 1}   -0.08{col 48}{space 3}0.940{col 56}{space 4} .9643401{col 69}{space 3} 1.034176
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} 1.182153{col 28}{space 2} .0705601{col 39}{space 1}    2.80{col 48}{space 3}0.005{col 56}{space 4} 1.051641{col 69}{space 3} 1.328863
+{txt}{space 11}42  {c |}{col 16}{res}{space 2}  1.21105{col 28}{space 2} .0680125{col 39}{space 1}    3.41{col 48}{space 3}0.001{col 56}{space 4} 1.084823{col 69}{space 3} 1.351965
+{txt}{space 11}44  {c |}{col 16}{res}{space 2}  1.60847{col 28}{space 2} .0833589{col 39}{space 1}    9.17{col 48}{space 3}0.000{col 56}{space 4} 1.453113{col 69}{space 3} 1.780436
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.175886{col 28}{space 2} .0040346{col 39}{space 1}   47.22{col 48}{space 3}0.000{col 56}{space 4} 1.168005{col 69}{space 3}  1.18382
+{txt}{space 11}46  {c |}{col 16}{res}{space 2} .9372032{col 28}{space 2} .0080157{col 39}{space 1}   -7.58{col 48}{space 3}0.000{col 56}{space 4} .9216236{col 69}{space 3} .9530462
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.245916{col 28}{space 2} .0144445{col 39}{space 1}   18.96{col 48}{space 3}0.000{col 56}{space 4} 1.217924{col 69}{space 3} 1.274551
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} 1.220363{col 28}{space 2} .0155436{col 39}{space 1}   15.64{col 48}{space 3}0.000{col 56}{space 4} 1.190275{col 69}{space 3} 1.251211
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .4984857{col 28}{space 2} .0024208{col 39}{space 1} -143.35{col 48}{space 3}0.000{col 56}{space 4} .4937635{col 69}{space 3} .5032531
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.637591{col 28}{space 2} .0921774{col 39}{space 1}    8.76{col 48}{space 3}0.000{col 56}{space 4} 1.466536{col 69}{space 3} 1.828598
+{txt}{space 11}51  {c |}{col 16}{res}{space 2} 1.131594{col 28}{space 2} .0246045{col 39}{space 1}    5.69{col 48}{space 3}0.000{col 56}{space 4} 1.084383{col 69}{space 3}  1.18086
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.497093{col 28}{space 2} .0864038{col 39}{space 1}    6.99{col 48}{space 3}0.000{col 56}{space 4} 1.336972{col 69}{space 3} 1.676391
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.351043{col 28}{space 2} .0885358{col 39}{space 1}    4.59{col 48}{space 3}0.000{col 56}{space 4} 1.188198{col 69}{space 3} 1.536207
+{txt}{space 11}55  {c |}{col 16}{res}{space 2}  1.10663{col 28}{space 2} .0113928{col 39}{space 1}    9.84{col 48}{space 3}0.000{col 56}{space 4} 1.084525{col 69}{space 3} 1.129187
+{txt}{space 11}56  {c |}{col 16}{res}{space 2}  1.08529{col 28}{space 2} .0119196{col 39}{space 1}    7.45{col 48}{space 3}0.000{col 56}{space 4} 1.062178{col 69}{space 3} 1.108906
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.687903{col 28}{space 2} .0709082{col 39}{space 1}   12.46{col 48}{space 3}0.000{col 56}{space 4} 1.554493{col 69}{space 3} 1.832762
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 1.917235{col 28}{space 2} .1243378{col 39}{space 1}   10.04{col 48}{space 3}0.000{col 56}{space 4} 1.688389{col 69}{space 3} 2.177098
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 1.857094{col 28}{space 2} .1029625{col 39}{space 1}   11.16{col 48}{space 3}0.000{col 56}{space 4} 1.665869{col 69}{space 3} 2.070269
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 1.772057{col 28}{space 2} .1061482{col 39}{space 1}    9.55{col 48}{space 3}0.000{col 56}{space 4} 1.575759{col 69}{space 3} 1.992809
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 1.729062{col 28}{space 2} .1090503{col 39}{space 1}    8.68{col 48}{space 3}0.000{col 56}{space 4}  1.52801{col 69}{space 3} 1.956569
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.415089{col 28}{space 2} .0855001{col 39}{space 1}    5.75{col 48}{space 3}0.000{col 56}{space 4} 1.257054{col 69}{space 3} 1.592992
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2}  1.37843{col 28}{space 2} .0807072{col 39}{space 1}    5.48{col 48}{space 3}0.000{col 56}{space 4} 1.228985{col 69}{space 3} 1.546047
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} 1.474797{col 28}{space 2} .0818878{col 39}{space 1}    7.00{col 48}{space 3}0.000{col 56}{space 4} 1.322725{col 69}{space 3} 1.644353
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2}  1.57532{col 28}{space 2} .0822416{col 39}{space 1}    8.71{col 48}{space 3}0.000{col 56}{space 4} 1.422102{col 69}{space 3} 1.745046
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.526755{col 28}{space 2} .0840998{col 39}{space 1}    7.68{col 48}{space 3}0.000{col 56}{space 4} 1.370509{col 69}{space 3} 1.700815
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.419624{col 28}{space 2} .0828171{col 39}{space 1}    6.01{col 48}{space 3}0.000{col 56}{space 4} 1.266242{col 69}{space 3} 1.591587
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.434042{col 28}{space 2} .0800839{col 39}{space 1}    6.46{col 48}{space 3}0.000{col 56}{space 4} 1.285366{col 69}{space 3} 1.599916
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2}  .138609{col 28}{space 2} .0060557{col 39}{space 1}  -45.23{col 48}{space 3}0.000{col 56}{space 4}  .127234{col 69}{space 3}  .151001
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+Individual Controls
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,834
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(25)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-699298.45{txt}{col 49}Pseudo R2{col 67}= {res}    0.0224
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}   marijuana30{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.026593{col 28}{space 2} .0685192{col 39}{space 1}    0.39{col 48}{space 3}0.694{col 56}{space 4} .9007115{col 69}{space 3} 1.170068
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2} 1.036347{col 28}{space 2} .0624561{col 39}{space 1}    0.59{col 48}{space 3}0.554{col 56}{space 4} .9208883{col 69}{space 3} 1.166282
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.038249{col 28}{space 2} .0894584{col 39}{space 1}    0.44{col 48}{space 3}0.663{col 56}{space 4} .8769197{col 69}{space 3} 1.229259
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} 1.020294{col 28}{space 2} .0723535{col 39}{space 1}    0.28{col 48}{space 3}0.777{col 56}{space 4} .8878972{col 69}{space 3} 1.172432
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} 1.025781{col 28}{space 2} .0643756{col 39}{space 1}    0.41{col 48}{space 3}0.685{col 56}{space 4} .9070583{col 69}{space 3} 1.160043
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} .9941348{col 28}{space 2} .0698098{col 39}{space 1}   -0.08{col 48}{space 3}0.933{col 56}{space 4} .8663083{col 69}{space 3} 1.140823
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .9220741{col 28}{space 2} .0545576{col 39}{space 1}   -1.37{col 48}{space 3}0.170{col 56}{space 4} .8211107{col 69}{space 3} 1.035452
+{txt}{space 11}age {c |}{col 16}{res}{space 2} 1.195518{col 28}{space 2} .0126433{col 39}{space 1}   16.89{col 48}{space 3}0.000{col 56}{space 4} 1.170992{col 69}{space 3} 1.220557
+{txt}{space 10}male {c |}{col 16}{res}{space 2} 1.273462{col 28}{space 2} .0243157{col 39}{space 1}   12.66{col 48}{space 3}0.000{col 56}{space 4} 1.226685{col 69}{space 3} 1.322023
+{txt}{space 7}grade10 {c |}{col 16}{res}{space 2} 1.140242{col 28}{space 2} .0356626{col 39}{space 1}    4.20{col 48}{space 3}0.000{col 56}{space 4} 1.072444{col 69}{space 3} 1.212326
+{txt}{space 7}grade11 {c |}{col 16}{res}{space 2} 1.172525{col 28}{space 2} .0608131{col 39}{space 1}    3.07{col 48}{space 3}0.002{col 56}{space 4} 1.059191{col 69}{space 3} 1.297985
+{txt}{space 7}grade12 {c |}{col 16}{res}{space 2}  1.14529{col 28}{space 2} .0797008{col 39}{space 1}    1.95{col 48}{space 3}0.051{col 56}{space 4} .9992645{col 69}{space 3} 1.312655
+{txt}{space 9}black {c |}{col 16}{res}{space 2} 1.149695{col 28}{space 2} .0559912{col 39}{space 1}    2.86{col 48}{space 3}0.004{col 56}{space 4} 1.045029{col 69}{space 3} 1.264844
+{txt}{space 5}otherrace {c |}{col 16}{res}{space 2} 1.133405{col 28}{space 2} .0644654{col 39}{space 1}    2.20{col 48}{space 3}0.028{col 56}{space 4} 1.013844{col 69}{space 3} 1.267067
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.393453{col 28}{space 2} .0907502{col 39}{space 1}    5.09{col 48}{space 3}0.000{col 56}{space 4}  1.22647{col 69}{space 3}  1.58317
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.573159{col 28}{space 2} .1171923{col 39}{space 1}    6.08{col 48}{space 3}0.000{col 56}{space 4} 1.359448{col 69}{space 3} 1.820467
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.149326{col 28}{space 2} .0786911{col 39}{space 1}    2.03{col 48}{space 3}0.042{col 56}{space 4} 1.004995{col 69}{space 3} 1.314385
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.475494{col 28}{space 2} .1062208{col 39}{space 1}    5.40{col 48}{space 3}0.000{col 56}{space 4} 1.281325{col 69}{space 3} 1.699086
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.657309{col 28}{space 2} .1041653{col 39}{space 1}    8.04{col 48}{space 3}0.000{col 56}{space 4} 1.465223{col 69}{space 3} 1.874577
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} 1.399608{col 28}{space 2} .0865983{col 39}{space 1}    5.43{col 48}{space 3}0.000{col 56}{space 4} 1.239766{col 69}{space 3} 1.580058
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.561113{col 28}{space 2} .1004269{col 39}{space 1}    6.92{col 48}{space 3}0.000{col 56}{space 4} 1.376183{col 69}{space 3} 1.770893
+{txt}{space 11}11  {c |}{col 16}{res}{space 2}   1.2777{col 28}{space 2} .0862836{col 39}{space 1}    3.63{col 48}{space 3}0.000{col 56}{space 4} 1.119301{col 69}{space 3} 1.458515
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.177062{col 28}{space 2} .0903257{col 39}{space 1}    2.12{col 48}{space 3}0.034{col 56}{space 4} 1.012697{col 69}{space 3} 1.368104
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2} 1.125533{col 28}{space 2}  .018707{col 39}{space 1}    7.12{col 48}{space 3}0.000{col 56}{space 4} 1.089459{col 69}{space 3} 1.162802
+{txt}{space 11}15  {c |}{col 16}{res}{space 2} 1.424126{col 28}{space 2} .1083981{col 39}{space 1}    4.65{col 48}{space 3}0.000{col 56}{space 4} 1.226757{col 69}{space 3} 1.653248
+{txt}{space 11}16  {c |}{col 16}{res}{space 2}  1.01161{col 28}{space 2} .0188777{col 39}{space 1}    0.62{col 48}{space 3}0.536{col 56}{space 4} .9752785{col 69}{space 3} 1.049294
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.376755{col 28}{space 2} .0782787{col 39}{space 1}    5.62{col 48}{space 3}0.000{col 56}{space 4} 1.231571{col 69}{space 3} 1.539053
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2} 1.201464{col 28}{space 2} .0265677{col 39}{space 1}    8.30{col 48}{space 3}0.000{col 56}{space 4} 1.150504{col 69}{space 3}  1.25468
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .8702922{col 28}{space 2} .0154381{col 39}{space 1}   -7.83{col 48}{space 3}0.000{col 56}{space 4}  .840554{col 69}{space 3} .9010825
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .9491368{col 28}{space 2} .0203543{col 39}{space 1}   -2.43{col 48}{space 3}0.015{col 56}{space 4} .9100699{col 69}{space 3} .9898808
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.105311{col 28}{space 2} .0235578{col 39}{space 1}    4.70{col 48}{space 3}0.000{col 56}{space 4} 1.060089{col 69}{space 3} 1.152461
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} .9967597{col 28}{space 2} .0145309{col 39}{space 1}   -0.22{col 48}{space 3}0.824{col 56}{space 4} .9686827{col 69}{space 3}  1.02565
+{txt}{space 11}23  {c |}{col 16}{res}{space 2} 1.456365{col 28}{space 2} .0906241{col 39}{space 1}    6.04{col 48}{space 3}0.000{col 56}{space 4} 1.289149{col 69}{space 3}  1.64527
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} 1.238532{col 28}{space 2} .0702388{col 39}{space 1}    3.77{col 48}{space 3}0.000{col 56}{space 4} 1.108242{col 69}{space 3}  1.38414
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.571529{col 28}{space 2} .1188624{col 39}{space 1}    5.98{col 48}{space 3}0.000{col 56}{space 4} 1.355008{col 69}{space 3} 1.822649
+{txt}{space 11}26  {c |}{col 16}{res}{space 2} 1.337251{col 28}{space 2} .0891431{col 39}{space 1}    4.36{col 48}{space 3}0.000{col 56}{space 4} 1.173466{col 69}{space 3} 1.523896
+{txt}{space 11}27  {c |}{col 16}{res}{space 2} 1.012154{col 28}{space 2} .0647255{col 39}{space 1}    0.19{col 48}{space 3}0.850{col 56}{space 4} .8929221{col 69}{space 3} 1.147306
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} .9799487{col 28}{space 2} .0092451{col 39}{space 1}   -2.15{col 48}{space 3}0.032{col 56}{space 4} .9619951{col 69}{space 3} .9982374
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.260398{col 28}{space 2} .0141662{col 39}{space 1}   20.59{col 48}{space 3}0.000{col 56}{space 4} 1.232936{col 69}{space 3} 1.288471
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.345136{col 28}{space 2} .0885763{col 39}{space 1}    4.50{col 48}{space 3}0.000{col 56}{space 4} 1.182266{col 69}{space 3} 1.530444
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .7356466{col 28}{space 2} .0146096{col 39}{space 1}  -15.46{col 48}{space 3}0.000{col 56}{space 4} .7075625{col 69}{space 3} .7648455
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.316269{col 28}{space 2} .0800864{col 39}{space 1}    4.52{col 48}{space 3}0.000{col 56}{space 4}   1.1683{col 69}{space 3} 1.482978
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.652668{col 28}{space 2} .1089957{col 39}{space 1}    7.62{col 48}{space 3}0.000{col 56}{space 4} 1.452271{col 69}{space 3} 1.880717
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} 1.196149{col 28}{space 2} .0834493{col 39}{space 1}    2.57{col 48}{space 3}0.010{col 56}{space 4} 1.043281{col 69}{space 3} 1.371417
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 1.989966{col 28}{space 2} .1383243{col 39}{space 1}    9.90{col 48}{space 3}0.000{col 56}{space 4} 1.736512{col 69}{space 3} 2.280413
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} 1.035072{col 28}{space 2}  .073383{col 39}{space 1}    0.49{col 48}{space 3}0.627{col 56}{space 4}  .900789{col 69}{space 3} 1.189372
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.287919{col 28}{space 2} .0184618{col 39}{space 1}   17.65{col 48}{space 3}0.000{col 56}{space 4} 1.252238{col 69}{space 3} 1.324617
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8755116{col 28}{space 2} .0658889{col 39}{space 1}   -1.77{col 48}{space 3}0.077{col 56}{space 4} .7554443{col 69}{space 3} 1.014662
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2} 1.255722{col 28}{space 2} .0850951{col 39}{space 1}    3.36{col 48}{space 3}0.001{col 56}{space 4}  1.09954{col 69}{space 3} 1.434088
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} 1.003353{col 28}{space 2} .0227476{col 39}{space 1}    0.15{col 48}{space 3}0.883{col 56}{space 4} .9597443{col 69}{space 3} 1.048943
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} 1.144148{col 28}{space 2} .0763811{col 39}{space 1}    2.02{col 48}{space 3}0.044{col 56}{space 4} 1.003824{col 69}{space 3} 1.304088
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} 1.191223{col 28}{space 2} .0718045{col 39}{space 1}    2.90{col 48}{space 3}0.004{col 56}{space 4} 1.058484{col 69}{space 3} 1.340608
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.656101{col 28}{space 2}  .095586{col 39}{space 1}    8.74{col 48}{space 3}0.000{col 56}{space 4} 1.478964{col 69}{space 3} 1.854454
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.200502{col 28}{space 2} .0066639{col 39}{space 1}   32.92{col 48}{space 3}0.000{col 56}{space 4} 1.187511{col 69}{space 3} 1.213634
+{txt}{space 11}46  {c |}{col 16}{res}{space 2} .9627239{col 28}{space 2} .0155107{col 39}{space 1}   -2.36{col 48}{space 3}0.018{col 56}{space 4} .9327984{col 69}{space 3} .9936093
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.282309{col 28}{space 2} .0174139{col 39}{space 1}   18.31{col 48}{space 3}0.000{col 56}{space 4} 1.248629{col 69}{space 3} 1.316898
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} 1.150245{col 28}{space 2}  .030615{col 39}{space 1}    5.26{col 48}{space 3}0.000{col 56}{space 4} 1.091779{col 69}{space 3} 1.211842
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5284238{col 28}{space 2}  .007008{col 39}{space 1}  -48.10{col 48}{space 3}0.000{col 56}{space 4} .5148654{col 69}{space 3} .5423393
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.714148{col 28}{space 2} .1075935{col 39}{space 1}    8.59{col 48}{space 3}0.000{col 56}{space 4} 1.515724{col 69}{space 3} 1.938547
+{txt}{space 11}51  {c |}{col 16}{res}{space 2}   1.1861{col 28}{space 2} .0256102{col 39}{space 1}    7.90{col 48}{space 3}0.000{col 56}{space 4} 1.136952{col 69}{space 3} 1.237372
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.455959{col 28}{space 2} .0920862{col 39}{space 1}    5.94{col 48}{space 3}0.000{col 56}{space 4} 1.286212{col 69}{space 3} 1.648108
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.380002{col 28}{space 2} .0969026{col 39}{space 1}    4.59{col 48}{space 3}0.000{col 56}{space 4} 1.202566{col 69}{space 3} 1.583618
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.131193{col 28}{space 2} .0179083{col 39}{space 1}    7.79{col 48}{space 3}0.000{col 56}{space 4} 1.096633{col 69}{space 3} 1.166843
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.128086{col 28}{space 2} .0201951{col 39}{space 1}    6.73{col 48}{space 3}0.000{col 56}{space 4}  1.08919{col 69}{space 3}  1.16837
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.696078{col 28}{space 2} .0744437{col 39}{space 1}   12.04{col 48}{space 3}0.000{col 56}{space 4} 1.556271{col 69}{space 3} 1.848445
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 1.909347{col 28}{space 2} .1273703{col 39}{space 1}    9.70{col 48}{space 3}0.000{col 56}{space 4} 1.675337{col 69}{space 3} 2.176043
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 1.867008{col 28}{space 2} .1058163{col 39}{space 1}   11.02{col 48}{space 3}0.000{col 56}{space 4} 1.670717{col 69}{space 3} 2.086362
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 1.795883{col 28}{space 2} .1053781{col 39}{space 1}    9.98{col 48}{space 3}0.000{col 56}{space 4} 1.600779{col 69}{space 3} 2.014765
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 1.760745{col 28}{space 2} .1089701{col 39}{space 1}    9.14{col 48}{space 3}0.000{col 56}{space 4} 1.559613{col 69}{space 3} 1.987816
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.444239{col 28}{space 2} .0879481{col 39}{space 1}    6.04{col 48}{space 3}0.000{col 56}{space 4} 1.281753{col 69}{space 3} 1.627322
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2}  1.39204{col 28}{space 2} .0822062{col 39}{space 1}    5.60{col 48}{space 3}0.000{col 56}{space 4} 1.239893{col 69}{space 3} 1.562856
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} 1.487945{col 28}{space 2} .0825802{col 39}{space 1}    7.16{col 48}{space 3}0.000{col 56}{space 4} 1.334583{col 69}{space 3}  1.65893
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2} 1.593895{col 28}{space 2} .0841661{col 39}{space 1}    8.83{col 48}{space 3}0.000{col 56}{space 4} 1.437182{col 69}{space 3} 1.767696
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.543773{col 28}{space 2} .0869481{col 39}{space 1}    7.71{col 48}{space 3}0.000{col 56}{space 4} 1.382427{col 69}{space 3} 1.723949
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.436576{col 28}{space 2}  .086136{col 39}{space 1}    6.04{col 48}{space 3}0.000{col 56}{space 4} 1.277294{col 69}{space 3} 1.615719
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.448986{col 28}{space 2} .0826539{col 39}{space 1}    6.50{col 48}{space 3}0.000{col 56}{space 4} 1.295715{col 69}{space 3} 1.620387
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2} .0057136{col 28}{space 2} .0008994{col 39}{space 1}  -32.81{col 48}{space 3}0.000{col 56}{space 4} .0041968{col 69}{space 3} .0077786
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+Full Regression- All Individual Controls - All State Controls + LEADS/LAGS
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,834
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(31)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-699246.42{txt}{col 49}Pseudo R2{col 67}= {res}    0.0225
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}   marijuana30{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.005716{col 28}{space 2} .0618039{col 39}{space 1}    0.09{col 48}{space 3}0.926{col 56}{space 4} .8915928{col 69}{space 3} 1.134446
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2} 1.028053{col 28}{space 2} .0619431{col 39}{space 1}    0.46{col 48}{space 3}0.646{col 56}{space 4} .9135408{col 69}{space 3} 1.156918
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.004643{col 28}{space 2} .0882462{col 39}{space 1}    0.05{col 48}{space 3}0.958{col 56}{space 4} .8457533{col 69}{space 3} 1.193383
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} .9734282{col 28}{space 2} .0786355{col 39}{space 1}   -0.33{col 48}{space 3}0.739{col 56}{space 4} .8308875{col 69}{space 3} 1.140422
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} 1.022412{col 28}{space 2} .0678201{col 39}{space 1}    0.33{col 48}{space 3}0.738{col 56}{space 4} .8977657{col 69}{space 3} 1.164365
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} .9580022{col 28}{space 2} .0739373{col 39}{space 1}   -0.56{col 48}{space 3}0.578{col 56}{space 4} .8235159{col 69}{space 3} 1.114451
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .8965853{col 28}{space 2} .0548567{col 39}{space 1}   -1.78{col 48}{space 3}0.074{col 56}{space 4} .7952646{col 69}{space 3} 1.010815
+{txt}{space 11}age {c |}{col 16}{res}{space 2}  1.19577{col 28}{space 2} .0127324{col 39}{space 1}   16.79{col 48}{space 3}0.000{col 56}{space 4} 1.171073{col 69}{space 3} 1.220987
+{txt}{space 10}male {c |}{col 16}{res}{space 2} 1.273361{col 28}{space 2} .0243218{col 39}{space 1}   12.65{col 48}{space 3}0.000{col 56}{space 4} 1.226573{col 69}{space 3} 1.321935
+{txt}{space 7}grade10 {c |}{col 16}{res}{space 2} 1.140044{col 28}{space 2} .0356422{col 39}{space 1}    4.19{col 48}{space 3}0.000{col 56}{space 4} 1.072284{col 69}{space 3} 1.212087
+{txt}{space 7}grade11 {c |}{col 16}{res}{space 2} 1.172005{col 28}{space 2} .0608323{col 39}{space 1}    3.06{col 48}{space 3}0.002{col 56}{space 4}  1.05864{col 69}{space 3}  1.29751
+{txt}{space 7}grade12 {c |}{col 16}{res}{space 2}  1.14432{col 28}{space 2} .0796333{col 39}{space 1}    1.94{col 48}{space 3}0.053{col 56}{space 4} .9984178{col 69}{space 3} 1.311543
+{txt}{space 9}black {c |}{col 16}{res}{space 2} 1.151014{col 28}{space 2} .0561352{col 39}{space 1}    2.88{col 48}{space 3}0.004{col 56}{space 4} 1.046086{col 69}{space 3} 1.266467
+{txt}{space 5}otherrace {c |}{col 16}{res}{space 2} 1.133682{col 28}{space 2} .0644492{col 39}{space 1}    2.21{col 48}{space 3}0.027{col 56}{space 4} 1.014147{col 69}{space 3} 1.267306
+{txt}{space 5}rml_share {c |}{col 16}{res}{space 2} .9140653{col 28}{space 2} .0321395{col 39}{space 1}   -2.56{col 48}{space 3}0.011{col 56}{space 4} .8531945{col 69}{space 3}  .979279
+{txt}{space 5}MJ_decrim {c |}{col 16}{res}{space 2} 1.023253{col 28}{space 2} .0395685{col 39}{space 1}    0.59{col 48}{space 3}0.552{col 56}{space 4} .9485666{col 69}{space 3} 1.103821
+{txt}{space 9}BAC08 {c |}{col 16}{res}{space 2} .9999539{col 28}{space 2} .0394377{col 39}{space 1}   -0.00{col 48}{space 3}0.999{col 56}{space 4} .9255695{col 69}{space 3} 1.080316
+{txt}{space 6}rbeertax {c |}{col 16}{res}{space 2} .8587322{col 28}{space 2} .0610925{col 39}{space 1}   -2.14{col 48}{space 3}0.032{col 56}{space 4} .7469663{col 69}{space 3} .9872212
+{txt}{space 9}lnrsi {c |}{col 16}{res}{space 2} 1.341485{col 28}{space 2} .2497423{col 39}{space 1}    1.58{col 48}{space 3}0.115{col 56}{space 4} .9313631{col 69}{space 3} 1.932204
+{txt}{space 2}unemployment {c |}{col 16}{res}{space 2} 1.026371{col 28}{space 2} .0100812{col 39}{space 1}    2.65{col 48}{space 3}0.008{col 56}{space 4} 1.006801{col 69}{space 3} 1.046321
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.313136{col 28}{space 2} .0902215{col 39}{space 1}    3.96{col 48}{space 3}0.000{col 56}{space 4} 1.147694{col 69}{space 3} 1.502426
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.495569{col 28}{space 2} .1363891{col 39}{space 1}    4.41{col 48}{space 3}0.000{col 56}{space 4}  1.25078{col 69}{space 3} 1.788266
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.137392{col 28}{space 2} .1028468{col 39}{space 1}    1.42{col 48}{space 3}0.155{col 56}{space 4} .9526686{col 69}{space 3} 1.357935
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.262721{col 28}{space 2} .1011327{col 39}{space 1}    2.91{col 48}{space 3}0.004{col 56}{space 4} 1.079279{col 69}{space 3} 1.477342
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.512925{col 28}{space 2} .1247725{col 39}{space 1}    5.02{col 48}{space 3}0.000{col 56}{space 4} 1.287116{col 69}{space 3} 1.778348
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} 1.136984{col 28}{space 2} .1106582{col 39}{space 1}    1.32{col 48}{space 3}0.187{col 56}{space 4} .9395296{col 69}{space 3} 1.375937
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.423069{col 28}{space 2} .1112562{col 39}{space 1}    4.51{col 48}{space 3}0.000{col 56}{space 4} 1.220896{col 69}{space 3} 1.658721
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} .9669187{col 28}{space 2} .1159944{col 39}{space 1}   -0.28{col 48}{space 3}0.779{col 56}{space 4} .7643237{col 69}{space 3} 1.223214
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.129169{col 28}{space 2} .0816824{col 39}{space 1}    1.68{col 48}{space 3}0.093{col 56}{space 4} .9799057{col 69}{space 3} 1.301169
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2} 1.098811{col 28}{space 2} .0205019{col 39}{space 1}    5.05{col 48}{space 3}0.000{col 56}{space 4} 1.059353{col 69}{space 3} 1.139737
+{txt}{space 11}15  {c |}{col 16}{res}{space 2}  1.48741{col 28}{space 2} .1139909{col 39}{space 1}    5.18{col 48}{space 3}0.000{col 56}{space 4} 1.279962{col 69}{space 3}  1.72848
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} .9722279{col 28}{space 2} .0466691{col 39}{space 1}   -0.59{col 48}{space 3}0.557{col 56}{space 4} .8849291{col 69}{space 3} 1.068139
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.196384{col 28}{space 2} .0854034{col 39}{space 1}    2.51{col 48}{space 3}0.012{col 56}{space 4} 1.040178{col 69}{space 3} 1.376047
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2}  1.10346{col 28}{space 2} .0495466{col 39}{space 1}    2.19{col 48}{space 3}0.028{col 56}{space 4} 1.010501{col 69}{space 3} 1.204971
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .8279852{col 28}{space 2} .0380009{col 39}{space 1}   -4.11{col 48}{space 3}0.000{col 56}{space 4} .7567565{col 69}{space 3} .9059181
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .8815219{col 28}{space 2} .0401759{col 39}{space 1}   -2.77{col 48}{space 3}0.006{col 56}{space 4} .8061931{col 69}{space 3} .9638893
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.020568{col 28}{space 2} .0515629{col 39}{space 1}    0.40{col 48}{space 3}0.687{col 56}{space 4} .9243494{col 69}{space 3} 1.126803
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} .9468095{col 28}{space 2} .0304134{col 39}{space 1}   -1.70{col 48}{space 3}0.089{col 56}{space 4} .8890379{col 69}{space 3} 1.008335
+{txt}{space 11}23  {c |}{col 16}{res}{space 2}  1.41175{col 28}{space 2} .0997225{col 39}{space 1}    4.88{col 48}{space 3}0.000{col 56}{space 4} 1.229224{col 69}{space 3} 1.621379
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} 1.060097{col 28}{space 2} .0842842{col 39}{space 1}    0.73{col 48}{space 3}0.463{col 56}{space 4} .9071304{col 69}{space 3} 1.238857
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.350367{col 28}{space 2} .1224326{col 39}{space 1}    3.31{col 48}{space 3}0.001{col 56}{space 4} 1.130516{col 69}{space 3} 1.612973
+{txt}{space 11}26  {c |}{col 16}{res}{space 2}  1.22058{col 28}{space 2} .0980447{col 39}{space 1}    2.48{col 48}{space 3}0.013{col 56}{space 4} 1.042779{col 69}{space 3} 1.428697
+{txt}{space 11}27  {c |}{col 16}{res}{space 2}  .922069{col 28}{space 2} .0724698{col 39}{space 1}   -1.03{col 48}{space 3}0.302{col 56}{space 4} .7904301{col 69}{space 3} 1.075631
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} .9476194{col 28}{space 2} .0513547{col 39}{space 1}   -0.99{col 48}{space 3}0.321{col 56}{space 4} .8521272{col 69}{space 3} 1.053813
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.144059{col 28}{space 2} .0531254{col 39}{space 1}    2.90{col 48}{space 3}0.004{col 56}{space 4} 1.044533{col 69}{space 3} 1.253068
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.316226{col 28}{space 2} .1208175{col 39}{space 1}    2.99{col 48}{space 3}0.003{col 56}{space 4} 1.099507{col 69}{space 3} 1.575662
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .6974864{col 28}{space 2} .0404899{col 39}{space 1}   -6.21{col 48}{space 3}0.000{col 56}{space 4} .6224758{col 69}{space 3} .7815361
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.169952{col 28}{space 2} .0884106{col 39}{space 1}    2.08{col 48}{space 3}0.038{col 56}{space 4} 1.008892{col 69}{space 3} 1.356723
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.541194{col 28}{space 2} .1279879{col 39}{space 1}    5.21{col 48}{space 3}0.000{col 56}{space 4} 1.309693{col 69}{space 3} 1.813615
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} 1.009057{col 28}{space 2}  .091664{col 39}{space 1}    0.10{col 48}{space 3}0.921{col 56}{space 4} .8444838{col 69}{space 3} 1.205702
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 1.993709{col 28}{space 2} .1734996{col 39}{space 1}    7.93{col 48}{space 3}0.000{col 56}{space 4} 1.681075{col 69}{space 3} 2.364484
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} .8662479{col 28}{space 2} .0731767{col 39}{space 1}   -1.70{col 48}{space 3}0.089{col 56}{space 4} .7340684{col 69}{space 3} 1.022228
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.208849{col 28}{space 2} .0512819{col 39}{space 1}    4.47{col 48}{space 3}0.000{col 56}{space 4} 1.112403{col 69}{space 3} 1.313657
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8606864{col 28}{space 2} .0795768{col 39}{space 1}   -1.62{col 48}{space 3}0.105{col 56}{space 4} .7180341{col 69}{space 3}  1.03168
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2}   1.1363{col 28}{space 2} .0911472{col 39}{space 1}    1.59{col 48}{space 3}0.111{col 56}{space 4} .9709899{col 69}{space 3} 1.329754
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} .9810924{col 28}{space 2} .0363289{col 39}{space 1}   -0.52{col 48}{space 3}0.606{col 56}{space 4} .9124115{col 69}{space 3} 1.054943
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} 1.002607{col 28}{space 2} .0777808{col 39}{space 1}    0.03{col 48}{space 3}0.973{col 56}{space 4} .8611831{col 69}{space 3} 1.167255
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} 1.060279{col 28}{space 2} .0830065{col 39}{space 1}    0.75{col 48}{space 3}0.455{col 56}{space 4} .9094559{col 69}{space 3} 1.236114
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.435518{col 28}{space 2} .1048186{col 39}{space 1}    4.95{col 48}{space 3}0.000{col 56}{space 4} 1.244101{col 69}{space 3} 1.656386
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.231857{col 28}{space 2} .0234643{col 39}{space 1}   10.95{col 48}{space 3}0.000{col 56}{space 4} 1.186715{col 69}{space 3} 1.278715
+{txt}{space 11}46  {c |}{col 16}{res}{space 2}  .946717{col 28}{space 2} .0442494{col 39}{space 1}   -1.17{col 48}{space 3}0.241{col 56}{space 4} .8638436{col 69}{space 3} 1.037541
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.204663{col 28}{space 2} .0383106{col 39}{space 1}    5.85{col 48}{space 3}0.000{col 56}{space 4} 1.131867{col 69}{space 3}  1.28214
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} 1.054056{col 28}{space 2} .0446931{col 39}{space 1}    1.24{col 48}{space 3}0.214{col 56}{space 4}      .97{col 69}{space 3} 1.145395
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5393168{col 28}{space 2}  .019072{col 39}{space 1}  -17.46{col 48}{space 3}0.000{col 56}{space 4} .5032024{col 69}{space 3} .5780231
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.639021{col 28}{space 2} .1237097{col 39}{space 1}    6.55{col 48}{space 3}0.000{col 56}{space 4} 1.413636{col 69}{space 3}  1.90034
+{txt}{space 11}51  {c |}{col 16}{res}{space 2} 1.073208{col 28}{space 2} .0564502{col 39}{space 1}    1.34{col 48}{space 3}0.179{col 56}{space 4}   .96808{col 69}{space 3} 1.189753
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.370208{col 28}{space 2} .1082037{col 39}{space 1}    3.99{col 48}{space 3}0.000{col 56}{space 4}  1.17373{col 69}{space 3} 1.599576
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.326612{col 28}{space 2} .1259822{col 39}{space 1}    2.98{col 48}{space 3}0.003{col 56}{space 4} 1.101309{col 69}{space 3} 1.598006
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.021133{col 28}{space 2} .0499154{col 39}{space 1}    0.43{col 48}{space 3}0.669{col 56}{space 4} .9278406{col 69}{space 3} 1.123805
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.007671{col 28}{space 2} .0589033{col 39}{space 1}    0.13{col 48}{space 3}0.896{col 56}{space 4} .8985904{col 69}{space 3} 1.129993
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.734274{col 28}{space 2} .0725404{col 39}{space 1}   13.16{col 48}{space 3}0.000{col 56}{space 4} 1.597769{col 69}{space 3} 1.882441
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 1.956962{col 28}{space 2} .1289688{col 39}{space 1}   10.19{col 48}{space 3}0.000{col 56}{space 4} 1.719832{col 69}{space 3} 2.226787
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 1.906687{col 28}{space 2} .1098176{col 39}{space 1}   11.21{col 48}{space 3}0.000{col 56}{space 4} 1.703153{col 69}{space 3} 2.134545
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 1.784389{col 28}{space 2} .1202623{col 39}{space 1}    8.59{col 48}{space 3}0.000{col 56}{space 4} 1.563584{col 69}{space 3} 2.036376
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 1.701931{col 28}{space 2} .1287983{col 39}{space 1}    7.03{col 48}{space 3}0.000{col 56}{space 4}  1.46732{col 69}{space 3} 1.974053
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.410198{col 28}{space 2} .1153413{col 39}{space 1}    4.20{col 48}{space 3}0.000{col 56}{space 4} 1.201322{col 69}{space 3} 1.655391
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2} 1.355767{col 28}{space 2} .1141656{col 39}{space 1}    3.61{col 48}{space 3}0.000{col 56}{space 4} 1.149496{col 69}{space 3} 1.599051
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2}  1.31232{col 28}{space 2} .1180855{col 39}{space 1}    3.02{col 48}{space 3}0.003{col 56}{space 4} 1.100137{col 69}{space 3} 1.565427
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2} 1.407483{col 28}{space 2} .1250659{col 39}{space 1}    3.85{col 48}{space 3}0.000{col 56}{space 4} 1.182517{col 69}{space 3} 1.675248
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.410689{col 28}{space 2}  .123225{col 39}{space 1}    3.94{col 48}{space 3}0.000{col 56}{space 4} 1.188716{col 69}{space 3} 1.674112
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.342687{col 28}{space 2} .1233198{col 39}{space 1}    3.21{col 48}{space 3}0.001{col 56}{space 4} 1.121491{col 69}{space 3} 1.607511
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.386432{col 28}{space 2} .1235584{col 39}{space 1}    3.67{col 48}{space 3}0.000{col 56}{space 4} 1.164232{col 69}{space 3} 1.651039
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2} .0002794{col 28}{space 2} .0005249{col 39}{space 1}   -4.36{col 48}{space 3}0.000{col 56}{space 4} 7.03e-06{col 69}{space 3} .0110979
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+Full Regression- All Individual Controls - All State Controls + LEADS/LAGS
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,833
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(31)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-395239.57{txt}{col 49}Pseudo R2{col 67}= {res}    0.0354
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}         mfreq{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.083146{col 28}{space 2} .0665417{col 39}{space 1}    1.30{col 48}{space 3}0.194{col 56}{space 4} .9602728{col 69}{space 3} 1.221742
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2} 1.045288{col 28}{space 2}  .056066{col 39}{space 1}    0.83{col 48}{space 3}0.409{col 56}{space 4} .9409799{col 69}{space 3} 1.161159
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.086924{col 28}{space 2} .0889161{col 39}{space 1}    1.02{col 48}{space 3}0.308{col 56}{space 4} .9259046{col 69}{space 3} 1.275944
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} 1.046104{col 28}{space 2} .0791197{col 39}{space 1}    0.60{col 48}{space 3}0.551{col 56}{space 4} .9019787{col 69}{space 3} 1.213259
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} 1.069143{col 28}{space 2} .0876359{col 39}{space 1}    0.82{col 48}{space 3}0.415{col 56}{space 4} .9104673{col 69}{space 3} 1.255474
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} 1.001697{col 28}{space 2} .0720779{col 39}{space 1}    0.02{col 48}{space 3}0.981{col 56}{space 4} .8699361{col 69}{space 3} 1.153414
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .9380879{col 28}{space 2}   .06936{col 39}{space 1}   -0.86{col 48}{space 3}0.387{col 56}{space 4} .8115359{col 69}{space 3} 1.084375
+{txt}{space 11}age {c |}{col 16}{res}{space 2} 1.263769{col 28}{space 2} .0203125{col 39}{space 1}   14.56{col 48}{space 3}0.000{col 56}{space 4} 1.224578{col 69}{space 3} 1.304214
+{txt}{space 10}male {c |}{col 16}{res}{space 2} 1.837793{col 28}{space 2} .0387752{col 39}{space 1}   28.84{col 48}{space 3}0.000{col 56}{space 4} 1.763345{col 69}{space 3} 1.915384
+{txt}{space 7}grade10 {c |}{col 16}{res}{space 2} 1.102817{col 28}{space 2} .0355643{col 39}{space 1}    3.03{col 48}{space 3}0.002{col 56}{space 4} 1.035269{col 69}{space 3} 1.174772
+{txt}{space 7}grade11 {c |}{col 16}{res}{space 2} 1.117783{col 28}{space 2} .0626746{col 39}{space 1}    1.99{col 48}{space 3}0.047{col 56}{space 4} 1.001453{col 69}{space 3} 1.247627
+{txt}{space 7}grade12 {c |}{col 16}{res}{space 2} 1.098817{col 28}{space 2}  .081764{col 39}{space 1}    1.27{col 48}{space 3}0.205{col 56}{space 4} .9497009{col 69}{space 3} 1.271347
+{txt}{space 9}black {c |}{col 16}{res}{space 2} 1.175936{col 28}{space 2} .0631918{col 39}{space 1}    3.02{col 48}{space 3}0.003{col 56}{space 4} 1.058381{col 69}{space 3} 1.306547
+{txt}{space 5}otherrace {c |}{col 16}{res}{space 2} 1.193262{col 28}{space 2} .0786689{col 39}{space 1}    2.68{col 48}{space 3}0.007{col 56}{space 4}  1.04862{col 69}{space 3} 1.357856
+{txt}{space 5}rml_share {c |}{col 16}{res}{space 2} .9077652{col 28}{space 2} .0454221{col 39}{space 1}   -1.93{col 48}{space 3}0.053{col 56}{space 4} .8229656{col 69}{space 3} 1.001303
+{txt}{space 5}MJ_decrim {c |}{col 16}{res}{space 2} .9884753{col 28}{space 2} .0459961{col 39}{space 1}   -0.25{col 48}{space 3}0.803{col 56}{space 4} .9023134{col 69}{space 3} 1.082865
+{txt}{space 9}BAC08 {c |}{col 16}{res}{space 2} .9903634{col 28}{space 2} .0479884{col 39}{space 1}   -0.20{col 48}{space 3}0.842{col 56}{space 4}  .900636{col 69}{space 3}  1.08903
+{txt}{space 6}rbeertax {c |}{col 16}{res}{space 2} .8609525{col 28}{space 2} .1076587{col 39}{space 1}   -1.20{col 48}{space 3}0.231{col 56}{space 4} .6738137{col 69}{space 3} 1.100065
+{txt}{space 9}lnrsi {c |}{col 16}{res}{space 2} 1.420005{col 28}{space 2} .3156108{col 39}{space 1}    1.58{col 48}{space 3}0.115{col 56}{space 4} .9185473{col 69}{space 3} 2.195221
+{txt}{space 2}unemployment {c |}{col 16}{res}{space 2} 1.027324{col 28}{space 2} .0124349{col 39}{space 1}    2.23{col 48}{space 3}0.026{col 56}{space 4} 1.003239{col 69}{space 3} 1.051988
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.177194{col 28}{space 2} .1220241{col 39}{space 1}    1.57{col 48}{space 3}0.116{col 56}{space 4} .9607604{col 69}{space 3} 1.442383
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.491198{col 28}{space 2} .1428867{col 39}{space 1}    4.17{col 48}{space 3}0.000{col 56}{space 4} 1.235871{col 69}{space 3} 1.799275
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.130058{col 28}{space 2} .0954879{col 39}{space 1}    1.45{col 48}{space 3}0.148{col 56}{space 4} .9575809{col 69}{space 3}   1.3336
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.121638{col 28}{space 2} .1367305{col 39}{space 1}    0.94{col 48}{space 3}0.346{col 56}{space 4} .8832609{col 69}{space 3} 1.424348
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.448086{col 28}{space 2} .1689446{col 39}{space 1}    3.17{col 48}{space 3}0.002{col 56}{space 4} 1.152091{col 69}{space 3} 1.820127
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} .9310991{col 28}{space 2} .1281755{col 39}{space 1}   -0.52{col 48}{space 3}0.604{col 56}{space 4} .7109174{col 69}{space 3} 1.219474
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.316585{col 28}{space 2} .1288536{col 39}{space 1}    2.81{col 48}{space 3}0.005{col 56}{space 4} 1.086781{col 69}{space 3} 1.594982
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} .8739675{col 28}{space 2}  .146882{col 39}{space 1}   -0.80{col 48}{space 3}0.423{col 56}{space 4} .6286941{col 69}{space 3}  1.21493
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.080707{col 28}{space 2} .0833898{col 39}{space 1}    1.01{col 48}{space 3}0.314{col 56}{space 4} .9290243{col 69}{space 3} 1.257154
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2} 1.031277{col 28}{space 2} .0262417{col 39}{space 1}    1.21{col 48}{space 3}0.226{col 56}{space 4} .9811056{col 69}{space 3} 1.084014
+{txt}{space 11}15  {c |}{col 16}{res}{space 2} 1.397183{col 28}{space 2} .1576584{col 39}{space 1}    2.96{col 48}{space 3}0.003{col 56}{space 4} 1.119963{col 69}{space 3} 1.743023
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} .9625992{col 28}{space 2} .0666196{col 39}{space 1}   -0.55{col 48}{space 3}0.582{col 56}{space 4} .8404958{col 69}{space 3} 1.102441
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.074452{col 28}{space 2} .1022314{col 39}{space 1}    0.75{col 48}{space 3}0.450{col 56}{space 4} .8916564{col 69}{space 3} 1.294723
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2} 1.171303{col 28}{space 2} .0800218{col 39}{space 1}    2.31{col 48}{space 3}0.021{col 56}{space 4}  1.02451{col 69}{space 3} 1.339128
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .7975027{col 28}{space 2} .0562662{col 39}{space 1}   -3.21{col 48}{space 3}0.001{col 56}{space 4} .6945081{col 69}{space 3} .9157712
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .9078751{col 28}{space 2}  .065036{col 39}{space 1}   -1.35{col 48}{space 3}0.177{col 56}{space 4} .7889508{col 69}{space 3} 1.044726
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.113495{col 28}{space 2} .0807348{col 39}{space 1}    1.48{col 48}{space 3}0.138{col 56}{space 4} .9659872{col 69}{space 3} 1.283528
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} .9212917{col 28}{space 2} .0463836{col 39}{space 1}   -1.63{col 48}{space 3}0.103{col 56}{space 4}  .834723{col 69}{space 3} 1.016838
+{txt}{space 11}23  {c |}{col 16}{res}{space 2}   1.5566{col 28}{space 2} .1349831{col 39}{space 1}    5.10{col 48}{space 3}0.000{col 56}{space 4} 1.313299{col 69}{space 3} 1.844974
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} .9529024{col 28}{space 2} .1070846{col 39}{space 1}   -0.43{col 48}{space 3}0.668{col 56}{space 4} .7645267{col 69}{space 3} 1.187693
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.223403{col 28}{space 2} .1520151{col 39}{space 1}    1.62{col 48}{space 3}0.105{col 56}{space 4} .9589648{col 69}{space 3} 1.560761
+{txt}{space 11}26  {c |}{col 16}{res}{space 2} 1.118861{col 28}{space 2} .0974046{col 39}{space 1}    1.29{col 48}{space 3}0.197{col 56}{space 4} .9433512{col 69}{space 3} 1.327025
+{txt}{space 11}27  {c |}{col 16}{res}{space 2}  .792949{col 28}{space 2} .0820095{col 39}{space 1}   -2.24{col 48}{space 3}0.025{col 56}{space 4} .6474572{col 69}{space 3} .9711347
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} 1.024587{col 28}{space 2} .0670214{col 39}{space 1}    0.37{col 48}{space 3}0.710{col 56}{space 4}  .901299{col 69}{space 3} 1.164738
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.217553{col 28}{space 2} .0935012{col 39}{space 1}    2.56{col 48}{space 3}0.010{col 56}{space 4} 1.047419{col 69}{space 3} 1.415322
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.287479{col 28}{space 2} .1214086{col 39}{space 1}    2.68{col 48}{space 3}0.007{col 56}{space 4} 1.070218{col 69}{space 3} 1.548845
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .7017954{col 28}{space 2} .0599337{col 39}{space 1}   -4.15{col 48}{space 3}0.000{col 56}{space 4} .5936321{col 69}{space 3} .8296666
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.104787{col 28}{space 2} .1123229{col 39}{space 1}    0.98{col 48}{space 3}0.327{col 56}{space 4}  .905185{col 69}{space 3} 1.348402
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.549135{col 28}{space 2} .1577118{col 39}{space 1}    4.30{col 48}{space 3}0.000{col 56}{space 4} 1.268912{col 69}{space 3} 1.891242
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} .7782004{col 28}{space 2} .0965535{col 39}{space 1}   -2.02{col 48}{space 3}0.043{col 56}{space 4} .6102117{col 69}{space 3} .9924357
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 2.031164{col 28}{space 2}  .191794{col 39}{space 1}    7.50{col 48}{space 3}0.000{col 56}{space 4} 1.687989{col 69}{space 3} 2.444107
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} .7521961{col 28}{space 2} .0869724{col 39}{space 1}   -2.46{col 48}{space 3}0.014{col 56}{space 4} .5996684{col 69}{space 3} .9435197
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.257386{col 28}{space 2} .0648845{col 39}{space 1}    4.44{col 48}{space 3}0.000{col 56}{space 4} 1.136434{col 69}{space 3} 1.391211
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8098368{col 28}{space 2} .0797469{col 39}{space 1}   -2.14{col 48}{space 3}0.032{col 56}{space 4} .6676937{col 69}{space 3} .9822402
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2} 1.133227{col 28}{space 2} .1046364{col 39}{space 1}    1.35{col 48}{space 3}0.176{col 56}{space 4} .9456306{col 69}{space 3}  1.35804
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} .9921478{col 28}{space 2} .0515405{col 39}{space 1}   -0.15{col 48}{space 3}0.879{col 56}{space 4} .8961028{col 69}{space 3} 1.098487
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} .9677054{col 28}{space 2} .0984947{col 39}{space 1}   -0.32{col 48}{space 3}0.747{col 56}{space 4} .7926956{col 69}{space 3} 1.181354
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} .9817394{col 28}{space 2} .0954629{col 39}{space 1}   -0.19{col 48}{space 3}0.850{col 56}{space 4} .8113844{col 69}{space 3} 1.187861
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.400483{col 28}{space 2} .1459175{col 39}{space 1}    3.23{col 48}{space 3}0.001{col 56}{space 4} 1.141801{col 69}{space 3} 1.717771
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.233045{col 28}{space 2}  .033866{col 39}{space 1}    7.63{col 48}{space 3}0.000{col 56}{space 4} 1.168424{col 69}{space 3} 1.301241
+{txt}{space 11}46  {c |}{col 16}{res}{space 2} 1.028014{col 28}{space 2} .0704033{col 39}{space 1}    0.40{col 48}{space 3}0.687{col 56}{space 4} .8988859{col 69}{space 3} 1.175691
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.287488{col 28}{space 2} .0635177{col 39}{space 1}    5.12{col 48}{space 3}0.000{col 56}{space 4} 1.168825{col 69}{space 3} 1.418198
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} .9700358{col 28}{space 2} .0675723{col 39}{space 1}   -0.44{col 48}{space 3}0.662{col 56}{space 4} .8462397{col 69}{space 3} 1.111942
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5882302{col 28}{space 2}  .028629{col 39}{space 1}  -10.90{col 48}{space 3}0.000{col 56}{space 4} .5347117{col 69}{space 3} .6471054
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.667202{col 28}{space 2} .1591359{col 39}{space 1}    5.36{col 48}{space 3}0.000{col 56}{space 4}  1.38274{col 69}{space 3} 2.010186
+{txt}{space 11}51  {c |}{col 16}{res}{space 2} 1.064376{col 28}{space 2} .0830122{col 39}{space 1}    0.80{col 48}{space 3}0.424{col 56}{space 4} .9135005{col 69}{space 3} 1.240171
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.133083{col 28}{space 2}  .117461{col 39}{space 1}    1.21{col 48}{space 3}0.228{col 56}{space 4} .9247449{col 69}{space 3} 1.388358
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.393023{col 28}{space 2} .1254345{col 39}{space 1}    3.68{col 48}{space 3}0.000{col 56}{space 4} 1.167648{col 69}{space 3} 1.661899
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.002694{col 28}{space 2} .0799506{col 39}{space 1}    0.03{col 48}{space 3}0.973{col 56}{space 4} .8576246{col 69}{space 3} 1.172302
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.111394{col 28}{space 2} .1030188{col 39}{space 1}    1.14{col 48}{space 3}0.255{col 56}{space 4} .9267602{col 69}{space 3} 1.332812
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.833979{col 28}{space 2}  .102626{col 39}{space 1}   10.84{col 48}{space 3}0.000{col 56}{space 4} 1.643473{col 69}{space 3} 2.046567
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 2.269976{col 28}{space 2} .1785954{col 39}{space 1}   10.42{col 48}{space 3}0.000{col 56}{space 4} 1.945589{col 69}{space 3} 2.648448
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 2.264802{col 28}{space 2} .1708971{col 39}{space 1}   10.83{col 48}{space 3}0.000{col 56}{space 4} 1.953441{col 69}{space 3}  2.62579
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 2.067464{col 28}{space 2} .1805976{col 39}{space 1}    8.31{col 48}{space 3}0.000{col 56}{space 4} 1.742142{col 69}{space 3} 2.453535
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 2.027434{col 28}{space 2} .1910702{col 39}{space 1}    7.50{col 48}{space 3}0.000{col 56}{space 4} 1.685495{col 69}{space 3} 2.438742
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.622541{col 28}{space 2} .1746742{col 39}{space 1}    4.50{col 48}{space 3}0.000{col 56}{space 4} 1.313892{col 69}{space 3} 2.003694
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2} 1.569007{col 28}{space 2} .1797066{col 39}{space 1}    3.93{col 48}{space 3}0.000{col 56}{space 4} 1.253523{col 69}{space 3} 1.963891
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} 1.529424{col 28}{space 2} .1954101{col 39}{space 1}    3.33{col 48}{space 3}0.001{col 56}{space 4} 1.190618{col 69}{space 3} 1.964642
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2} 1.696903{col 28}{space 2} .2012476{col 39}{space 1}    4.46{col 48}{space 3}0.000{col 56}{space 4} 1.344953{col 69}{space 3} 2.140952
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.682926{col 28}{space 2} .1934434{col 39}{space 1}    4.53{col 48}{space 3}0.000{col 56}{space 4} 1.343457{col 69}{space 3} 2.108172
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.574316{col 28}{space 2} .1885854{col 39}{space 1}    3.79{col 48}{space 3}0.000{col 56}{space 4}  1.24488{col 69}{space 3} 1.990931
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.507875{col 28}{space 2} .1830431{col 39}{space 1}    3.38{col 48}{space 3}0.001{col 56}{space 4} 1.188603{col 69}{space 3} 1.912907
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2}  .000016{col 28}{space 2} .0000362{col 39}{space 1}   -4.88{col 48}{space 3}0.000{col 56}{space 4} 1.90e-07{col 69}{space 3} .0013498
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+(149,471 observations deleted)
+No Controls
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,833
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(18)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-405911.67{txt}{col 49}Pseudo R2{col 67}= {res}    0.0093
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}         mfreq{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.053741{col 28}{space 2} .0665897{col 39}{space 1}    0.83{col 48}{space 3}0.407{col 56}{space 4}  .930987{col 69}{space 3} 1.192682
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2}  1.00053{col 28}{space 2}  .058869{col 39}{space 1}    0.01{col 48}{space 3}0.993{col 56}{space 4} .8915536{col 69}{space 3} 1.122828
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.053972{col 28}{space 2} .0901931{col 39}{space 1}    0.61{col 48}{space 3}0.539{col 56}{space 4} .8912258{col 69}{space 3} 1.246436
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} 1.013865{col 28}{space 2} .0643758{col 39}{space 1}    0.22{col 48}{space 3}0.828{col 56}{space 4} .8952259{col 69}{space 3} 1.148226
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} .9997753{col 28}{space 2} .0721827{col 39}{space 1}   -0.00{col 48}{space 3}0.998{col 56}{space 4} .8678539{col 69}{space 3}  1.15175
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} .9746257{col 28}{space 2} .0636108{col 39}{space 1}   -0.39{col 48}{space 3}0.694{col 56}{space 4} .8575957{col 69}{space 3} 1.107626
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .9116661{col 28}{space 2} .0558767{col 39}{space 1}   -1.51{col 48}{space 3}0.131{col 56}{space 4} .8084721{col 69}{space 3} 1.028032
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.290269{col 28}{space 2} .0732939{col 39}{space 1}    4.49{col 48}{space 3}0.000{col 56}{space 4} 1.154324{col 69}{space 3} 1.442225
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.730845{col 28}{space 2} .1012524{col 39}{space 1}    9.38{col 48}{space 3}0.000{col 56}{space 4} 1.543348{col 69}{space 3}  1.94112
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.146565{col 28}{space 2} .0730861{col 39}{space 1}    2.15{col 48}{space 3}0.032{col 56}{space 4} 1.011906{col 69}{space 3} 1.299144
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.431333{col 28}{space 2} .0799986{col 39}{space 1}    6.42{col 48}{space 3}0.000{col 56}{space 4} 1.282822{col 69}{space 3} 1.597038
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.564146{col 28}{space 2}  .083722{col 39}{space 1}    8.36{col 48}{space 3}0.000{col 56}{space 4} 1.408368{col 69}{space 3} 1.737155
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} 1.189615{col 28}{space 2} .0634797{col 39}{space 1}    3.25{col 48}{space 3}0.001{col 56}{space 4} 1.071482{col 69}{space 3} 1.320772
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.528645{col 28}{space 2}   .08634{col 39}{space 1}    7.51{col 48}{space 3}0.000{col 56}{space 4} 1.368452{col 69}{space 3}  1.70759
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} 1.318043{col 28}{space 2} .0908907{col 39}{space 1}    4.00{col 48}{space 3}0.000{col 56}{space 4} 1.151415{col 69}{space 3} 1.508785
+{txt}{space 11}12  {c |}{col 16}{res}{space 2}   1.2261{col 28}{space 2} .0824885{col 39}{space 1}    3.03{col 48}{space 3}0.002{col 56}{space 4} 1.074631{col 69}{space 3} 1.398918
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2}  1.11015{col 28}{space 2}  .018466{col 39}{space 1}    6.28{col 48}{space 3}0.000{col 56}{space 4} 1.074541{col 69}{space 3} 1.146939
+{txt}{space 11}15  {c |}{col 16}{res}{space 2} 1.449548{col 28}{space 2}  .083793{col 39}{space 1}    6.42{col 48}{space 3}0.000{col 56}{space 4} 1.294278{col 69}{space 3} 1.623444
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} .9627276{col 28}{space 2} .0148516{col 39}{space 1}   -2.46{col 48}{space 3}0.014{col 56}{space 4} .9340546{col 69}{space 3} .9922807
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.327378{col 28}{space 2} .0686428{col 39}{space 1}    5.48{col 48}{space 3}0.000{col 56}{space 4} 1.199434{col 69}{space 3} 1.468969
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2} 1.245937{col 28}{space 2} .0268909{col 39}{space 1}   10.19{col 48}{space 3}0.000{col 56}{space 4} 1.194331{col 69}{space 3} 1.299773
+{txt}{space 11}19  {c |}{col 16}{res}{space 2}  .805479{col 28}{space 2} .0119013{col 39}{space 1}  -14.64{col 48}{space 3}0.000{col 56}{space 4} .7824873{col 69}{space 3} .8291462
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .9445318{col 28}{space 2} .0205109{col 39}{space 1}   -2.63{col 48}{space 3}0.009{col 56}{space 4} .9051747{col 69}{space 3} .9856001
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.130907{col 28}{space 2} .0217553{col 39}{space 1}    6.39{col 48}{space 3}0.000{col 56}{space 4} 1.089061{col 69}{space 3} 1.174361
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} 1.032442{col 28}{space 2} .0142104{col 39}{space 1}    2.32{col 48}{space 3}0.020{col 56}{space 4} 1.004962{col 69}{space 3} 1.060673
+{txt}{space 11}23  {c |}{col 16}{res}{space 2} 1.532924{col 28}{space 2} .0852389{col 39}{space 1}    7.68{col 48}{space 3}0.000{col 56}{space 4} 1.374641{col 69}{space 3} 1.709433
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} 1.070559{col 28}{space 2} .0545544{col 39}{space 1}    1.34{col 48}{space 3}0.181{col 56}{space 4} .9688009{col 69}{space 3} 1.183006
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.565559{col 28}{space 2} .0972618{col 39}{space 1}    7.22{col 48}{space 3}0.000{col 56}{space 4} 1.386078{col 69}{space 3}  1.76828
+{txt}{space 11}26  {c |}{col 16}{res}{space 2} 1.258961{col 28}{space 2} .0727058{col 39}{space 1}    3.99{col 48}{space 3}0.000{col 56}{space 4} 1.124229{col 69}{space 3}  1.40984
+{txt}{space 11}27  {c |}{col 16}{res}{space 2} .8662419{col 28}{space 2} .0482176{col 39}{space 1}   -2.58{col 48}{space 3}0.010{col 56}{space 4} .7767098{col 69}{space 3} .9660944
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} 1.050321{col 28}{space 2} .0085309{col 39}{space 1}    6.04{col 48}{space 3}0.000{col 56}{space 4} 1.033733{col 69}{space 3} 1.067175
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.322092{col 28}{space 2} .0095225{col 39}{space 1}   38.77{col 48}{space 3}0.000{col 56}{space 4} 1.303559{col 69}{space 3} 1.340888
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.347279{col 28}{space 2}  .074509{col 39}{space 1}    5.39{col 48}{space 3}0.000{col 56}{space 4}  1.20888{col 69}{space 3} 1.501523
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .6756668{col 28}{space 2} .0116716{col 39}{space 1}  -22.70{col 48}{space 3}0.000{col 56}{space 4} .6531738{col 69}{space 3} .6989345
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.255355{col 28}{space 2}  .063939{col 39}{space 1}    4.47{col 48}{space 3}0.000{col 56}{space 4} 1.136089{col 69}{space 3} 1.387142
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.680249{col 28}{space 2} .0936722{col 39}{space 1}    9.31{col 48}{space 3}0.000{col 56}{space 4}  1.50633{col 69}{space 3} 1.874249
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} 1.014304{col 28}{space 2} .0598437{col 39}{space 1}    0.24{col 48}{space 3}0.810{col 56}{space 4} .9035405{col 69}{space 3} 1.138647
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 2.086542{col 28}{space 2} .1117496{col 39}{space 1}   13.73{col 48}{space 3}0.000{col 56}{space 4}  1.87862{col 69}{space 3} 2.317476
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} .9135036{col 28}{space 2} .0542565{col 39}{space 1}   -1.52{col 48}{space 3}0.128{col 56}{space 4}  .813119{col 69}{space 3} 1.026281
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.262795{col 28}{space 2} .0200575{col 39}{space 1}   14.69{col 48}{space 3}0.000{col 56}{space 4} 1.224089{col 69}{space 3} 1.302725
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8649734{col 28}{space 2} .0566181{col 39}{space 1}   -2.22{col 48}{space 3}0.027{col 56}{space 4} .7608274{col 69}{space 3} .9833755
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2} 1.262302{col 28}{space 2} .0777744{col 39}{space 1}    3.78{col 48}{space 3}0.000{col 56}{space 4} 1.118711{col 69}{space 3} 1.424322
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} 1.026475{col 28}{space 2} .0217723{col 39}{space 1}    1.23{col 48}{space 3}0.218{col 56}{space 4} .9846768{col 69}{space 3} 1.070047
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} 1.170198{col 28}{space 2} .0636109{col 39}{space 1}    2.89{col 48}{space 3}0.004{col 56}{space 4} 1.051934{col 69}{space 3} 1.301756
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} 1.174346{col 28}{space 2} .0647918{col 39}{space 1}    2.91{col 48}{space 3}0.004{col 56}{space 4} 1.053981{col 69}{space 3} 1.308456
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.608947{col 28}{space 2} .0808013{col 39}{space 1}    9.47{col 48}{space 3}0.000{col 56}{space 4} 1.458124{col 69}{space 3} 1.775371
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.175916{col 28}{space 2} .0053788{col 39}{space 1}   35.43{col 48}{space 3}0.000{col 56}{space 4} 1.165421{col 69}{space 3} 1.186506
+{txt}{space 11}46  {c |}{col 16}{res}{space 2} 1.027183{col 28}{space 2} .0098299{col 39}{space 1}    2.80{col 48}{space 3}0.005{col 56}{space 4} 1.008096{col 69}{space 3} 1.046631
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.333543{col 28}{space 2} .0193166{col 39}{space 1}   19.87{col 48}{space 3}0.000{col 56}{space 4} 1.296216{col 69}{space 3} 1.371945
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} 1.168824{col 28}{space 2}  .017152{col 39}{space 1}   10.63{col 48}{space 3}0.000{col 56}{space 4} 1.135686{col 69}{space 3}  1.20293
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5371815{col 28}{space 2} .0032877{col 39}{space 1} -101.53{col 48}{space 3}0.000{col 56}{space 4} .5307761{col 69}{space 3} .5436641
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.693219{col 28}{space 2} .0907856{col 39}{space 1}    9.82{col 48}{space 3}0.000{col 56}{space 4} 1.524313{col 69}{space 3} 1.880841
+{txt}{space 11}51  {c |}{col 16}{res}{space 2} 1.132434{col 28}{space 2} .0280501{col 39}{space 1}    5.02{col 48}{space 3}0.000{col 56}{space 4}  1.07877{col 69}{space 3} 1.188767
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.323441{col 28}{space 2} .0697288{col 39}{space 1}    5.32{col 48}{space 3}0.000{col 56}{space 4} 1.193595{col 69}{space 3} 1.467413
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.434704{col 28}{space 2} .0892617{col 39}{space 1}    5.80{col 48}{space 3}0.000{col 56}{space 4}     1.27{col 69}{space 3} 1.620768
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.099547{col 28}{space 2} .0134242{col 39}{space 1}    7.77{col 48}{space 3}0.000{col 56}{space 4} 1.073548{col 69}{space 3} 1.126175
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.215318{col 28}{space 2} .0148676{col 39}{space 1}   15.94{col 48}{space 3}0.000{col 56}{space 4} 1.186525{col 69}{space 3}  1.24481
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2}   1.7777{col 28}{space 2} .0944742{col 39}{space 1}   10.83{col 48}{space 3}0.000{col 56}{space 4} 1.601852{col 69}{space 3} 1.972854
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 2.226852{col 28}{space 2} .1675758{col 39}{space 1}   10.64{col 48}{space 3}0.000{col 56}{space 4} 1.921483{col 69}{space 3} 2.580752
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 2.203156{col 28}{space 2} .1587422{col 39}{space 1}   10.96{col 48}{space 3}0.000{col 56}{space 4} 1.912997{col 69}{space 3} 2.537325
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 2.053305{col 28}{space 2} .1481559{col 39}{space 1}    9.97{col 48}{space 3}0.000{col 56}{space 4} 1.782523{col 69}{space 3} 2.365221
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 2.050349{col 28}{space 2}  .145181{col 39}{space 1}   10.14{col 48}{space 3}0.000{col 56}{space 4} 1.784662{col 69}{space 3}  2.35559
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.613954{col 28}{space 2} .1171067{col 39}{space 1}    6.60{col 48}{space 3}0.000{col 56}{space 4} 1.400003{col 69}{space 3} 1.860602
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2}  1.59343{col 28}{space 2} .1227582{col 39}{space 1}    6.05{col 48}{space 3}0.000{col 56}{space 4} 1.370113{col 69}{space 3} 1.853147
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} 1.723875{col 28}{space 2} .1231281{col 39}{space 1}    7.62{col 48}{space 3}0.000{col 56}{space 4} 1.498679{col 69}{space 3}  1.98291
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2}  1.90486{col 28}{space 2} .1245745{col 39}{space 1}    9.85{col 48}{space 3}0.000{col 56}{space 4} 1.675699{col 69}{space 3}  2.16536
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.826824{col 28}{space 2} .1237093{col 39}{space 1}    8.90{col 48}{space 3}0.000{col 56}{space 4}  1.59976{col 69}{space 3} 2.086116
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.661864{col 28}{space 2} .1113937{col 39}{space 1}    7.58{col 48}{space 3}0.000{col 56}{space 4}  1.45727{col 69}{space 3} 1.895182
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.560183{col 28}{space 2} .1066992{col 39}{space 1}    6.50{col 48}{space 3}0.000{col 56}{space 4} 1.364466{col 69}{space 3} 1.783973
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2} .0426981{col 28}{space 2} .0023549{col 39}{space 1}  -57.18{col 48}{space 3}0.000{col 56}{space 4} .0383232{col 69}{space 3} .0475723
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+Individual Controls
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,833
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(25)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-395264.56{txt}{col 49}Pseudo R2{col 67}= {res}    0.0353
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}         mfreq{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.087148{col 28}{space 2} .0675987{col 39}{space 1}    1.34{col 48}{space 3}0.179{col 56}{space 4} .9624126{col 69}{space 3} 1.228051
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2}  1.03772{col 28}{space 2} .0532504{col 39}{space 1}    0.72{col 48}{space 3}0.471{col 56}{space 4} .9384275{col 69}{space 3} 1.147517
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2}  1.09969{col 28}{space 2} .0901274{col 39}{space 1}    1.16{col 48}{space 3}0.246{col 56}{space 4} .9365012{col 69}{space 3} 1.291316
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} 1.066312{col 28}{space 2} .0708477{col 39}{space 1}    0.97{col 48}{space 3}0.334{col 56}{space 4} .9361141{col 69}{space 3} 1.214618
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} 1.050019{col 28}{space 2} .0792246{col 39}{space 1}    0.65{col 48}{space 3}0.518{col 56}{space 4} .9056773{col 69}{space 3} 1.217365
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} 1.013344{col 28}{space 2}  .064399{col 39}{space 1}    0.21{col 48}{space 3}0.835{col 56}{space 4} .8946682{col 69}{space 3} 1.147761
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .9409365{col 28}{space 2} .0602652{col 39}{space 1}   -0.95{col 48}{space 3}0.342{col 56}{space 4} .8299319{col 69}{space 3} 1.066788
+{txt}{space 11}age {c |}{col 16}{res}{space 2} 1.263452{col 28}{space 2} .0201599{col 39}{space 1}   14.66{col 48}{space 3}0.000{col 56}{space 4} 1.224551{col 69}{space 3} 1.303589
+{txt}{space 10}male {c |}{col 16}{res}{space 2} 1.837923{col 28}{space 2} .0388014{col 39}{space 1}   28.83{col 48}{space 3}0.000{col 56}{space 4} 1.763425{col 69}{space 3} 1.915567
+{txt}{space 7}grade10 {c |}{col 16}{res}{space 2}  1.10303{col 28}{space 2} .0354959{col 39}{space 1}    3.05{col 48}{space 3}0.002{col 56}{space 4} 1.035608{col 69}{space 3} 1.174842
+{txt}{space 7}grade11 {c |}{col 16}{res}{space 2} 1.118211{col 28}{space 2} .0625004{col 39}{space 1}    2.00{col 48}{space 3}0.046{col 56}{space 4} 1.002184{col 69}{space 3} 1.247671
+{txt}{space 7}grade12 {c |}{col 16}{res}{space 2} 1.099803{col 28}{space 2} .0815233{col 39}{space 1}    1.28{col 48}{space 3}0.199{col 56}{space 4} .9510848{col 69}{space 3} 1.271776
+{txt}{space 9}black {c |}{col 16}{res}{space 2} 1.174713{col 28}{space 2}  .063088{col 39}{space 1}    3.00{col 48}{space 3}0.003{col 56}{space 4} 1.057348{col 69}{space 3} 1.305105
+{txt}{space 5}otherrace {c |}{col 16}{res}{space 2} 1.193707{col 28}{space 2} .0788613{col 39}{space 1}    2.68{col 48}{space 3}0.007{col 56}{space 4}  1.04873{col 69}{space 3} 1.358725
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.263495{col 28}{space 2} .0864979{col 39}{space 1}    3.42{col 48}{space 3}0.001{col 56}{space 4} 1.104844{col 69}{space 3} 1.444927
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.605979{col 28}{space 2} .1146192{col 39}{space 1}    6.64{col 48}{space 3}0.000{col 56}{space 4} 1.396334{col 69}{space 3}   1.8471
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.163575{col 28}{space 2} .0757908{col 39}{space 1}    2.33{col 48}{space 3}0.020{col 56}{space 4} 1.024119{col 69}{space 3} 1.322022
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.319907{col 28}{space 2} .1039513{col 39}{space 1}    3.52{col 48}{space 3}0.000{col 56}{space 4} 1.131112{col 69}{space 3} 1.540214
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.592092{col 28}{space 2} .1051683{col 39}{space 1}    7.04{col 48}{space 3}0.000{col 56}{space 4} 1.398752{col 69}{space 3} 1.812157
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} 1.190197{col 28}{space 2} .0717754{col 39}{space 1}    2.89{col 48}{space 3}0.004{col 56}{space 4} 1.057515{col 69}{space 3} 1.339525
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.493889{col 28}{space 2} .0891084{col 39}{space 1}    6.73{col 48}{space 3}0.000{col 56}{space 4} 1.329063{col 69}{space 3} 1.679157
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} 1.221029{col 28}{space 2} .0841842{col 39}{space 1}    2.90{col 48}{space 3}0.004{col 56}{space 4} 1.066693{col 69}{space 3} 1.397694
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.160381{col 28}{space 2} .0827376{col 39}{space 1}    2.09{col 48}{space 3}0.037{col 56}{space 4}  1.00904{col 69}{space 3} 1.334422
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2}  1.06405{col 28}{space 2}   .01992{col 39}{space 1}    3.32{col 48}{space 3}0.001{col 56}{space 4} 1.025715{col 69}{space 3} 1.103817
+{txt}{space 11}15  {c |}{col 16}{res}{space 2} 1.391853{col 28}{space 2} .1222415{col 39}{space 1}    3.76{col 48}{space 3}0.000{col 56}{space 4} 1.171751{col 69}{space 3} 1.653299
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} 1.001585{col 28}{space 2} .0212874{col 39}{space 1}    0.07{col 48}{space 3}0.941{col 56}{space 4} .9607199{col 69}{space 3} 1.044189
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.272075{col 28}{space 2} .0701641{col 39}{space 1}    4.36{col 48}{space 3}0.000{col 56}{space 4} 1.141728{col 69}{space 3} 1.417302
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2} 1.281464{col 28}{space 2} .0331892{col 39}{space 1}    9.58{col 48}{space 3}0.000{col 56}{space 4} 1.218038{col 69}{space 3} 1.348193
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .8451179{col 28}{space 2} .0181486{col 39}{space 1}   -7.84{col 48}{space 3}0.000{col 56}{space 4} .8102854{col 69}{space 3} .8814478
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .9869169{col 28}{space 2} .0251142{col 39}{space 1}   -0.52{col 48}{space 3}0.605{col 56}{space 4} .9389014{col 69}{space 3} 1.037388
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.207977{col 28}{space 2} .0304343{col 39}{space 1}    7.50{col 48}{space 3}0.000{col 56}{space 4} 1.149776{col 69}{space 3} 1.269125
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} .9754291{col 28}{space 2} .0160632{col 39}{space 1}   -1.51{col 48}{space 3}0.131{col 56}{space 4} .9444483{col 69}{space 3} 1.007426
+{txt}{space 11}23  {c |}{col 16}{res}{space 2} 1.600767{col 28}{space 2} .1017806{col 39}{space 1}    7.40{col 48}{space 3}0.000{col 56}{space 4}  1.41321{col 69}{space 3} 1.813216
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} 1.138342{col 28}{space 2} .0636117{col 39}{space 1}    2.32{col 48}{space 3}0.020{col 56}{space 4}  1.02025{col 69}{space 3} 1.270102
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.471536{col 28}{space 2} .1047231{col 39}{space 1}    5.43{col 48}{space 3}0.000{col 56}{space 4} 1.279954{col 69}{space 3} 1.691794
+{txt}{space 11}26  {c |}{col 16}{res}{space 2} 1.265907{col 28}{space 2} .0774853{col 39}{space 1}    3.85{col 48}{space 3}0.000{col 56}{space 4} 1.122795{col 69}{space 3} 1.427261
+{txt}{space 11}27  {c |}{col 16}{res}{space 2} .8710716{col 28}{space 2} .0572234{col 39}{space 1}   -2.10{col 48}{space 3}0.036{col 56}{space 4}  .765836{col 69}{space 3}  .990768
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} 1.021752{col 28}{space 2} .0108718{col 39}{space 1}    2.02{col 48}{space 3}0.043{col 56}{space 4} 1.000664{col 69}{space 3} 1.043284
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.349429{col 28}{space 2} .0175626{col 39}{space 1}   23.03{col 48}{space 3}0.000{col 56}{space 4} 1.315442{col 69}{space 3} 1.384294
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.349714{col 28}{space 2} .0843608{col 39}{space 1}    4.80{col 48}{space 3}0.000{col 56}{space 4} 1.194096{col 69}{space 3} 1.525612
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .7233653{col 28}{space 2} .0165386{col 39}{space 1}  -14.16{col 48}{space 3}0.000{col 56}{space 4} .6916658{col 69}{space 3} .7565176
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.260302{col 28}{space 2} .0785713{col 39}{space 1}    3.71{col 48}{space 3}0.000{col 56}{space 4} 1.115342{col 69}{space 3} 1.424103
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.728813{col 28}{space 2} .1114545{col 39}{space 1}    8.49{col 48}{space 3}0.000{col 56}{space 4} 1.523604{col 69}{space 3} 1.961661
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} .9664728{col 28}{space 2} .0627335{col 39}{space 1}   -0.53{col 48}{space 3}0.599{col 56}{space 4} .8510173{col 69}{space 3} 1.097592
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 2.075403{col 28}{space 2}  .156487{col 39}{space 1}    9.68{col 48}{space 3}0.000{col 56}{space 4} 1.790281{col 69}{space 3} 2.405934
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} .9048758{col 28}{space 2} .0619363{col 39}{space 1}   -1.46{col 48}{space 3}0.144{col 56}{space 4} .7912733{col 69}{space 3} 1.034788
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.303548{col 28}{space 2} .0220336{col 39}{space 1}   15.68{col 48}{space 3}0.000{col 56}{space 4}  1.26107{col 69}{space 3} 1.347456
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8480779{col 28}{space 2} .0617497{col 39}{space 1}   -2.26{col 48}{space 3}0.024{col 56}{space 4} .7352899{col 69}{space 3} .9781667
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2} 1.244037{col 28}{space 2} .0793796{col 39}{space 1}    3.42{col 48}{space 3}0.001{col 56}{space 4} 1.097791{col 69}{space 3} 1.409765
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} 1.019758{col 28}{space 2} .0270264{col 39}{space 1}    0.74{col 48}{space 3}0.460{col 56}{space 4} .9681393{col 69}{space 3} 1.074129
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} 1.098878{col 28}{space 2} .0713328{col 39}{space 1}    1.45{col 48}{space 3}0.146{col 56}{space 4}  .967597{col 69}{space 3} 1.247971
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} 1.139711{col 28}{space 2} .0688634{col 39}{space 1}    2.16{col 48}{space 3}0.030{col 56}{space 4} 1.012426{col 69}{space 3} 1.282998
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.658911{col 28}{space 2} .0998841{col 39}{space 1}    8.41{col 48}{space 3}0.000{col 56}{space 4} 1.474252{col 69}{space 3} 1.866699
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.208163{col 28}{space 2} .0081654{col 39}{space 1}   27.98{col 48}{space 3}0.000{col 56}{space 4} 1.192265{col 69}{space 3} 1.224273
+{txt}{space 11}46  {c |}{col 16}{res}{space 2} 1.054043{col 28}{space 2} .0196723{col 39}{space 1}    2.82{col 48}{space 3}0.005{col 56}{space 4} 1.016183{col 69}{space 3} 1.093314
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.381021{col 28}{space 2} .0223923{col 39}{space 1}   19.91{col 48}{space 3}0.000{col 56}{space 4} 1.337823{col 69}{space 3} 1.425614
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} 1.066506{col 28}{space 2} .0343359{col 39}{space 1}    2.00{col 48}{space 3}0.046{col 56}{space 4} 1.001288{col 69}{space 3} 1.135972
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5746679{col 28}{space 2} .0087197{col 39}{space 1}  -36.51{col 48}{space 3}0.000{col 56}{space 4} .5578292{col 69}{space 3} .5920148
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.777345{col 28}{space 2} .1112943{col 39}{space 1}    9.18{col 48}{space 3}0.000{col 56}{space 4} 1.572067{col 69}{space 3} 2.009429
+{txt}{space 11}51  {c |}{col 16}{res}{space 2}  1.19736{col 28}{space 2} .0298863{col 39}{space 1}    7.22{col 48}{space 3}0.000{col 56}{space 4} 1.140193{col 69}{space 3} 1.257392
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.250204{col 28}{space 2} .0773488{col 39}{space 1}    3.61{col 48}{space 3}0.000{col 56}{space 4} 1.107434{col 69}{space 3} 1.411379
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.471772{col 28}{space 2} .1005449{col 39}{space 1}    5.66{col 48}{space 3}0.000{col 56}{space 4} 1.287331{col 69}{space 3} 1.682639
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.123862{col 28}{space 2} .0203659{col 39}{space 1}    6.44{col 48}{space 3}0.000{col 56}{space 4} 1.084646{col 69}{space 3} 1.164496
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.263141{col 28}{space 2} .0254782{col 39}{space 1}   11.58{col 48}{space 3}0.000{col 56}{space 4} 1.214178{col 69}{space 3} 1.314077
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.789964{col 28}{space 2} .0985036{col 39}{space 1}   10.58{col 48}{space 3}0.000{col 56}{space 4} 1.606948{col 69}{space 3} 1.993824
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 2.215789{col 28}{space 2} .1710731{col 39}{space 1}   10.30{col 48}{space 3}0.000{col 56}{space 4} 1.904628{col 69}{space 3} 2.577785
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 2.224719{col 28}{space 2} .1637869{col 39}{space 1}   10.86{col 48}{space 3}0.000{col 56}{space 4} 1.925788{col 69}{space 3} 2.570052
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 2.087122{col 28}{space 2} .1496023{col 39}{space 1}   10.27{col 48}{space 3}0.000{col 56}{space 4} 1.813572{col 69}{space 3} 2.401933
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 2.099444{col 28}{space 2}  .148327{col 39}{space 1}   10.50{col 48}{space 3}0.000{col 56}{space 4} 1.827959{col 69}{space 3}  2.41125
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.663116{col 28}{space 2} .1241465{col 39}{space 1}    6.81{col 48}{space 3}0.000{col 56}{space 4} 1.436756{col 69}{space 3}  1.92514
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2} 1.616402{col 28}{space 2} .1281608{col 39}{space 1}    6.06{col 48}{space 3}0.000{col 56}{space 4} 1.383756{col 69}{space 3} 1.888162
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} 1.744302{col 28}{space 2} .1268025{col 39}{space 1}    7.65{col 48}{space 3}0.000{col 56}{space 4} 1.512667{col 69}{space 3} 2.011407
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2} 1.934334{col 28}{space 2} .1305749{col 39}{space 1}    9.77{col 48}{space 3}0.000{col 56}{space 4} 1.694619{col 69}{space 3} 2.207958
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.851286{col 28}{space 2}  .130171{col 39}{space 1}    8.76{col 48}{space 3}0.000{col 56}{space 4} 1.612955{col 69}{space 3} 2.124833
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.687349{col 28}{space 2} .1196676{col 39}{space 1}    7.38{col 48}{space 3}0.000{col 56}{space 4} 1.468376{col 69}{space 3} 1.938976
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.576965{col 28}{space 2} .1141515{col 39}{space 1}    6.29{col 48}{space 3}0.000{col 56}{space 4} 1.368378{col 69}{space 3} 1.817347
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2} .0005802{col 28}{space 2} .0001391{col 39}{space 1}  -31.09{col 48}{space 3}0.000{col 56}{space 4} .0003627{col 69}{space 3} .0009281
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+Full Regression- All Individual Controls - All State Controls + LEADS/LAGS
+note: dummy omitted because of collinearity
+{res}
+{txt}Logistic regression{col 49}Number of obs{col 67}= {res} 1,414,833
+{txt}{col 49}{help j_robustsingular##|_new:Wald chi2(31)}{col 67}=          {res}.
+{txt}{col 49}Prob > chi2{col 67}=          {res}.
+{txt}Log pseudolikelihood = {res}-395239.57{txt}{col 49}Pseudo R2{col 67}= {res}    0.0354
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:51} clusters in fips)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}         mfreq{col 16}{c |} Odds Ratio{col 28}   Std. Err.{col 40}      z{col 48}   P>|z|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 5}mmllead4p {c |}{col 16}{res}{space 2} 1.083146{col 28}{space 2} .0665417{col 39}{space 1}    1.30{col 48}{space 3}0.194{col 56}{space 4} .9602728{col 69}{space 3} 1.221742
+{txt}{space 6}mmllead3 {c |}{col 16}{res}{space 2} 1.045288{col 28}{space 2}  .056066{col 39}{space 1}    0.83{col 48}{space 3}0.409{col 56}{space 4} .9409799{col 69}{space 3} 1.161159
+{txt}{space 6}mmllead2 {c |}{col 16}{res}{space 2} 1.086924{col 28}{space 2} .0889161{col 39}{space 1}    1.02{col 48}{space 3}0.308{col 56}{space 4} .9259046{col 69}{space 3} 1.275944
+{txt}{space 9}dummy {c |}{col 16}{res}{space 2}        1{col 28}{txt}  (omitted)
+{space 8}mmllaw {c |}{col 16}{res}{space 2} 1.046104{col 28}{space 2} .0791197{col 39}{space 1}    0.60{col 48}{space 3}0.551{col 56}{space 4} .9019787{col 69}{space 3} 1.213259
+{txt}{space 7}mmllag1 {c |}{col 16}{res}{space 2} 1.069143{col 28}{space 2} .0876359{col 39}{space 1}    0.82{col 48}{space 3}0.415{col 56}{space 4} .9104673{col 69}{space 3} 1.255474
+{txt}{space 7}mmllag2 {c |}{col 16}{res}{space 2} 1.001697{col 28}{space 2} .0720779{col 39}{space 1}    0.02{col 48}{space 3}0.981{col 56}{space 4} .8699361{col 69}{space 3} 1.153414
+{txt}{space 6}mmllag3p {c |}{col 16}{res}{space 2} .9380879{col 28}{space 2}   .06936{col 39}{space 1}   -0.86{col 48}{space 3}0.387{col 56}{space 4} .8115359{col 69}{space 3} 1.084375
+{txt}{space 11}age {c |}{col 16}{res}{space 2} 1.263769{col 28}{space 2} .0203125{col 39}{space 1}   14.56{col 48}{space 3}0.000{col 56}{space 4} 1.224578{col 69}{space 3} 1.304214
+{txt}{space 10}male {c |}{col 16}{res}{space 2} 1.837793{col 28}{space 2} .0387752{col 39}{space 1}   28.84{col 48}{space 3}0.000{col 56}{space 4} 1.763345{col 69}{space 3} 1.915384
+{txt}{space 7}grade10 {c |}{col 16}{res}{space 2} 1.102817{col 28}{space 2} .0355643{col 39}{space 1}    3.03{col 48}{space 3}0.002{col 56}{space 4} 1.035269{col 69}{space 3} 1.174772
+{txt}{space 7}grade11 {c |}{col 16}{res}{space 2} 1.117783{col 28}{space 2} .0626746{col 39}{space 1}    1.99{col 48}{space 3}0.047{col 56}{space 4} 1.001453{col 69}{space 3} 1.247627
+{txt}{space 7}grade12 {c |}{col 16}{res}{space 2} 1.098817{col 28}{space 2}  .081764{col 39}{space 1}    1.27{col 48}{space 3}0.205{col 56}{space 4} .9497009{col 69}{space 3} 1.271347
+{txt}{space 9}black {c |}{col 16}{res}{space 2} 1.175936{col 28}{space 2} .0631918{col 39}{space 1}    3.02{col 48}{space 3}0.003{col 56}{space 4} 1.058381{col 69}{space 3} 1.306547
+{txt}{space 5}otherrace {c |}{col 16}{res}{space 2} 1.193262{col 28}{space 2} .0786689{col 39}{space 1}    2.68{col 48}{space 3}0.007{col 56}{space 4}  1.04862{col 69}{space 3} 1.357856
+{txt}{space 5}rml_share {c |}{col 16}{res}{space 2} .9077652{col 28}{space 2} .0454221{col 39}{space 1}   -1.93{col 48}{space 3}0.053{col 56}{space 4} .8229656{col 69}{space 3} 1.001303
+{txt}{space 5}MJ_decrim {c |}{col 16}{res}{space 2} .9884753{col 28}{space 2} .0459961{col 39}{space 1}   -0.25{col 48}{space 3}0.803{col 56}{space 4} .9023134{col 69}{space 3} 1.082865
+{txt}{space 9}BAC08 {c |}{col 16}{res}{space 2} .9903634{col 28}{space 2} .0479884{col 39}{space 1}   -0.20{col 48}{space 3}0.842{col 56}{space 4}  .900636{col 69}{space 3}  1.08903
+{txt}{space 6}rbeertax {c |}{col 16}{res}{space 2} .8609525{col 28}{space 2} .1076587{col 39}{space 1}   -1.20{col 48}{space 3}0.231{col 56}{space 4} .6738137{col 69}{space 3} 1.100065
+{txt}{space 9}lnrsi {c |}{col 16}{res}{space 2} 1.420005{col 28}{space 2} .3156108{col 39}{space 1}    1.58{col 48}{space 3}0.115{col 56}{space 4} .9185473{col 69}{space 3} 2.195221
+{txt}{space 2}unemployment {c |}{col 16}{res}{space 2} 1.027324{col 28}{space 2} .0124349{col 39}{space 1}    2.23{col 48}{space 3}0.026{col 56}{space 4} 1.003239{col 69}{space 3} 1.051988
+{txt}{space 14} {c |}
+{space 10}fips {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} 1.177194{col 28}{space 2} .1220241{col 39}{space 1}    1.57{col 48}{space 3}0.116{col 56}{space 4} .9607604{col 69}{space 3} 1.442383
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} 1.491198{col 28}{space 2} .1428867{col 39}{space 1}    4.17{col 48}{space 3}0.000{col 56}{space 4} 1.235871{col 69}{space 3} 1.799275
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} 1.130058{col 28}{space 2} .0954879{col 39}{space 1}    1.45{col 48}{space 3}0.148{col 56}{space 4} .9575809{col 69}{space 3}   1.3336
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} 1.121638{col 28}{space 2} .1367305{col 39}{space 1}    0.94{col 48}{space 3}0.346{col 56}{space 4} .8832609{col 69}{space 3} 1.424348
+{txt}{space 5}Colorado  {c |}{col 16}{res}{space 2} 1.448086{col 28}{space 2} .1689446{col 39}{space 1}    3.17{col 48}{space 3}0.002{col 56}{space 4} 1.152091{col 69}{space 3} 1.820127
+{txt}{space 12}9  {c |}{col 16}{res}{space 2} .9310991{col 28}{space 2} .1281755{col 39}{space 1}   -0.52{col 48}{space 3}0.604{col 56}{space 4} .7109174{col 69}{space 3} 1.219474
+{txt}{space 11}10  {c |}{col 16}{res}{space 2} 1.316585{col 28}{space 2} .1288536{col 39}{space 1}    2.81{col 48}{space 3}0.005{col 56}{space 4} 1.086781{col 69}{space 3} 1.594982
+{txt}{space 11}11  {c |}{col 16}{res}{space 2} .8739675{col 28}{space 2}  .146882{col 39}{space 1}   -0.80{col 48}{space 3}0.423{col 56}{space 4} .6286941{col 69}{space 3}  1.21493
+{txt}{space 11}12  {c |}{col 16}{res}{space 2} 1.080707{col 28}{space 2} .0833898{col 39}{space 1}    1.01{col 48}{space 3}0.314{col 56}{space 4} .9290243{col 69}{space 3} 1.257154
+{txt}{space 6}Georgia  {c |}{col 16}{res}{space 2} 1.031277{col 28}{space 2} .0262417{col 39}{space 1}    1.21{col 48}{space 3}0.226{col 56}{space 4} .9811056{col 69}{space 3} 1.084014
+{txt}{space 11}15  {c |}{col 16}{res}{space 2} 1.397183{col 28}{space 2} .1576584{col 39}{space 1}    2.96{col 48}{space 3}0.003{col 56}{space 4} 1.119963{col 69}{space 3} 1.743023
+{txt}{space 11}16  {c |}{col 16}{res}{space 2} .9625992{col 28}{space 2} .0666196{col 39}{space 1}   -0.55{col 48}{space 3}0.582{col 56}{space 4} .8404958{col 69}{space 3} 1.102441
+{txt}{space 11}17  {c |}{col 16}{res}{space 2} 1.074452{col 28}{space 2} .1022314{col 39}{space 1}    0.75{col 48}{space 3}0.450{col 56}{space 4} .8916564{col 69}{space 3} 1.294723
+{txt}{space 6}Indiana  {c |}{col 16}{res}{space 2} 1.171303{col 28}{space 2} .0800218{col 39}{space 1}    2.31{col 48}{space 3}0.021{col 56}{space 4}  1.02451{col 69}{space 3} 1.339128
+{txt}{space 11}19  {c |}{col 16}{res}{space 2} .7975027{col 28}{space 2} .0562662{col 39}{space 1}   -3.21{col 48}{space 3}0.001{col 56}{space 4} .6945081{col 69}{space 3} .9157712
+{txt}{space 11}20  {c |}{col 16}{res}{space 2} .9078751{col 28}{space 2}  .065036{col 39}{space 1}   -1.35{col 48}{space 3}0.177{col 56}{space 4} .7889508{col 69}{space 3} 1.044726
+{txt}{space 11}21  {c |}{col 16}{res}{space 2} 1.113495{col 28}{space 2} .0807348{col 39}{space 1}    1.48{col 48}{space 3}0.138{col 56}{space 4} .9659872{col 69}{space 3} 1.283528
+{txt}{space 4}Louisiana  {c |}{col 16}{res}{space 2} .9212917{col 28}{space 2} .0463836{col 39}{space 1}   -1.63{col 48}{space 3}0.103{col 56}{space 4}  .834723{col 69}{space 3} 1.016838
+{txt}{space 11}23  {c |}{col 16}{res}{space 2}   1.5566{col 28}{space 2} .1349831{col 39}{space 1}    5.10{col 48}{space 3}0.000{col 56}{space 4} 1.313299{col 69}{space 3} 1.844974
+{txt}{space 11}24  {c |}{col 16}{res}{space 2} .9529024{col 28}{space 2} .1070846{col 39}{space 1}   -0.43{col 48}{space 3}0.668{col 56}{space 4} .7645267{col 69}{space 3} 1.187693
+{txt}Massachusetts  {c |}{col 16}{res}{space 2} 1.223403{col 28}{space 2} .1520151{col 39}{space 1}    1.62{col 48}{space 3}0.105{col 56}{space 4} .9589648{col 69}{space 3} 1.560761
+{txt}{space 11}26  {c |}{col 16}{res}{space 2} 1.118861{col 28}{space 2} .0974046{col 39}{space 1}    1.29{col 48}{space 3}0.197{col 56}{space 4} .9433512{col 69}{space 3} 1.327025
+{txt}{space 11}27  {c |}{col 16}{res}{space 2}  .792949{col 28}{space 2} .0820095{col 39}{space 1}   -2.24{col 48}{space 3}0.025{col 56}{space 4} .6474572{col 69}{space 3} .9711347
+{txt}{space 11}28  {c |}{col 16}{res}{space 2} 1.024587{col 28}{space 2} .0670214{col 39}{space 1}    0.37{col 48}{space 3}0.710{col 56}{space 4}  .901299{col 69}{space 3} 1.164738
+{txt}{space 11}29  {c |}{col 16}{res}{space 2} 1.217553{col 28}{space 2} .0935012{col 39}{space 1}    2.56{col 48}{space 3}0.010{col 56}{space 4} 1.047419{col 69}{space 3} 1.415322
+{txt}{space 11}30  {c |}{col 16}{res}{space 2} 1.287479{col 28}{space 2} .1214086{col 39}{space 1}    2.68{col 48}{space 3}0.007{col 56}{space 4} 1.070218{col 69}{space 3} 1.548845
+{txt}{space 11}31  {c |}{col 16}{res}{space 2} .7017954{col 28}{space 2} .0599337{col 39}{space 1}   -4.15{col 48}{space 3}0.000{col 56}{space 4} .5936321{col 69}{space 3} .8296666
+{txt}{space 11}32  {c |}{col 16}{res}{space 2} 1.104787{col 28}{space 2} .1123229{col 39}{space 1}    0.98{col 48}{space 3}0.327{col 56}{space 4}  .905185{col 69}{space 3} 1.348402
+{txt}{space 11}33  {c |}{col 16}{res}{space 2} 1.549135{col 28}{space 2} .1577118{col 39}{space 1}    4.30{col 48}{space 3}0.000{col 56}{space 4} 1.268912{col 69}{space 3} 1.891242
+{txt}{space 11}34  {c |}{col 16}{res}{space 2} .7782004{col 28}{space 2} .0965535{col 39}{space 1}   -2.02{col 48}{space 3}0.043{col 56}{space 4} .6102117{col 69}{space 3} .9924357
+{txt}{space 3}New Mexico  {c |}{col 16}{res}{space 2} 2.031164{col 28}{space 2}  .191794{col 39}{space 1}    7.50{col 48}{space 3}0.000{col 56}{space 4} 1.687989{col 69}{space 3} 2.444107
+{txt}{space 11}36  {c |}{col 16}{res}{space 2} .7521961{col 28}{space 2} .0869724{col 39}{space 1}   -2.46{col 48}{space 3}0.014{col 56}{space 4} .5996684{col 69}{space 3} .9435197
+{txt}{space 11}37  {c |}{col 16}{res}{space 2} 1.257386{col 28}{space 2} .0648845{col 39}{space 1}    4.44{col 48}{space 3}0.000{col 56}{space 4} 1.136434{col 69}{space 3} 1.391211
+{txt}{space 11}38  {c |}{col 16}{res}{space 2} .8098368{col 28}{space 2} .0797469{col 39}{space 1}   -2.14{col 48}{space 3}0.032{col 56}{space 4} .6676937{col 69}{space 3} .9822402
+{txt}{space 9}Ohio  {c |}{col 16}{res}{space 2} 1.133227{col 28}{space 2} .1046364{col 39}{space 1}    1.35{col 48}{space 3}0.176{col 56}{space 4} .9456306{col 69}{space 3}  1.35804
+{txt}{space 11}40  {c |}{col 16}{res}{space 2} .9921478{col 28}{space 2} .0515405{col 39}{space 1}   -0.15{col 48}{space 3}0.879{col 56}{space 4} .8961028{col 69}{space 3} 1.098487
+{txt}{space 11}41  {c |}{col 16}{res}{space 2} .9677054{col 28}{space 2} .0984947{col 39}{space 1}   -0.32{col 48}{space 3}0.747{col 56}{space 4} .7926956{col 69}{space 3} 1.181354
+{txt}{space 11}42  {c |}{col 16}{res}{space 2} .9817394{col 28}{space 2} .0954629{col 39}{space 1}   -0.19{col 48}{space 3}0.850{col 56}{space 4} .8113844{col 69}{space 3} 1.187861
+{txt}{space 11}44  {c |}{col 16}{res}{space 2} 1.400483{col 28}{space 2} .1459175{col 39}{space 1}    3.23{col 48}{space 3}0.001{col 56}{space 4} 1.141801{col 69}{space 3} 1.717771
+{txt}{space 11}45  {c |}{col 16}{res}{space 2} 1.233045{col 28}{space 2}  .033866{col 39}{space 1}    7.63{col 48}{space 3}0.000{col 56}{space 4} 1.168424{col 69}{space 3} 1.301241
+{txt}{space 11}46  {c |}{col 16}{res}{space 2} 1.028014{col 28}{space 2} .0704033{col 39}{space 1}    0.40{col 48}{space 3}0.687{col 56}{space 4} .8988859{col 69}{space 3} 1.175691
+{txt}{space 11}47  {c |}{col 16}{res}{space 2} 1.287488{col 28}{space 2} .0635177{col 39}{space 1}    5.12{col 48}{space 3}0.000{col 56}{space 4} 1.168825{col 69}{space 3} 1.418198
+{txt}{space 8}Texas  {c |}{col 16}{res}{space 2} .9700358{col 28}{space 2} .0675723{col 39}{space 1}   -0.44{col 48}{space 3}0.662{col 56}{space 4} .8462397{col 69}{space 3} 1.111942
+{txt}{space 11}49  {c |}{col 16}{res}{space 2} .5882302{col 28}{space 2}  .028629{col 39}{space 1}  -10.90{col 48}{space 3}0.000{col 56}{space 4} .5347117{col 69}{space 3} .6471054
+{txt}{space 6}Vermont  {c |}{col 16}{res}{space 2} 1.667202{col 28}{space 2} .1591359{col 39}{space 1}    5.36{col 48}{space 3}0.000{col 56}{space 4}  1.38274{col 69}{space 3} 2.010186
+{txt}{space 11}51  {c |}{col 16}{res}{space 2} 1.064376{col 28}{space 2} .0830122{col 39}{space 1}    0.80{col 48}{space 3}0.424{col 56}{space 4} .9135005{col 69}{space 3} 1.240171
+{txt}{space 11}53  {c |}{col 16}{res}{space 2} 1.133083{col 28}{space 2}  .117461{col 39}{space 1}    1.21{col 48}{space 3}0.228{col 56}{space 4} .9247449{col 69}{space 3} 1.388358
+{txt}{space 11}54  {c |}{col 16}{res}{space 2} 1.393023{col 28}{space 2} .1254345{col 39}{space 1}    3.68{col 48}{space 3}0.000{col 56}{space 4} 1.167648{col 69}{space 3} 1.661899
+{txt}{space 11}55  {c |}{col 16}{res}{space 2} 1.002694{col 28}{space 2} .0799506{col 39}{space 1}    0.03{col 48}{space 3}0.973{col 56}{space 4} .8576246{col 69}{space 3} 1.172302
+{txt}{space 11}56  {c |}{col 16}{res}{space 2} 1.111394{col 28}{space 2} .1030188{col 39}{space 1}    1.14{col 48}{space 3}0.255{col 56}{space 4} .9267602{col 69}{space 3} 1.332812
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}1995  {c |}{col 16}{res}{space 2} 1.833979{col 28}{space 2}  .102626{col 39}{space 1}   10.84{col 48}{space 3}0.000{col 56}{space 4} 1.643473{col 69}{space 3} 2.046567
+{txt}{space 9}1997  {c |}{col 16}{res}{space 2} 2.269976{col 28}{space 2} .1785954{col 39}{space 1}   10.42{col 48}{space 3}0.000{col 56}{space 4} 1.945589{col 69}{space 3} 2.648448
+{txt}{space 9}1999  {c |}{col 16}{res}{space 2} 2.264802{col 28}{space 2} .1708971{col 39}{space 1}   10.83{col 48}{space 3}0.000{col 56}{space 4} 1.953441{col 69}{space 3}  2.62579
+{txt}{space 9}2001  {c |}{col 16}{res}{space 2} 2.067464{col 28}{space 2} .1805976{col 39}{space 1}    8.31{col 48}{space 3}0.000{col 56}{space 4} 1.742142{col 69}{space 3} 2.453535
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} 2.027434{col 28}{space 2} .1910702{col 39}{space 1}    7.50{col 48}{space 3}0.000{col 56}{space 4} 1.685495{col 69}{space 3} 2.438742
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} 1.622541{col 28}{space 2} .1746742{col 39}{space 1}    4.50{col 48}{space 3}0.000{col 56}{space 4} 1.313892{col 69}{space 3} 2.003694
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2} 1.569007{col 28}{space 2} .1797066{col 39}{space 1}    3.93{col 48}{space 3}0.000{col 56}{space 4} 1.253523{col 69}{space 3} 1.963891
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} 1.529424{col 28}{space 2} .1954101{col 39}{space 1}    3.33{col 48}{space 3}0.001{col 56}{space 4} 1.190618{col 69}{space 3} 1.964642
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2} 1.696903{col 28}{space 2} .2012476{col 39}{space 1}    4.46{col 48}{space 3}0.000{col 56}{space 4} 1.344953{col 69}{space 3} 2.140952
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2} 1.682926{col 28}{space 2} .1934434{col 39}{space 1}    4.53{col 48}{space 3}0.000{col 56}{space 4} 1.343457{col 69}{space 3} 2.108172
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2} 1.574316{col 28}{space 2} .1885854{col 39}{space 1}    3.79{col 48}{space 3}0.000{col 56}{space 4}  1.24488{col 69}{space 3} 1.990931
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2} 1.507875{col 28}{space 2} .1830431{col 39}{space 1}    3.38{col 48}{space 3}0.001{col 56}{space 4} 1.188603{col 69}{space 3} 1.912907
+{txt}{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2}  .000016{col 28}{space 2} .0000362{col 39}{space 1}   -4.88{col 48}{space 3}0.000{col 56}{space 4} 1.90e-07{col 69}{space 3} .0013498
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {res:_cons} estimates baseline odds{txt}.{p_end}
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/Kevin/Documents/MML/Data Files/mmlshare_years.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}12 Dec 2018, 10:19:33
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
