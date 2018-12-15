@@ -4,7 +4,7 @@ capture cd "/Users/Kevin/Documents/MML/Data Files"
 capture use "F:\MML project\data\incomecontrol.dta"
 capture use incomecontrol.dta
 capture drop if year==2017
-append using incomecontrol2017.dta
+append using "F:\MML project\data\incomecontrol2017.dta"
 
 
 capture drop basecpi 
